@@ -1,0 +1,21 @@
+{
+  "name": "javascript-practice",
+  "source": "src/pages/index.html",
+  "browserslist": "> 0.5%, last 2 versions, not dead",
+  "scripts": {
+    "start": "parcel ./npx parcel src/index.htmlsrc/pages/index.html",
+    "dev": "parcel ./src/pages/index.html",
+    "build": "rm -rf build && rm -rf .parcel-cache && parcel build ./src/pages/index.html --no-cache --no-source-maps --dist-dir dist"
+  },
+  "devDependencies": {
+    "parcel": "^2.11.0",
+    "posthtml-expressions": "^1.11.1",
+    "posthtml-include": "^1.7.4"
+  },
+  "description": "",
+  "version": "1.0.0",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
