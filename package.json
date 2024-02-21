@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "button.css": "^1.0.1",
     "json-server": "^1.0.0-alpha.23"
   },
   "devDependencies": {

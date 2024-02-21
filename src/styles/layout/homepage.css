@@ -1,0 +1,58 @@
+.homepage {
+  max-width: 1256px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 147px;
+}
+
+h1 {
+  color: var(--text-color-primary);
+  font-size: 60px;
+  font-weight: 700;
+  line-height: 82px;
+  letter-spacing: -0.5px;
+}
+
+.header-homepage {
+  display: flex;
+  flex-direction: column;
+}
+
+.btn-add-new-product {
+  padding: 10px 18px 10px 18px;
+  align-self: flex-end;
+}
+
+table {
+  background-color: var(--background-color-primary);
+  max-width: 1258px;
+  width: 100%;
+  color: var(--text-color-primary);
+}
+
+th {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-color-primary);
+}
+
+td {
+  border-bottom: 0.5px solid #C9CFDA;
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.select-search {
+  color: var(--text-collor-light-gray);
+}
+
+.select-all {
+  color: var(--text-color-primary);
+}
+
+.text-status {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  letter-spacing: 0.4px;
+}
