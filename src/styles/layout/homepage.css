@@ -16,6 +16,7 @@ h1 {
 .header-homepage {
   display: flex;
   flex-direction: column;
+  max-width: 960px;
 }
 
 .btn-add-new-product {
@@ -25,21 +26,23 @@ h1 {
 
 table {
   background-color: var(--background-color-primary);
-  max-width: 1258px;
+  max-width: 960px;
   width: 100%;
   color: var(--text-color-primary);
+  font-size: 14px;
+  border-spacing: 0;
 }
 
 th {
-  font-size: 14px;
   font-weight: 600;
-  color: var(--text-color-primary);
+  text-align: start;
+  height: 65px;
 }
 
 td {
   border-bottom: 0.5px solid #C9CFDA;
   font-weight: 400;
-  font-size: 14px;
+  height: 50px;
 }
 
 .select-search {
@@ -53,6 +56,5 @@ td {
 .text-status {
   font-size: 12px;
   font-weight: 400;
-  line-height: 18px;
   letter-spacing: 0.4px;
 }

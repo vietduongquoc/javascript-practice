@@ -7,6 +7,12 @@
   line-height: 24px;
 }
 
+.btn:hover {
+  cursor: pointer;
+  border: 1px solid red;
+  color: var(--text-collor-red);
+}
+
 .btn-true {
   color: var(--text-color-second);
   border: var(--border-color-primary);
