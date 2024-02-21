@@ -1,0 +1,49 @@
+.btn {
+  border-radius: 5px;
+  box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+  background-color: var(--background-color-primary);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+.btn:hover {
+  cursor: pointer;
+  border: 1px solid red;
+  color: var(--text-collor-red);
+}
+
+.btn-true {
+  color: var(--text-color-second);
+  border: var(--border-color-primary);
+}
+
+.btn-true:hover {
+  color: #08852E;
+  border: 1px solid #08852E;
+  cursor: pointer;
+}
+
+.btn-false {
+  color: var(--text-collor-red);
+  border: var(--border-color-second);
+}
+
+.btn-false:hover {
+  color: #ff2c2cbe;
+  border: 1px solid #ff2c2cbe;
+  cursor: pointer;
+}
+
+.btn-sattus {
+  padding: 1px 12px;
+}
+
+.btn-brand {
+  padding: 2px 12px;
+  border: 1px solid rgb(223, 226, 233);
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text-collor-gray);
+}
