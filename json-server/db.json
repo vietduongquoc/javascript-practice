@@ -1,0 +1,64 @@
+{
+  "products": [
+    {
+      "image": "https://s3-alpha-sig.figma.com/img/feae/6b07/35d0ff4fef0adef744b07f23c53f4277?Expires=1709510400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=QjY7rySo8UwhF2Bfdy~5NO7aKCTHpR3TyCd5J5eQ07XE33wp2W1fiVk5kQLVqK0XnkfNTDUcTeiLRYLw4x5HWwiG5dpO~lYvgK5iUbQlERr03NbyHa3ilY3veTQBD~djnA4R5rF3PLp-5Alt-~qPUGGJcFo8EdYfAnuhxF8c1j7MwWrqY~vrJc8Ad-hPYPEKze2lNY45oDfzNC5ez~R3jyMtqz7QPEjhJUtrMnLbJUpWPjxQj627yr~UN9K3AjG2lcDoP7kClUx2rmZqhPxbG5RsHbO-YHdVJ-dwtwyAkScCEvr2vFBjA1FKu07wl7YEmj6jG6U4sGxEnLSeodKZgA__",
+      "id": 1,
+      "name": "Louis Vuitton",
+      "status": true,
+      "type": "Bravo",
+      "quantity": 9117,
+      "brand": "https://s3-alpha-sig.figma.com/img/aac1/bcd1/a9204f10de7dab1171ac701a2c72a4d6?Expires=1709510400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=cUIDv2bxw18O4Nwn~FO~TvHCuYWWgm4yR293sJ~aBLPMPgV4CSv5v2WcAbsiT6GqU~Enu3OBEFYsTqPWC8SebHEQpAC1zHV2sSCn4rv~~0GNv6K53lgofldGTxqHmNvkuNCW~Co3Dd-fOi-E6OmF1KwGJHroU65oxcvNM5j1i~EEALmwAyIiBiYdHmiLmdFKAlVehieSNve2FO1GZZGG6jZU~I1~UogfbJNKHGYXnF4hwOP26oj07XkDhnPcU1fjA0pmqWgs0JAHR04F~TOmYgrGDf6Ln0xQC1QUbsvV0XqRBok8CtEe5SgPH3WMKcTMfX-9TZnIT~cGqCfAFhIMtA__",
+      "price": 452.85
+    },
+    {
+      "image": "https://s3-alpha-sig.figma.com/img/c52d/1c77/4680d4d7311b94297f8bf28946afbb97?Expires=1709510400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=DNn1UqEniuJ3eSslmRvEvyH~Sf7cfo7GpeC4VUfGsy5ZCOE6WXds6sYm0OBMFFba7fLoD0KjkpwOllwhUAFKbggk5161KOSlEx5wRMNsrV-QEWKsDMYBO76fhAfhFGhVAEcQ-sOzj68SPBZXlYchmeDLkDkL8rMhHXX7~w-9Hi9aN-NTQHInyWPxcYLMXUCp7BLH18ase0mrPuecEyVrfaFl9jt8uqyRN-UAnlc4oFLbbz7TQWZi1T0ZucbE9JpaxcLp5j4r0bLnKqTza~CTrvgazveGSNFPLgBcNOk43Hjc4gm9~m7JHcVnliYPm7HHcG~vGbbbSDSg8l5Ioc5HPw__",
+      "id": 2,
+      "name": "Johnson & Johnson",
+      "status": false,
+      "type": "Alfa",
+      "quantity": 3064,
+      "brand": "https://s3-alpha-sig.figma.com/img/7574/557d/242c488e7bd509ade54ef2a92e3ce86e?Expires=1709510400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=BHipVCVneuFif8x8R5md6DY96x0mQiIMpzIPqtFV6UvUQTqvNqTaosmVEyeVi12W6N6ATDQeOAkKIPwKBKvplt7KahWx3R0QNyNfenz21dxS5b9a8JAkXtmfI4N7Tw3IyZzITYdWJBosEB6idvvaq1AOGFXd8Z-7ZTCb0o8EFP3gUFjzSbjWvs62jQQYeX-xAcQolauX1SIx2j~eJqDOEBufERWmLXEi042rh31JtA4naVJO3-SkzIlaW-vps8EcWBEK8S1hT88BwjlIrUNouGOFUyG0LEs199nghWadcebGu4DeEKkJQq2BwFvSdenMb0yeMLYzt1byEL~6jPowbA__",
+      "price": 901.31
+    },
+    {
+      "image": "https://s3-alpha-sig.figma.com/img/0828/bfa5/f7d0fa7e768f5cc8274498d7f2b18c81?Expires=1709510400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=AkLztbmVk61nXcy5SNH6~HT1pYKvjZD6LN-oOhwAjCA7Q0I3o7dau9aXcw5U5o-mxUwtUEolANKAvtj6ih0nb-smB~Q476hvcK6F5joli8pOX1pz2UhslV8VIcdagCePZ6kr0olro8kpOvPv2vikk5JmCEdcqlqak-teLknQ9PsKYyIDwr2~zVf2q-sP9mSgKTbP2tkG3Qnr1O01vKHy6cSZf4W2tK8vIggkJ2HUacbSUthE0703YzFXNdJxSsomt2np6CJeO4Nt-1diKeYcMKXiw8Go317107Tq~7GPBbCRsjOZbIEJ4agQ1xguQ7CvJ7xP7S1PKw7zPruPfyGoKA__",
+      "id": "3",
+      "name": "Starbucks",
+      "status": true,
+      "type": "Bravo",
+      "quantity": 9195,
+      "brand": "https://s3-alpha-sig.figma.com/img/7e4d/da38/ab7c5a173d6b64f6beaea6d6a051953c?Expires=1709510400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=WdDTip~0pPph6cHOxs6bKk~q3SNgU7tjCVI-ko0f~76kLmmA0aYeF6uUjLia3~9su8fv3w2AncvN-2hV9~wX-oZCuEKuhmrohlodGQQczev4q1LF-yi7wtBTYl0xPuEn2Ep4BLOwD8wEhFy~38NnYu83CKdX8a8HfKVck6rqfwUnZ9c7DYCzzkDnwbj4Q~0Rt-7gIVyujXJ7CaIArATUdX-sDqE0rboFiAKIj1ZMIgEIu4zyKKOA6AzB2-MgR6Anaah0WnS-Vsu1Z6eA9Ol39QRq78ZuwKPtYzY~KLMqXQvqRAd-7q9Ku~9054Sz7EckblUwdPAXg6C-ms8-P8S2TA__",
+      "price": 641.20
+    },
+    {
+      "image": "https://s3-alpha-sig.figma.com/img/2a47/fa36/71c37800cd71d866bcf38ba942abbc88?Expires=1709510400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=pH325lHv-9g3H-dcamPeJyhSqCPuTLz8kN47duTFGcDESeJdTzxHay0k93Rm2hY1eBtDRm9d3rFWfNPy25fQDSuhfQVO8kVPLyy4~4mNxbSHH4GgTvy3wekAY7mXhjAuvUKJIoHe8lB5dpDkzQSa-HNAgWmbwXYImGJoqBXFFU3LprZrp7HxW5pJB1cRw5pgtyCpPdp6Lom5ZCVIR3wr0cOSXTkNcSs0CvYGopD7yk5Zl6J60rF5juImfkCHKCDblQoEK2aZ6dcoaGPQhCkJN17NAY1PbR3ne4kFxjQKZcjpl08qHjlwOBORSak~k2~-lQlyV2NPQ4cf6SmzzEKhrw__",
+      "id": 4,
+      "name": "The Walt Disney",
+      "status": false,
+      "type": "Alfa",
+      "quantity": 3128,
+      "brand": "hhttps://s3-alpha-sig.figma.com/img/4efc/2b65/3098956f84b1822f2eb7e8ed84a31750?Expires=1709510400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=ezwJXmP~p69rt31~F7uYRBZSpTVq611bwHH5zB7mRz2eGl8v-eKtnDnfDffuqb5ss2b2KyY8bwDra9y1HrKA~1sckdqNBGmaaDoVqoUYTGirZ4e1wFxawJcr6bcEjhIYUdiDwlrU9uEv1SJEfZQJZWKf90q0byUBe8ZtQ86Bq4-IvTV--6hlZeZpg2JjN4s7D~FaLAjIJqiUnc-GCzGTvC5j~eF4j2s6Ww2J19y7F5j3jOY5kYJbCPAkwnKcyj2TB1CM67Qlv6DcDsK7CVgNr9gTfhyTWJDtoCERbPKgnbiJdfkxdcLyDIRRSLXkQ87BPjJCTB54WCl-r-E7b19xVg__",
+      "price": 510.30
+    },
+    {
+      "image": "https://s3-alpha-sig.figma.com/img/8810/4b12/2a81f380f3ec2901aadb9947bdde8a20?Expires=1709510400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=B9mJpotaFC~SXu1zTZriXL5nXsSwK94KU9eb2OQB5YwnQjhexrnJqcvIyjJBqYk8CcYcdpQNfeUKbHofytD9AKjLCqJCoozT-dKvHh~J69-OLR56Wi~b-pQPQqa2EIm1ghKXKwIMZ8ftrNq-pto-B7g17ac~-5T~fK38rIRqhANcq4Vx8QJvFN~R5c9AmpY41jvHT~lvpwGCqFgxqFS6wsNVX5MPr2kFcmlsdqu~sl-s-ZSsbuFgVXRoLvjz4DoLz-BinNs6q6jcghBfCKVR4i5fklOR1xLfhnX-pthxCDBHlqrMvq1C1TAIBeKxL90XrYQnzddEDtA-jm0Ie4cNIQ__",
+      "id": 5,
+      "name": "Mitsubishi",
+      "status": true,
+      "type": "Bravo",
+      "quantity": 9892,
+      "brand": "https://s3-alpha-sig.figma.com/img/5f97/eb43/1bd4dd6069428f64473bd4e633b7c00b?Expires=1709510400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=k2yJbdwj9dgBPXgy0GuqKJiovC0dXleONS5DBpJ~e9ADce7WM90IXxvuslBwCouueZ-NMY~B~yAjvnl1qkPBe5VvUaZ9xbPJP-GdIVtvwKc6MIvIa~WJe617Cj2dc96yz41or-XpvA98nv0QHiB0Vgzt1dsV0piYVsaZUhoTEHZ4v0IrLkHe5FOjS9hwXtcIyx02l3LnWA1pZze3SJGOivmsm3uFH4Ij~y5GQ4ID5prquidbQz2TnRaPji7ZIzPJk4t~FPtD8pLKvCs7g8dFh2n5iiHeOAg-P~J7fSvXunSY6YqcorfxJH2GYVbWR5j-RTzdKiJdM1UmjFOqdtNrZQ__",
+      "price": 828.90
+    },
+    {
+      "image": "https://s3-alpha-sig.figma.com/img/939e/8975/b13e5430b8dfc22e4c6c87bf0978f8c1?Expires=1709510400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=SQ029Iio-ZRCubJUCtLFybZ~XlNXBQWyg3X~W-tTIVhvAFE~j~xkYPEZaf4oecYLq4uVR4CYSC7koZOYQLXckkATKurfSV45P~s989KG6l~3E-7NeYUTZpZX3mMLdz9bCCaykgoHEijgiXmh2nF5rxEsXIRyEd7NH9e5t-475-QlGiXhPyeM0kkkfMbcXq9NXiq2M263Ex4~QXQMRyV7BBf890FO-9M~r-KQJ5~oPz56Yselqp5zO6NZexlNd9ZoUymJMGWzWH4u0Ye0qQUkdRQ7XqNInq2QR-d-JYBDC8HfJfo78QLB8yCJMeVTpOckypjHtTBKNEeAoQzxx2Y-zw__",
+      "id": 6,
+      "name": "IBM",
+      "status": true,
+      "type": "Gold",
+      "quantity": 9011,
+      "brand": "https://s3-alpha-sig.figma.com/img/5fb0/a0fb/ba3c0c89bc4199d6dd2885aad8cee018?Expires=1709510400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=OHhwO-4kzd4zy27bZbdamml~ULmf7SLLB-ylmMBBn5V8Cn9p7hoqwdAryE4PCwZphTU8xFruR7hm~~crxdMeO-Pr1OyARdsfPpya58k7TUOjkeT5-j-KdsZK7~cdB-ZhVReGdNWqG6gxkmmcyNJZBzn2W3j9pj2nB33hDLroXliu-bhyi-ymHTB~LncfOEavFREvXBhgTOUsQDJL-LkTK8DvUcVGwsR9Ej-gyFIoEWWCDlrihhLp5f~HFahFeqRFPUHWki3ZrSqEQzeaN3MEnubXxVEMq8bGDwEqlbIw--y9SUFMgg0pGWqurJLORdPM24d2IDv1~3C7Xk3TYfHc1g__",
+      "price": 845.59
+    }
+  ]
+}

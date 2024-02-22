@@ -1,0 +1,10 @@
+.container {
+  max-width: 480px;
+  width: 100%;
+  margin: 0 auto;
+  height: 100%;
+  border: 1px solid #888;
+  cursor: pointer;
+  border-radius: 12px;
+  background-color: var(--background-color-primary);
+}

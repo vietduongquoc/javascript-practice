@@ -1,0 +1,127 @@
+<section class="homepage">
+  <div class="header-homepage">
+    <h1>Management</h1>
+    <button class="btn btn-true btn-add-new-product" , id="myBtn">Add New Product</button>
+  </div>
+  <!-- The Modal -->
+  <div id="myModal" class="modal">
+    <!-- Modal content -->
+    <form class="container modal-content" action="javascript:void(0)">
+      <span class="close">&times;</span>
+      <h3 class="title-form">Add new product</h3>
+      <p class="title-dcrs">Name</p>
+      <input class="input" type="text" placeholder="Enter name...">
+      <p class="title-dcrs">Quantity</p>
+      <input class="input" type="number" placeholder="0">
+      <p class="title-dcrs">Price</p>
+      <input class="input" type="number" placeholder="0">
+      <div class="input-select">
+        <div>
+          <label for="status-dropdown" class="title-dcrs">Status</label><br>
+          <select class="input input-select-status" id="Status-Dropdown" name="options">
+            <option value="option1">Available</option>
+            <option value="option2">Sold Out</option>
+          </select>
+        </div>
+        <div>
+          <label for="types-dropdown" class="title-dcrs">Types</label><br>
+          <select class="input input-select-types" id="myDropdown" name="options">
+            <option value="option1">Ring</option>
+            <option value="option2">Bracelet</option>
+          </select>
+        </div>
+      </div>
+      <p class="title-dcrs">Brand</p>
+      <input class="input" type="text" placeholder="Enter Brand">
+      <div class="button-add-modal">
+        <button class="title-dcrs btn-form-cancel" type="reset">Cancel</button>
+        <button class="title-dcrs-btn btn-form-confirm" type="submit">Confirm</button>
+      </div>
+    </form>
+  </div>
+  <table>
+    <tr>
+      <th>Product</th>
+      <th>Status</th>
+      <th>Type</th>
+      <th>Quantity</th>
+      <th>Brand</th>
+      <th>Price</th>
+      <th>Action</th>
+    </tr>
+    <tr>
+      <td class="select-search">Search</td>
+      <td class="select-all">All</td>
+      <td class="select-all">All</td>
+      <td class="select-search">Search</td>
+      <td class="select-search">Search</td>
+      <td class="select-search">Search</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><img src="./assets/images/products/l-v-image.jpg" alt="Lv">
+        <span>Louis Vuitton </span>
+      </td>
+      <td><button class="btn btn-sattus text-status btn-true">Available</button></td>
+      <td>Bravo</td>
+      <td><button class="btn btn-brand">9177</button></td>
+      <td><img src="./assets/images/customers/evan.png" alt="evan">
+      <td>$452.85</td>
+      <td><img src="./assets/images/icon-action.png" alt="icons-action"></td>
+    </tr>
+    <tr>
+      <td><img src="./assets/images/products/j-j-image.png" alt="jj">
+        <span>Johnson & Johnson</span>
+      </td>
+      <td><button class="btn btn-sattus text-status btn-false">Sold out</button></td>
+      <td>Alfa</td>
+      <td><button class="btn btn-brand">3064</button></td>
+      <td><img src="./assets/images/customers/arlene.png" alt="arlene"></td>
+      <td>$901.30</td>
+      <td><img src="./assets/images/icon-action.png" alt="icons-action"></td>
+    </tr>
+    <tr>
+      <td><img src="./assets/images/products/starbucks-image.png" alt="starbucks">
+        <span>Starbucks</span>
+      </td>
+      <td><button class="btn btn-sattus text-status btn-true">Available</button></td>
+      <td>Bravo</td>
+      <td><button class="btn btn-brand">9195</button></td>
+      <td><img src="./assets/images/customers/jennie.png" alt="jennie"></td>
+      <td>$614.20</td>
+      <td><img src="./assets/images/icon-action.png" alt="icons-action"></td>
+    </tr>
+    <tr>
+      <td><img src="./assets/images/products/disney-image.png" alt="disney">
+        <span>The Walt Disney</span>
+      </td>
+      <td><button class="btn btn-sattus text-status btn-false">Sold out</button></td>
+      <td>Alfa</td>
+      <td><button class="btn btn-brand">3128</button></td>
+      <td><img src="./assets/images/customers/philip.png" alt="philip"></td>
+      <td>$510.30</td>
+      <td><img src="./assets/images/icon-action.png" alt="icons-action"></td>
+    </tr>
+    <tr>
+      <td><img src="./assets/images/products/mitsubushi-image.png" alt="mitsubushi">
+        <span>Mitsubishi</span>
+      </td>
+      <td><button class="btn btn-sattus text-status btn-true">Available</button></td>
+      <td>Bravo</td>
+      <td><button class="btn btn-brand">9892</button></td>
+      <td><img src="./assets/images/customers/jorge.png" alt="jorge"></td>
+      <td>$828.90</td>
+      <td><img src="./assets/images/icon-action.png" alt="icons-action"></td>
+    </tr>
+    <tr>
+      <td><img src="./assets/images/products/ibm-image.png" alt="ibm"><span>IBM</span></td>
+      <td><button class="btn btn-sattus text-status btn-false">Sold out</button></td>
+      <td>Gold</td>
+      <td><button class="btn btn-brand">9011</button></td>
+      <td><img src="./assets/images/customers/gladys.png" alt="glady"></td>
+      <td>$845.59</td>
+      <td><img src="./assets/images//icon-action.png" alt="icons-action"></td>
+    </tr>
+  </table>
+
+</section>

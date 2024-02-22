@@ -1,0 +1,81 @@
+.btn {
+  border-radius: 5px;
+  box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+  background-color: var(--background-color-primary);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+.btn:hover {
+  cursor: pointer;
+  border: 1px solid red;
+  color: var(--text-collor-red);
+  transform: scale(1.1);
+}
+
+.btn-true {
+  color: var(--text-color-second);
+  border: var(--border-color-primary);
+}
+
+.btn-true:hover {
+  color: #08852E;
+  border: 1px solid #08852E;
+  cursor: pointer;
+}
+
+.btn-false {
+  color: var(--text-collor-red);
+  border: var(--border-color-second);
+}
+
+.btn-false:hover {
+  color: #ff2c2cbe;
+  border: 1px solid #ff2c2cbe;
+  cursor: pointer;
+}
+
+.btn-sattus {
+  padding: 1px 12px;
+}
+
+.btn-brand {
+  padding: 2px 12px;
+  border: 1px solid rgb(223, 226, 233);
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text-collor-gray);
+}
+
+.btn-form-confirm {
+  border-radius: 8px;
+  border: var(--border-color-primary);
+  box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+  background: var(--background-color-second);
+  padding: 12px 20px;
+  color: var(--text-collor-white);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.btn-form-cancel {
+  border: 1px solid rgb(208, 213, 221);
+  border-radius: 8px;
+  box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+  background: var(--background-color-primary);
+  padding: 12px 20px;
+  margin-right: 5px;
+  margin-top: 10px;
+}
+
+.btn-form-cancel:hover {
+  cursor: pointer;
+  background-color: var(--background-collor-red);
+}
+
+.btn-form-confirm:hover {
+  cursor: pointer;
+  background-color: #08852E;
+}
