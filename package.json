@@ -7,8 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "json-server --watch ./json-server/db.json",
     "start": "parcel ./npx parcel src/index.htmlsrc/index.html",
-    "dev": "parcel ./src/index.html",
-    "build": "rm -rf build && rm -rf .parcel-cache && parcel build ./src/index.html --no-cache --no-source-maps --dist-dir dist"
+    "dev": "parcel ./src/index.html"
   },
   "keywords": [],
   "author": "",
