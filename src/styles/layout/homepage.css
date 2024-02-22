@@ -58,3 +58,8 @@ td {
   font-weight: 400;
   letter-spacing: 0.4px;
 }
+
+.select-search , .select-all {
+  cursor: pointer;
+}
+
