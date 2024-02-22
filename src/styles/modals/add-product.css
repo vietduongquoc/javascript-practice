@@ -37,7 +37,7 @@
   cursor: pointer;
 }
 
-.title-form {
+.modal-title {
   font-size: 18px;
   font-weight: 600;
   color: var(--text-color-primary);
@@ -45,7 +45,7 @@
   margin-bottom: 30px;
 }
 
-.title-dcrs {
+.modal-dcrs {
   font-size: 14px;
   font-weight: 700;
   color: var(--text-color-primary);
