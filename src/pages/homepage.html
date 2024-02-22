@@ -1,7 +1,43 @@
 <section class="homepage">
   <div class="header-homepage">
     <h1>Management</h1>
-    <button class="btn btn-true btn-add-new-product">Add New Product</button>
+    <button class="btn btn-true btn-add-new-product" , id="myBtn">Add New Product</button>
+  </div>
+  <!-- The Modal -->
+  <div id="myModal" class="modal">
+    <!-- Modal content -->
+    <form class="container modal-content" action="javascript:void(0)">
+      <span class="close">&times;</span>
+      <h3 class="title-form">Add new product</h3>
+      <p class="title-dcrs">Name</p>
+      <input class="input" type="text" placeholder="Enter name...">
+      <p class="title-dcrs">Quantity</p>
+      <input class="input" type="number" placeholder="0">
+      <p class="title-dcrs">Price</p>
+      <input class="input" type="number" placeholder="0">
+      <div class="input-select">
+        <div>
+          <label for="status-dropdown" class="title-dcrs">Status</label><br>
+          <select class="input input-select-status" id="Status-Dropdown" name="options">
+            <option value="option1">Available</option>
+            <option value="option2">Sold Out</option>
+          </select>
+        </div>
+        <div>
+          <label for="types-dropdown" class="title-dcrs">Types</label><br>
+          <select class="input input-select-types" id="myDropdown" name="options">
+            <option value="option1">Ring</option>
+            <option value="option2">Bracelet</option>
+          </select>
+        </div>
+      </div>
+      <p class="title-dcrs">Brand</p>
+      <input class="input" type="text" placeholder="Enter Brand">
+      <div class="button-add-modal">
+        <button class="title-dcrs btn-form-cancel" type="reset">Cancel</button>
+        <button class="title-dcrs-btn btn-form-confirm" type="submit">Confirm</button>
+      </div>
+    </form>
   </div>
   <table>
     <tr>
