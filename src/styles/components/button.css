@@ -73,6 +73,7 @@
 .btn-form-cancel:hover {
   cursor: pointer;
   background-color: var(--background-collor-red);
+  color: var(--text-collor-white);
 }
 
 .btn-form-confirm:hover {
