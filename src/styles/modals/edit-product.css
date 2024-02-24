@@ -1,5 +1,5 @@
 /* Modal Container */
-.modal {
+.edit-modal {
   display: none;
   /* Hidden by default */
   position: fixed;
@@ -15,7 +15,7 @@
 }
 
 /* Modal Content */
-.modal-content {
+.edit-modal-content {
   background-color: var(--background-color-primary);
   margin: 150px auto;
   /* 15% from the top and centered */
@@ -23,15 +23,15 @@
 }
 
 /* The Close Button */
-.close {
+.edit-close {
   color: #aaa;
   float: right;
   font-size: 28px;
   font-weight: bold;
 }
 
-.close:hover,
-.close:focus {
+.edit-close:hover,
+.edit-close:focus {
   color: black;
   text-decoration: none;
   cursor: pointer;
@@ -47,7 +47,7 @@
 
 .modal-dcrs {
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--text-color-primary);
 }
 
@@ -62,6 +62,7 @@
   margin-top: 10px;
 }
 
-.button-add-modal {
+.button-edit-modal {
   text-align: end;
 }
+
