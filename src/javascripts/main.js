@@ -74,8 +74,33 @@ cancelDelete.onclick = function () {
 }
 
 // When the user clicks anywhere outside the modal, it will also close
-window.onclick = function (event) {
+deleteBtn.onclick = function (event) {
   if (event.target == deleteModal) {
     deleteModal.style.display = "none";
   }
 }
+
+
+/* Error modal */
+// Get the necessary elements for the error modal
+var errorModal = document.getElementById("errorModal");
+var errorBtn = document.getElementById("errorActionBtn");
+var errorSpan = document.getElementsByClassName("error-close")[0];
+
+// When the user clicks on the button to perform an action, open the error modal
+errorBtn.onclick = function() {
+  errorModal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the error modal
+errorSpan.onclick = function() {
+  errorModal.style.display = "none";
+}
+
+// When the user clicks anywhere outside the modal, it will also close
+errorModal.onclick = function(event) {
+  if (event.target == errorModal) {
+    errorModal.style.display = "none";
+  }
+}
+
