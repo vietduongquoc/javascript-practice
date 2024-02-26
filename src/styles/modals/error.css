@@ -1,25 +1,20 @@
 /* Modal Container */
 .error-modal {
   display: none;
-  /* Hidden by default */
   position: fixed;
-  /* Stay in place */
   left: 0;
   top: 0;
   width: 100%;
-  /* Full width */
   overflow: auto;
-  /* Enable scroll if needed */
   background-color: rgba(0, 0, 0, 0.4);
-  /* Black w/ opacity */
 }
 
 /* Modal Content */
 .error-modal-content {
   background-color: var(--background-color-primary);
-  margin: 150px auto;
-  /* 15% from the top and centered */
-  padding: 20px;
+  margin: 335px auto;
+  padding: 24px;
+  max-width: 400px;
 }
 
 /* The Close Button */
@@ -64,4 +59,16 @@
 
 .button-add-modal {
   text-align: end;
+}
+
+.button-error-modal {
+  padding: 10px 18px;
+  background-color: var(--background-collor-red);
+  color:aliceblue;
+  width: 400px;
+  height: 45px;
+}
+
+.button-error-modal:hover {
+  background-color: red;
 }

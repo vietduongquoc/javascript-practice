@@ -3,21 +3,17 @@
   display: none;
   /* Hidden by default */
   position: fixed;
-  /* Stay in place */
   left: 0;
   top: 0;
   width: 100%;
-  /* Full width */
   overflow: auto;
-  /* Enable scroll if needed */
   background-color: rgba(0, 0, 0, 0.4);
-  /* Black w/ opacity */
 }
 
 /* Modal Content */
 .delete-modal-content {
   background-color: var(--background-color-primary);
-  margin: 23% auto;
+  margin: 335px auto;
   /* 15% from the top and centered */
   padding: 24px;
   width: 400px;

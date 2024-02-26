@@ -2,21 +2,26 @@
   "name": "javascript-practice",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "json-server --watch ./json-server/db.json",
-    "start": "parcel ./npx parcel src/index.htmlsrc/index.html",
-    "dev": "parcel ./src/index.html"
+    "start": "parcel ./src/index.html",
+    "dev": "parcel ./src/index.html",
+    "build": "rm -rf build && rm -rf .parcel-cache && parcel build ./src/index.html --no-cache --no-source-maps --dist-dir dist"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "button.css": "^1.0.1",
-    "json-server": "^1.0.0-alpha.23"
+    "json-server": "^1.0.0-alpha.23",
+    "parcel": "^2.11.0"
   },
   "devDependencies": {
+    "connect-api-mocker": "^1.10.0",
+    "cssnano": "^6.0.5",
+    "express": "^4.18.2",
+    "postcss": "^8.4.35",
     "posthtml-expressions": "^1.11.3",
     "posthtml-include": "^2.0.1"
   }
