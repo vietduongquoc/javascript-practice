@@ -80,3 +80,13 @@
   cursor: pointer;
   background-color: #08852E;
 }
+
+.toggler-btn {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.toggler-btn:hover {
+  transform: scale(1.2)
+}
