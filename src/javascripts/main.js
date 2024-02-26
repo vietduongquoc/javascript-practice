@@ -5,7 +5,7 @@ const modal = document.getElementById("myModal");
 const btn = document.getElementById("addBtn");
 
 // Get the <span> element that closes the modal
-const span = document.getElementsByClassName("close")[0];
+const span = document.getElementById("add-close");
 
 // When the user clicks the button, open the modal
 btn.onclick = function () {
@@ -22,7 +22,7 @@ span.onclick = function () {
 // Get the necessary elements for the edit modal
 const editModal = document.getElementById("editProductModal");
 const editBtn = document.getElementById("editProductBtn");
-const editSpan = document.getElementsByClassName("edit-close")[0];
+const editSpan = document.getElementById("edit-close");
 
 // When the user clicks on the edit button, open the modal
 editBtn.onclick = function () {
@@ -39,7 +39,7 @@ editSpan.onclick = function () {
 // Get the elements needed for the delete method
 const deleteModal = document.getElementById("deleteProductModal");
 const deleteBtn = document.getElementById("deleteProductBtn");
-const deleteSpan = document.getElementsByClassName("delete-close")[0];
+const deleteSpan = document.getElementById("delete-close");
 
 // When the user clicks the delete button, open the modal
 deleteBtn.onclick = function () {
@@ -56,7 +56,7 @@ deleteSpan.onclick = function () {
 // Get the necessary elements for the error modal
 const errorModal = document.getElementById("errorModal");
 const errorBtn = document.getElementById("errorActionBtn");
-const errorSpan = document.getElementsByClassName("error-close")[0];
+const errorSpan = document.getElementById("error-close");
 
 errorBtn.onclick = function () {
   errorModal.style.display = "block";
