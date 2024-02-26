@@ -42,7 +42,6 @@
 
   <!-- Edit button activation method -->
   <button id="editProductBtn">Edit</button>
-
   <!-- Edit modal -->
   <div id="editProductModal" class="edit-modal">
     <!-- Content edit modal -->
@@ -81,7 +80,6 @@
   </div>
   <!-- Modal activates deletion -->
   <button id="deleteProductBtn">Delete</button>
-
   <!-- Modal delete -->
   <div id="deleteProductModal" class="delete-modal">
     <!-- Content delete modal -->
@@ -94,22 +92,22 @@
         <button class="modal-dcrs btn-form-cancel button-delete-modal-cancel" type="reset">Cancel</button>
         <button class="modal-dcrs btn-form-cancel button-delete-modal-agree" type="submit">Delete</button>
       </div>
-  </div>
+    </form>
   </div>
 
- <!-- Modal activation button error -->
-<button id="errorActionBtn">Ooops!</button>
-
-<!-- Modal error -->
-<div id="errorModal" class="error-modal">
-  <!-- Error Modal content -->
-  <form class="container error-modal-content" action="javascript:void(0)">
-    <span class="error-close">&times;</span>
-    <img src="./assets/images/trash-icon.png" alt="trash-icon">
-    <h3 class="modal-title-error">Ooops!</h3>
-    <p class="modal-dcrs-error">Something went wrong</p>
-  </form>
-</div>
+  <!-- Modal activation button error -->
+  <button id="errorActionBtn">Ooops!</button>
+  <!-- Modal error -->
+  <div id="errorModal" class="error-modal">
+    <!-- Error Modal content -->
+    <form class="container error-modal-content" action="javascript:void(0)">
+      <span class="error-close">&times;</span>
+      <img src="./assets/images/trash-icon.png" alt="trash-icon">
+      <h3 class="modal-title-error">Ooops!</h3>
+      <p class="modal-dcrs-error">Something went wrong</p>
+      <button class="modal-dcrs btn-form-cancel button-error-modal" type="reset">Close</button>
+    </form>
+  </div>
 
   <!-- Homepage -->
   <table>
