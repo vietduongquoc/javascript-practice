@@ -1,12 +1,9 @@
 // Get the modal
 const modal = document.getElementById("myModal");
-
 // Get the button that opens the modal
 const btn = document.getElementById("addBtn");
-
 // Get the <span> element that closes the modal
 const span = document.getElementById("add-close");
-
 // When the user clicks the button, open the modal
 btn.onclick = function () {
   modal.style.display = "block";
@@ -28,7 +25,6 @@ const editSpan = document.getElementById("edit-close");
 editBtn.onclick = function () {
   editModal.style.display = "block";
 }
-
 // When the user clicks on <span> (x), close the modal
 editSpan.onclick = function () {
   editModal.style.display = "none";
@@ -45,14 +41,12 @@ const deleteSpan = document.getElementById("delete-close");
 deleteBtn.onclick = function () {
   deleteModal.style.display = "block";
 }
-
 // When the user clicks on <span> (x), close the modal
 deleteSpan.onclick = function () {
   deleteModal.style.display = "none";
 }
 
 /* Error modal */
-
 // Get the necessary elements for the error modal
 const errorModal = document.getElementById("errorModal");
 const errorBtn = document.getElementById("errorActionBtn");
@@ -61,10 +55,24 @@ const errorSpan = document.getElementById("error-close");
 errorBtn.onclick = function () {
   errorModal.style.display = "block";
 }
-
 // When the user clicks on <span> (x), close the error modal
 errorSpan.onclick = function () {
   errorModal.style.display = "none";
 }
 
 
+// When the toggle button is clicked, show or hide the box containing the button methods
+// Get all buttons with class 'toggler-btn'
+const togglerBtns = document.getElementsByClassName("toggler-btn");
+
+// Loop through each button and add event handlers
+for (var i = 0; i < togglerBtns.length; i++) {
+  togglerBtns[i].addEventListener("click", function () {
+    var box = document.getElementById("menu-box");
+    if (box.style.display === "none") {
+      box.style.display = "block";
+    } else {
+      box.style.display = "none";
+    }
+  });
+}

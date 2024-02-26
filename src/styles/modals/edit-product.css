@@ -1,24 +1,17 @@
 /* Modal Container */
 .edit-modal {
   display: none;
-  /* Hidden by default */
   position: fixed;
-  /* Stay in place */
   left: 0;
   top: 0;
   width: 100%;
-  /* Full width */
   overflow: auto;
-  /* Enable scroll if needed */
-  background-color: rgba(0, 0, 0, 0.4);
-  /* Black w/ opacity */
+  background-color: #0004;
 }
 
-/* Modal Content */
 .edit-modal-content {
   background-color: var(--background-color-primary);
-  margin: 150px auto;
-  /* 15% from the top and centered */
+  margin: 145px auto;
   padding: 20px;
 }
 
