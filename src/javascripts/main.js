@@ -62,33 +62,47 @@ const errorModal = document.getElementById("errorModal");
 //   errorModal.style.display = "none";
 // }
 
+// var togglerBtns = document.getElementsByClassName("toggler-btn");
+// for (let btn of togglerBtns) {
+//   btn.onclick = function () {
+//     var editBtns = document.getElementsByClassName("editProductBtn");
+//     var deleteBtns = document.getElementsByClassName("deleteProductBtn");
 
+//     for (let editBtn of editBtns) {
+//       console.log(editBtn)
+//       if (editBtn.style.display === "none") {
+//         editBtn.style.display = "block";
+//       } else {
+//         editBtn.style.display = "none";
+//       }
+//       editBtn.classList.toggle('hidden');
+//     }
 
-const togglerBtns = document.getElementsByClassName("toggler-btn");
-for (let btn of togglerBtns) {
-  btn.onclick = function () {
-    var editBtns = document.getElementsByClassName("editProductBtn");
-    var deleteBtns = document.getElementsByClassName("deleteProductBtn");
+//     for (let deleteBtn of deleteBtns) {
+//       if (deleteBtn.style.display === "none") {
+//         deleteBtn.style.display = "block";
+//       } else {
+//         deleteBtn.style.display = "none";
+//       }
+//       deleteBtn.classList.toggle('hidden');
+//     }
+//   };
+// }
 
-    for (let editBtn of editBtns) {
-      console.log(editBtn)
-      if (editBtn.style.display === "none") {
-        editBtn.style.display = "block";
-      } else {
-        editBtn.style.display = "none";
-      }
-      editBtn.classList.toggle('hidden');
-    }
+// Lấy tất cả nút toggler và gán cho biến togglerBtns
+var togglerBtns = document.querySelectorAll(".toggler-btn");
+// Lặp qua từng nút toggler và thêm sự kiện click
+togglerBtns.forEach(function (togglerBtn) {
+  togglerBtn.onclick = function () {
+    // Lấy phần tử menu-box
+    const id = togglerBtn.id;
 
-    for (let deleteBtn of deleteBtns) {
-      if (deleteBtn.style.display === "none") {
-        deleteBtn.style.display = "block";
-      } else {
-        deleteBtn.style.display = "none";
-      }
-      deleteBtn.classList.toggle('hidden');
-    }
+    var menuBox = document.querySelector(`[data-id="${id}"]`);
+
+    // Toggle hiển thị của menu-box
+    menuBox.classList.toggle("hidden")
   };
-}
+});
+
 
 
