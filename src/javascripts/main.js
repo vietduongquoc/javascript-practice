@@ -51,55 +51,24 @@ deleteSpan.onclick = function () {
 /* Error modal */
 // Get the necessary elements for the error modal
 const errorModal = document.getElementById("errorModal");
-// const errorBtn = document.getElementById("errorActionBtn");
-// const errorSpan = document.getElementById("error-close");
+const errorBtn = document.getElementById("errorActionBtn");
+const errorSpan = document.getElementById("error-close");
 
-// errorBtn.onclick = function () {
-//   errorModal.style.display = "block";
-// }
+errorBtn.onclick = function () {
+  errorModal.style.display = "block";
+}
 // When the user clicks on <span> (x), close the error modal
-// errorSpan.onclick = function () {
-//   errorModal.style.display = "none";
-// }
+errorSpan.onclick = function () {
+  errorModal.style.display = "none";
+}
 
-// var togglerBtns = document.getElementsByClassName("toggler-btn");
-// for (let btn of togglerBtns) {
-//   btn.onclick = function () {
-//     var editBtns = document.getElementsByClassName("editProductBtn");
-//     var deleteBtns = document.getElementsByClassName("deleteProductBtn");
-
-//     for (let editBtn of editBtns) {
-//       console.log(editBtn)
-//       if (editBtn.style.display === "none") {
-//         editBtn.style.display = "block";
-//       } else {
-//         editBtn.style.display = "none";
-//       }
-//       editBtn.classList.toggle('hidden');
-//     }
-
-//     for (let deleteBtn of deleteBtns) {
-//       if (deleteBtn.style.display === "none") {
-//         deleteBtn.style.display = "block";
-//       } else {
-//         deleteBtn.style.display = "none";
-//       }
-//       deleteBtn.classList.toggle('hidden');
-//     }
-//   };
-// }
-
-// Lấy tất cả nút toggler và gán cho biến togglerBtns
+//Get all toggle-btn and assign them to variables togglerBtns
 var togglerBtns = document.querySelectorAll(".toggler-btn");
-// Lặp qua từng nút toggler và thêm sự kiện click
+// Loop through each toggler and add a click event
 togglerBtns.forEach(function (togglerBtn) {
   togglerBtn.onclick = function () {
-    // Lấy phần tử menu-box
     const id = togglerBtn.id;
-
     var menuBox = document.querySelector(`[data-id="${id}"]`);
-
-    // Toggle hiển thị của menu-box
     menuBox.classList.toggle("hidden")
   };
 });
