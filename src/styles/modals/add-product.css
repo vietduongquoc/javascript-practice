@@ -1,14 +1,13 @@
 /* Modal Container */
 .modal {
   display: none;
-  /* Hidden by default */
   position: fixed;
-  /* Stay in place */
   left: 0;
   top: 0;
   width: 100%;
   overflow: auto;
   background-color: #0004;
+  z-index: 3;
 }
 
 /* Modal Content */

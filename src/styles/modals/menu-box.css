@@ -22,7 +22,7 @@
 
 .editProductBtn:hover {
   cursor: pointer;
-  font-size: 18px;
+  font-weight: 700;
 }
 
 .deleteProductBtn {
@@ -35,5 +35,10 @@
 
 .deleteProductBtn:hover {
   cursor: pointer;
-  font-size: 18px;
+  font-weight: 700;
+}
+
+.menu-box {
+  position: absolute;
+  z-index: 1;
 }

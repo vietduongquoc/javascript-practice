@@ -63,3 +63,8 @@ td {
 .select-all {
   cursor: pointer;
 }
+
+.table {
+  position: relative;
+  z-index: 2;
+}

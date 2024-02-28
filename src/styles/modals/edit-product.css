@@ -7,6 +7,7 @@
   width: 100%;
   overflow: auto;
   background-color: #0004;
+  z-index: 3;
 }
 
 .edit-modal-content {
