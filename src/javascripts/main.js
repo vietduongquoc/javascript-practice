@@ -18,14 +18,15 @@ span.onclick = function () {
 
 // Get the necessary elements for the edit modal
 const editModal = document.getElementById("editProductModal");
-const editBtn = document.getElementById("editProductBtn");
+const editBtns = document.getElementsByClassName("editProductBtn"); //Get all the buttons
 const editSpan = document.getElementById("edit-close");
 
-// When the user clicks on the edit button, open the modal
-editBtn.onclick = function () {
-  editModal.style.display = "block";
+for (let i = 0; i < editBtns.length; i++) {
+  editBtns[i].onclick = function () {
+    editModal.style.display = "block";
+  }
 }
-// When the user clicks on <span> (x), close the modal
+
 editSpan.onclick = function () {
   editModal.style.display = "none";
 }
@@ -34,12 +35,13 @@ editSpan.onclick = function () {
 
 // Get the elements needed for the delete method
 const deleteModal = document.getElementById("deleteProductModal");
-const deleteBtn = document.getElementById("deleteProductBtn");
+const deleteBtns = document.getElementsByClassName("deleteProductBtn");
 const deleteSpan = document.getElementById("delete-close");
 
-// When the user clicks the delete button, open the modal
-deleteBtn.onclick = function () {
-  deleteModal.style.display = "block";
+for (let i = 0; i < deleteBtns.length; i++) {
+  deleteBtns[i].onclick = function () {
+    deleteModal.style.display = "block";
+  }
 }
 // When the user clicks on <span> (x), close the modal
 deleteSpan.onclick = function () {
@@ -49,30 +51,44 @@ deleteSpan.onclick = function () {
 /* Error modal */
 // Get the necessary elements for the error modal
 const errorModal = document.getElementById("errorModal");
-const errorBtn = document.getElementById("errorActionBtn");
-const errorSpan = document.getElementById("error-close");
+// const errorBtn = document.getElementById("errorActionBtn");
+// const errorSpan = document.getElementById("error-close");
 
-errorBtn.onclick = function () {
-  errorModal.style.display = "block";
-}
+// errorBtn.onclick = function () {
+//   errorModal.style.display = "block";
+// }
 // When the user clicks on <span> (x), close the error modal
-errorSpan.onclick = function () {
-  errorModal.style.display = "none";
-}
+// errorSpan.onclick = function () {
+//   errorModal.style.display = "none";
+// }
 
 
-// When the toggle button is clicked, show or hide the box containing the button methods
-// Get all buttons with class 'toggler-btn'
+
 const togglerBtns = document.getElementsByClassName("toggler-btn");
+for (let btn of togglerBtns) {
+  btn.onclick = function () {
+    var editBtns = document.getElementsByClassName("editProductBtn");
+    var deleteBtns = document.getElementsByClassName("deleteProductBtn");
 
-// Loop through each button and add event handlers
-for (var i = 0; i < togglerBtns.length; i++) {
-  togglerBtns[i].addEventListener("click", function () {
-    var box = document.getElementById("menu-box");
-    if (box.style.display === "none") {
-      box.style.display = "block";
-    } else {
-      box.style.display = "none";
+    for (let editBtn of editBtns) {
+      console.log(editBtn)
+      if (editBtn.style.display === "none") {
+        editBtn.style.display = "block";
+      } else {
+        editBtn.style.display = "none";
+      }
+      editBtn.classList.toggle('hidden');
     }
-  });
+
+    for (let deleteBtn of deleteBtns) {
+      if (deleteBtn.style.display === "none") {
+        deleteBtn.style.display = "block";
+      } else {
+        deleteBtn.style.display = "none";
+      }
+      deleteBtn.classList.toggle('hidden');
+    }
+  };
 }
+
+

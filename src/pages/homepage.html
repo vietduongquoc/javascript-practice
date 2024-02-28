@@ -39,68 +39,60 @@
       </div>
     </form>
   </div>
-  <div class="menu-box" id="menu-box" style="display: none;">
-    <!-- Edit button activation method -->
-    <button id="editProductBtn">Edit</button>
-    <!-- Edit modal -->
-    <div id="editProductModal" class="edit-modal">
-      <!-- Content edit modal -->
-      <form class="container edit-modal-content" action="javascript:void(0)">
-        <span id="edit-close">&times;</span>
-        <h3 class="modal-title">Products Information</h3>
-        <p class="modal-dcrs">Name</p>
-        <input class="input" type="text" placeholder="Enter name...">
-        <p class="modal-dcrs">Quantity</p>
-        <input class="input" type="number" placeholder="0">
-        <p class="modal-dcrs">Price</p>
-        <input class="input" type="number" placeholder="0">
-        <div class="input-select">
-          <div>
-            <label for="status-dropdown" class="modal-dcrs">Status</label><br>
-            <select class="input input-select-status" id="Status-Dropdown" name="options">
-              <option value="option1">Available</option>
-              <option value="option2">Sold Out</option>
-            </select>
-          </div>
-          <div>
-            <label for="types-dropdown" class="modal-dcrs">Types</label><br>
-            <select class="input input-select-types" id="myDropdown" name="options">
-              <option value="option1">Ring</option>
-              <option value="option2">Bracelet</option>
-            </select>
-          </div>
+  <!-- Edit modal -->
+  <div id="editProductModal" class="edit-modal">
+    <!-- Content edit modal -->
+    <form class="container edit-modal-content" action="javascript:void(0)">
+      <span id="edit-close">&times;</span>
+      <h3 class="modal-title">Products Information</h3>
+      <p class="modal-dcrs">Name</p>
+      <input class="input" type="text" placeholder="Enter name...">
+      <p class="modal-dcrs">Quantity</p>
+      <input class="input" type="number" placeholder="0">
+      <p class="modal-dcrs">Price</p>
+      <input class="input" type="number" placeholder="0">
+      <div class="input-select">
+        <div>
+          <label for="status-dropdown" class="modal-dcrs">Status</label><br>
+          <select class="input input-select-status" id="Status-Dropdown" name="options">
+            <option value="option1">Available</option>
+            <option value="option2">Sold Out</option>
+          </select>
         </div>
-        <p class="modal-dcrs">Brand</p>
-        <input class="input" type="text" placeholder="Enter Brand">
-        <div class="button-edit-modal">
-          <button class="modal-dcrs btn-form-cancel" type="reset">Cancel</button>
-          <button class="modal-dcrs-btn btn-form-confirm" type="submit">Confirm</button>
+        <div>
+          <label for="types-dropdown" class="modal-dcrs">Types</label><br>
+          <select class="input input-select-types" id="myDropdown" name="options">
+            <option value="option1">Ring</option>
+            <option value="option2">Bracelet</option>
+          </select>
         </div>
-      </form>
-    </div>
-    <!-- Modal activates deletion -->
-    <button id="deleteProductBtn">Delete</button>
-    <!-- Modal delete -->
-    <div id="deleteProductModal" class="delete-modal">
-      <!-- Content delete modal -->
-      <div class="container-sm delete-modal-content">
-        <span id="delete-close">&times;</span>
-        <img src="./assets/images/trash-icon.png" alt="trash-icon">
-        <h3 class="modal-title-delete">Delete product</h3>
-        <p class="modal-dcrs-delete">Are you sure you want to delete this product? This action cannot be undone.</p>
-        <div class="button-delete-modal">
-          <button class="modal-dcrs btn-form-cancel button-delete-modal-cancel" type="reset">Cancel</button>
-          <button class="btn-form-cancel button-delete-modal-agree" type="submit">Delete</button>
-        </div>
+      </div>
+      <p class="modal-dcrs">Brand</p>
+      <input class="input" type="text" placeholder="Enter Brand">
+      <div class="button-edit-modal">
+        <button class="modal-dcrs btn-form-cancel" type="reset">Cancel</button>
+        <button class="modal-dcrs-btn btn-form-confirm" type="submit">Confirm</button>
+      </div>
+    </form>
+  </div>
+  <!-- Modal delete -->
+  <div id="deleteProductModal" class="delete-modal">
+    <!-- Content delete modal -->
+    <div class="container-sm delete-modal-content">
+      <span id="delete-close">&times;</span>
+      <img src="./assets/images/trash-icon.png" alt="trash-icon">
+      <h3 class="modal-title-delete">Delete product</h3>
+      <p class="modal-dcrs-delete">Are you sure you want to delete this product? This action cannot be undone.</p>
+      <div class="button-delete-modal">
+        <button class="modal-dcrs btn-form-cancel button-delete-modal-cancel" type="reset">Cancel</button>
+        <button class="btn-form-cancel button-delete-modal-agree" type="submit">Delete</button>
       </div>
     </div>
   </div>
 
   <!-- Modal activation button error -->
-  <button id="errorActionBtn">Ooops!</button>
-  <!-- Modal error -->
+  <!-- <button id="errorActionBtn">Ooops!</button>
   <div id="errorModal" class="error-modal">
-    <!-- Error Modal content -->
     <div class="container-sm error-modal-content" action="javascript:void(0)">
       <span id="error-close">&times;</span>
       <img src="./assets/images/trash-icon.png" alt="trash-icon">
@@ -108,7 +100,7 @@
       <p class="modal-dcrs-error">Something went wrong</p>
       <button class="modal-dcrs btn-form-cancel button-error-modal" type="reset">Close</button>
     </div>
-  </div>
+  </div> -->
 
   <!-- Homepage -->
   <table>
@@ -139,7 +131,13 @@
       <td><button class="btn btn-brand">9177</button></td>
       <td><img src="./assets/images/customers/evan.png" alt="evan">
       <td>$452.85</td>
-      <td><button class="toggler-btn"><img src="./assets/images/icon-action.png" alt="icons-action"></button></td>
+      <td>
+        <img class="toggler-btn" src="./assets/images/icon-action.png" alt="icons-action">
+        <div class="menu-box">
+          <button class="editProductBtn hidden">Edit</button>
+          <button class="deleteProductBtn hidden">Delete</button>
+        </div>
+      </td>
     </tr>
     <tr>
       <td><img src="./assets/images/products/j-j-image.png" alt="jj">
@@ -150,7 +148,13 @@
       <td><button class="btn btn-brand">3064</button></td>
       <td><img src="./assets/images/customers/arlene.png" alt="arlene"></td>
       <td>$901.30</td>
-      <td><button class="toggler-btn"><img src="./assets/images/icon-action.png" alt="icons-action"></button></td>
+      <td>
+        <img class="toggler-btn" src="./assets/images/icon-action.png" alt="icons-action">
+        <div class="menu-box">
+          <button class="editProductBtn hidden">Edit</button>
+          <button class="deleteProductBtn hidden">Delete</button>
+        </div>
+      </td>
     </tr>
     <tr>
       <td><img src="./assets/images/products/starbucks-image.png" alt="starbucks">
@@ -161,7 +165,13 @@
       <td><button class="btn btn-brand">9195</button></td>
       <td><img src="./assets/images/customers/jennie.png" alt="jennie"></td>
       <td>$614.20</td>
-      <td><button class="toggler-btn"><img src="./assets/images/icon-action.png" alt="icons-action"></button></td>
+      <td>
+        <img class="toggler-btn" src="./assets/images/icon-action.png" alt="icons-action">
+        <div class="menu-box">
+          <button class="editProductBtn hidden">Edit</button>
+          <button class="deleteProductBtn hidden">Delete</button>
+        </div>
+      </td>
     </tr>
     <tr>
       <td><img src="./assets/images/products/disney-image.png" alt="disney">
@@ -172,7 +182,13 @@
       <td><button class="btn btn-brand">3128</button></td>
       <td><img src="./assets/images/customers/philip.png" alt="philip"></td>
       <td>$510.30</td>
-      <td><button class="toggler-btn"><img src="./assets/images/icon-action.png" alt="icons-action"></button></td>
+      <td>
+        <img class="toggler-btn" src="./assets/images/icon-action.png" alt="icons-action">
+        <div class="menu-box">
+          <button class="editProductBtn hidden">Edit</button>
+          <button class="deleteProductBtn hidden">Delete</button>
+        </div>
+      </td>
     </tr>
     <tr>
       <td><img src="./assets/images/products/mitsubushi-image.png" alt="mitsubushi">
@@ -183,7 +199,13 @@
       <td><button class="btn btn-brand">9892</button></td>
       <td><img src="./assets/images/customers/jorge.png" alt="jorge"></td>
       <td>$828.90</td>
-      <td><button class="toggler-btn"><img src="./assets/images/icon-action.png" alt="icons-action"></button></td>
+      <td>
+        <img class="toggler-btn" src="./assets/images/icon-action.png" alt="icons-action">
+        <div class="menu-box">
+          <button class="editProductBtn hidden">Edit</button>
+          <button class="deleteProductBtn hidden">Delete</button>
+        </div>
+      </td>
     </tr>
     <tr>
       <td><img src="./assets/images/products/ibm-image.png" alt="ibm"><span>IBM</span></td>
@@ -192,7 +214,13 @@
       <td><button class="btn btn-brand">9011</button></td>
       <td><img src="./assets/images/customers/gladys.png" alt="glady"></td>
       <td>$845.59</td>
-      <td><button class="toggler-btn"><img src="./assets/images/icon-action.png" alt="icons-action"></button></td>
+      <td>
+        <img class="toggler-btn" src="./assets/images/icon-action.png" alt="icons-action">
+        <div class="menu-box">
+          <button class="editProductBtn hidden">Edit</button>
+          <button class="deleteProductBtn hidden">Delete</button>
+        </div>
+      </td>
     </tr>
   </table>
 

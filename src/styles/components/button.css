@@ -90,3 +90,7 @@
 .toggler-btn:hover {
   transform: scale(1.2)
 }
+
+.menu-button {
+  display: block;
+}
