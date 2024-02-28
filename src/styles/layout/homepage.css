@@ -59,7 +59,7 @@ td {
   letter-spacing: 0.4px;
 }
 
-.select-search , .select-all {
+.select-search,
+.select-all {
   cursor: pointer;
 }
-
