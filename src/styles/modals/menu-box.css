@@ -10,6 +10,8 @@
   background: rgb(255, 255, 255);
   font-size: 14px;
   font-weight: 600;
+  position: absolute;
+  z-index: 1;
 }
 
 .editProductBtn {
@@ -38,7 +40,4 @@
   font-weight: 700;
 }
 
-.menu-box {
-  position: absolute;
-  z-index: 1;
-}
+

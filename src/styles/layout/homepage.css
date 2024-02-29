@@ -24,7 +24,7 @@ h1 {
   align-self: flex-end;
 }
 
-table {
+.table {
   background-color: var(--background-color-primary);
   max-width: 960px;
   width: 100%;

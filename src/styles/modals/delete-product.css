@@ -15,7 +15,6 @@
 .delete-modal-content {
   background-color: var(--background-color-primary);
   margin: 335px auto;
-  /* 15% from the top and centered */
   padding: 24px;
   width: 400px;
 }
