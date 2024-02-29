@@ -6,12 +6,12 @@ const btn = document.getElementById("addBtn");
 const span = document.getElementById("add-close");
 // When the user clicks the button, open the modal
 btn.onclick = function () {
-  modal.style.display = "block";
+  modal.classList.toggle("hidden");
 }
 
 // When the user clicks on <span> (x), close the modal
 span.onclick = function () {
-  modal.style.display = "none";
+  modal.classList.toggle("hidden");
 }
 
 /* Edit modal**/
@@ -23,12 +23,12 @@ const editSpan = document.getElementById("edit-close");
 
 for (let i = 0; i < editBtns.length; i++) {
   editBtns[i].onclick = function () {
-    editModal.style.display = "block";
+    editModal.classList.toggle("hidden");
   }
 }
 
 editSpan.onclick = function () {
-  editModal.style.display = "none";
+  editModal.classList.toggle("hidden");
 }
 
 /* Delete modal */
@@ -40,30 +40,30 @@ const deleteSpan = document.getElementById("delete-close");
 
 for (let i = 0; i < deleteBtns.length; i++) {
   deleteBtns[i].onclick = function () {
-    deleteModal.style.display = "block";
+    deleteModal.classList.toggle("hidden");
   }
 }
 // When the user clicks on <span> (x), close the modal
 deleteSpan.onclick = function () {
-  deleteModal.style.display = "none";
+  deleteModal.classList.toggle("hidden");
 }
 
 /* Error modal */
 // Get the necessary elements for the error modal
-const errorModal = document.getElementById("errorModal");
-const errorBtn = document.getElementById("errorActionBtn");
-const errorSpan = document.getElementById("error-close");
+// const errorModal = document.getElementById("errorModal");
+// const errorBtn = document.getElementById("errorActionBtn");
+// const errorSpan = document.getElementById("error-close");
 
-errorBtn.onclick = function () {
-  errorModal.style.display = "block";
-}
+// errorBtn.onclick = function () {
+//   errorModal.style.display = "block";
+// }
 // When the user clicks on <span> (x), close the error modal
-errorSpan.onclick = function () {
-  errorModal.style.display = "none";
-}
+// errorSpan.onclick = function () {
+//   errorModal.style.display = "none";
+// }
 
 //Get all toggle-btn and assign them to variables togglerBtns
-var togglerBtns = document.querySelectorAll(".toggler-btn");
+let togglerBtns = document.querySelectorAll(".toggler-btn");
 // Loop through each toggler and add a click event
 togglerBtns.forEach(function (togglerBtn) {
   togglerBtn.onclick = function () {
@@ -73,5 +73,27 @@ togglerBtns.forEach(function (togglerBtn) {
   };
 });
 
+let btnCancel = document.getElementById("cancelBtnAdd");
+
+if (btnCancel) {
+    btnCancel.addEventListener('click', function() {
+        let modal = document.querySelector('.add-modal');
+        if (modal) {
+            modal.classList.toggle("hidden");
+        }
+    });
+}
+
+
+let btnCfAdd = document.getElementById("confirmBtnAdd");
+
+if (btnCfAdd) {
+    btnCfAdd.addEventListener('click', function() {
+        let modal = document.querySelector('.add-modal');
+        if (modal) {
+            modal.classList.toggle("hidden");
+        }
+    });
+}
 
 
