@@ -45,14 +45,8 @@
   color: var(--text-color-primary);
 }
 
-.input-select {
-  display: flex;
-  justify-content: space-between;
-}
-
-.input-select-status,
-.input-select-types {
-  max-width: 215px;
+.input-select-status {
+  max-width: 100%;
   margin-top: 10px;
 }
 

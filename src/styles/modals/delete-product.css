@@ -40,11 +40,6 @@
   margin-bottom: 30px;
 }
 
-.delete-input-select {
-  display: flex;
-  justify-content: space-between;
-}
-
 .delete-input-select-status,
 .delete-input-select-types {
   max-width: 215px;
