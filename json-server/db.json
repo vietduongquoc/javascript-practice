@@ -28,7 +28,7 @@
       "type": "Bravo",
       "quantity": 9195,
       "brand": "Jennie Cooper",
-      "price": 641.20
+      "price": 641.2
     },
     {
       "image": "https://s3-alpha-sig.figma.com/img/2a47/fa36/71c37800cd71d866bcf38ba942abbc88?Expires=1709510400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=pH325lHv-9g3H-dcamPeJyhSqCPuTLz8kN47duTFGcDESeJdTzxHay0k93Rm2hY1eBtDRm9d3rFWfNPy25fQDSuhfQVO8kVPLyy4~4mNxbSHH4GgTvy3wekAY7mXhjAuvUKJIoHe8lB5dpDkzQSa-HNAgWmbwXYImGJoqBXFFU3LprZrp7HxW5pJB1cRw5pgtyCpPdp6Lom5ZCVIR3wr0cOSXTkNcSs0CvYGopD7yk5Zl6J60rF5juImfkCHKCDblQoEK2aZ6dcoaGPQhCkJN17NAY1PbR3ne4kFxjQKZcjpl08qHjlwOBORSak~k2~-lQlyV2NPQ4cf6SmzzEKhrw__",
@@ -37,8 +37,8 @@
       "status": false,
       "type": "Alfa",
       "quantity": 3128,
-      "brand":"Philip Steward",
-      "price": 510.30
+      "brand": "Philip Steward",
+      "price": 510.3
     },
     {
       "image": "https://s3-alpha-sig.figma.com/img/8810/4b12/2a81f380f3ec2901aadb9947bdde8a20?Expires=1709510400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=B9mJpotaFC~SXu1zTZriXL5nXsSwK94KU9eb2OQB5YwnQjhexrnJqcvIyjJBqYk8CcYcdpQNfeUKbHofytD9AKjLCqJCoozT-dKvHh~J69-OLR56Wi~b-pQPQqa2EIm1ghKXKwIMZ8ftrNq-pto-B7g17ac~-5T~fK38rIRqhANcq4Vx8QJvFN~R5c9AmpY41jvHT~lvpwGCqFgxqFS6wsNVX5MPr2kFcmlsdqu~sl-s-ZSsbuFgVXRoLvjz4DoLz-BinNs6q6jcghBfCKVR4i5fklOR1xLfhnX-pthxCDBHlqrMvq1C1TAIBeKxL90XrYQnzddEDtA-jm0Ie4cNIQ__",
@@ -47,8 +47,8 @@
       "status": true,
       "type": "Bravo",
       "quantity": 9892,
-      "brand":"Jorge Black",
-      "price": 828.90
+      "brand": "Jorge Black",
+      "price": 828.9
     },
     {
       "image": "https://s3-alpha-sig.figma.com/img/939e/8975/b13e5430b8dfc22e4c6c87bf0978f8c1?Expires=1709510400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=SQ029Iio-ZRCubJUCtLFybZ~XlNXBQWyg3X~W-tTIVhvAFE~j~xkYPEZaf4oecYLq4uVR4CYSC7koZOYQLXckkATKurfSV45P~s989KG6l~3E-7NeYUTZpZX3mMLdz9bCCaykgoHEijgiXmh2nF5rxEsXIRyEd7NH9e5t-475-QlGiXhPyeM0kkkfMbcXq9NXiq2M263Ex4~QXQMRyV7BBf890FO-9M~r-KQJ5~oPz56Yselqp5zO6NZexlNd9ZoUymJMGWzWH4u0Ye0qQUkdRQ7XqNInq2QR-d-JYBDC8HfJfo78QLB8yCJMeVTpOckypjHtTBKNEeAoQzxx2Y-zw__",
@@ -57,9 +57,47 @@
       "status": true,
       "type": "Gold",
       "quantity": 9011,
-      "brand":"Gladys Jones",
+      "brand": "Gladys Jones",
       "price": 845.59
+    },
+    {
+      "id": "3647",
+      "name": "1",
+      "quantity": "2",
+      "price": "2",
+      "brand": "2"
+    },
+    {
+      "id": "75af",
+      "name": "tui",
+      "quantity": "2",
+      "price": "200",
+      "dropdown": "option1",
+      "brand": "L-v"
+    },
+    {
+      "id": "38bc",
+      "name": "tui",
+      "quantity": "2",
+      "price": "200",
+      "dropdown": "option1",
+      "brand": "L-v"
+    },
+    {
+      "id": "1aeb",
+      "name": "quaoi",
+      "quantity": "2",
+      "price": "21212",
+      "dropdown": "option2",
+      "brand": "donce"
+    },
+    {
+      "id": "53a4",
+      "name": "tui",
+      "quantity": "21",
+      "price": "2",
+      "dropdown": "option2",
+      "brand": "1"
     }
   ]
 }
-

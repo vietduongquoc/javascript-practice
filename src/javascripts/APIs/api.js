@@ -1,89 +1,60 @@
-// Định nghĩa cơ sở URL cho API
-const BASE_URL = 'http://localhost:3000';
+import showToastify from '../utils/toastify';
+import { API } from '../constants/url-api';
 
+const APIHandler = {
+  /**
+   * Fetches data from an URL and returns the JSON response.
+   * If the fetching fails, it shows a toast notification
+   * @param {string} endpoint - The endpoint to fetch data from
+   */
+  async get(endpoint) {
+    try {
+      const res = await fetch(`${API.BASE_URL}/${endpoint}`);
 
-// Hàm để xử lý lấy danh sách sản phẩm
-async function fetchProducts() {
-  try {
-    const response = await fetch(`${BASE_URL}/products`, {
-      method: 'GET', // Sử dụng phương thức GET
-      headers: {
-        'Authorization': `Bearer ${API_KEY}` // Đây là header xác thực, nếu API yêu cầu.
+      if (!res.ok) {
+        throw new Error(`Failed to fetch data from ${url}`);
       }
-    });
 
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
+      const data = res.json();
+
+      return data;
+    } catch (error) {
+      console.error(error);
+
+      showToastify(error.message, 'toastify-danger');
     }
+  },
 
-    return await response.json(); // Chuyển đổi dữ liệu nhận được từ server thành định dạng JSON.
-  } catch (error) {
-    console.error('Error fetching products:', error);
-    throw error;
+  /**
+   * Sends a POST request to the endpoint with the provided product data
+   * @param {string} endpoint - The endpoint to which the request should be sent
+   * @param {Object} product - The product data to be sent
+   */
+  async post(endpoint, product) {
+    try {
+      const res = await fetch(
+        `${API.BASE_URL}/${endpoint}`,
+        {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(product)
+        }
+      );
+
+      if(!res.ok) {
+        throw new Error(`Failed to post data to ${endpoint}`);
+      }
+
+      showToastify('Product added successfully!', 'toastify-success');
+    } catch(error) {
+      console.error(error);
+
+      showToastify(error.message, 'toastify-danger');
+    }
   }
 }
 
+export { APIHandler }
 
-// Hàm thêm sản phẩm mới
-async function addProduct(productData) {
-  try {
-    const response = await fetch(`${BASE_URL}/products`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-
-      },
-      body: JSON.stringify(productData)
-    });
-    if (!response.ok) {
-      throw new Error('Something went wrong with adding a new product');
-    }
-    return await response.json();
-  } catch (error) {
-    console.error('Error adding product:', error);
-    throw error;
-  }
-}
-
-// Hàm cập nhật sản phẩm
-// async function updateProduct(productId, updateData) {
-//   try {
-//     const response = await fetch(`${BASE_URL}/products/${productId}`, {
-//       method: 'PUT',
-//       headers: {
-//         'Content-Type': 'application/json',
-//         'Authorization': `Bearer ${API_KEY}`
-//       },
-//       body: JSON.stringify(updateData)
-//     });
-//     if (!response.ok) {
-//       throw new Error('Something went wrong with updating the product');
-//     }
-//     return await response.json();
-//   } catch (error) {
-//     console.error('Error updating product:', error);
-//     throw error;
-//   }
-// }
-
-// Hàm xóa sản phẩm
-// async function deleteProduct(productId) {
-//   try {
-//     const response = await fetch(`${BASE_URL}/products/${productId}`, {
-//       method: 'DELETE',
-//       headers: {
-//         'Authorization': `Bearer ${API_KEY}`
-//       }
-//     });
-//     if (!response.ok) {
-//       throw new Error('Something went wrong with deleting the product');
-//     }
-//     return await response.json();
-//   } catch (error) {
-//     console.error('Error deleting product:', error);
-//     throw error;
-//   }
-// }
-
-// Xuất các hàm để sử dụng ở nơi khác trong dự án
-export { fetchProducts, addProduct, updateProduct, deleteProduct };

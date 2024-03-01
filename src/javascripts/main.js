@@ -76,24 +76,66 @@ togglerBtns.forEach(function (togglerBtn) {
 let btnCancel = document.getElementById("cancelBtnAdd");
 
 if (btnCancel) {
-    btnCancel.addEventListener('click', function() {
-        let modal = document.querySelector('.add-modal');
-        if (modal) {
-            modal.classList.toggle("hidden");
-        }
-    });
+  btnCancel.addEventListener('click', function () {
+    let modal = document.querySelector('.add-modal');
+    if (modal) {
+      modal.classList.toggle("hidden");
+    }
+  });
 }
 
 
 let btnCfAdd = document.getElementById("confirmBtnAdd");
 
 if (btnCfAdd) {
-    btnCfAdd.addEventListener('click', function() {
-        let modal = document.querySelector('.add-modal');
-        if (modal) {
-            modal.classList.toggle("hidden");
-        }
-    });
+  btnCfAdd.addEventListener('click', function () {
+    let modal = document.querySelector('.add-modal');
+    if (modal) {
+      modal.classList.toggle("hidden");
+    }
+  });
 }
 
 
+import  { APIHandler } from './APIs/api'
+
+document.addEventListener('DOMContentLoaded', function () {
+  APIHandler.get('products')
+    .then(data => {
+      // Hiển thị dữ liệu sản phẩm
+      console.log(data); // Hoặc sử dụng dữ liệu để hiển thị trên trang
+    })
+    .catch(error => console.error('Failed to load products:', error));
+});
+
+
+document.addEventListener('DOMContentLoaded', function() {
+  const addProductModal = document.getElementById('addProductModal');
+
+  addProductModal.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    // Lấy giá trị từ form
+    const productName = document.getElementById('productName').value;
+    const productQuantity = document.getElementById('productQuantity').value;
+    const productPrice = document.getElementById('productPrice').value;
+    const productstatusdropdown = document.getElementById('status-dropdown').value;
+    // const producttypesdropdown = document.getElementById('types-dropdown').value;
+    const productBrand = document.getElementById('productBrand').value;
+
+    // Tạo đối tượng sản phẩm
+    const productData = {
+      name: productName,
+      quantity: productQuantity,
+      price: productPrice,
+      dropdown: productstatusdropdown,
+      brand: productBrand
+    };
+
+    // Gửi yêu cầu POST tới API để thêm sản phẩm mới
+    APIHandler.post('products', productData).then(() => {
+      // Tải lại trang hoặc cập nhật danh sách sản phẩm mà không cần tải lại
+      window.location.reload();
+    }).catch(error => console.error('Error adding product:', error));
+  });
+});
