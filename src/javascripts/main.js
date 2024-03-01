@@ -1,3 +1,5 @@
+import ProductView from './views/product-view';
+
 // Get the modal
 const modal = document.getElementById("addProductModal");
 // Get the button that opens the modal
@@ -97,45 +99,53 @@ if (btnCfAdd) {
 }
 
 
-import  { APIHandler } from './APIs/api'
+
+import { APIHandler } from './APIs/api';
 
 document.addEventListener('DOMContentLoaded', function () {
   APIHandler.get('products')
     .then(data => {
-      // Hiển thị dữ liệu sản phẩm
-      console.log(data); // Hoặc sử dụng dữ liệu để hiển thị trên trang
+      console.log(data);
     })
     .catch(error => console.error('Failed to load products:', error));
 });
 
-
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   const addProductModal = document.getElementById('addProductModal');
 
-  addProductModal.addEventListener('submit', function(e) {
+  addProductModal.addEventListener('submit', async function (e) {
     e.preventDefault();
 
-    // Lấy giá trị từ form
     const productName = document.getElementById('productName').value;
     const productQuantity = document.getElementById('productQuantity').value;
     const productPrice = document.getElementById('productPrice').value;
     const productstatusdropdown = document.getElementById('status-dropdown').value;
-    // const producttypesdropdown = document.getElementById('types-dropdown').value;
     const productBrand = document.getElementById('productBrand').value;
 
-    // Tạo đối tượng sản phẩm
     const productData = {
       name: productName,
       quantity: productQuantity,
       price: productPrice,
-      dropdown: productstatusdropdown,
+      status: productstatusdropdown,
       brand: productBrand
     };
 
-    // Gửi yêu cầu POST tới API để thêm sản phẩm mới
-    APIHandler.post('products', productData).then(() => {
-      // Tải lại trang hoặc cập nhật danh sách sản phẩm mà không cần tải lại
-      window.location.reload();
-    }).catch(error => console.error('Error adding product:', error));
+
+    // Send a new data product to the API and process the results
+    try {
+      const product = await APIHandler.post('products', productData);
+
+      ProductView.renderNewProducts(product)
+    } catch (error) {
+      console.error('Error adding product:', error);
+    }
+
+    // Get the list of new products after adding
+    try {
+      const data = await APIHandler.get('products');
+      console.log(data);
+    } catch (error) {
+      console.error('Failed to load products:', error);
+    }
   });
 });
