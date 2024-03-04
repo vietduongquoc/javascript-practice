@@ -35,6 +35,28 @@ const APIHandler = {
     } catch (error) {
       console.error(error);
     }
+  },
+
+
+  async put(endpoint, product) {
+    try {
+      const res = await fetch(`${API.BASE_URL}/${endpoint}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(product)
+      });
+
+      if (!res.ok) {
+        throw new Error(`Failed to post data to ${API.BASE_URL}/${endpoint}`);
+      }
+
+      const data = await res.json();
+      return data;
+    } catch (error) {
+      console.error(error);
+    }
   }
 };
 
