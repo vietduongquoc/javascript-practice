@@ -69,3 +69,20 @@ td {
   position: relative;
   z-index: 2;
 }
+
+.wrap-img {
+  width: 100%;
+  display: flex;
+  font-size: 14px;
+  font-weight: 400;
+  align-items: center;
+}
+
+.img-item {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  max-width: 75px;
+  height: 45px;
+  margin-right: 5px;
+}

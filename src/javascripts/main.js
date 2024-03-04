@@ -1,4 +1,6 @@
-import ProductView from './views/product-view';
+import  ProductView from './views/product-view';
+import { APIHandler } from './APIs/api';
+
 
 // Get the modal
 const modal = document.getElementById("addProductModal");
@@ -30,49 +32,49 @@ span.onclick = function () {
 //   errorModal.style.display = "none";
 // }
 
-//Get all toggle-btn and assign them to variables togglerBtns
-let togglerBtns = document.querySelectorAll(".toggler-btn");
-// Loop through each toggler and add a click event
-togglerBtns.forEach(function (togglerBtn) {
-  togglerBtn.onclick = function () {
-    const id = togglerBtn.id;
-    var menuBox = document.querySelector(`[data-id="${id}"]`);
-    menuBox.classList.toggle("hidden")
-  };
-});
+// //Get all toggle-btn and assign them to variables togglerBtns
+// let togglerBtns = document.querySelectorAll(".toggler-btn");
+// // Loop through each toggler and add a click event
+// togglerBtns.forEach(function (togglerBtn) {
+//   togglerBtn.onclick = function () {
+//     const id = togglerBtn.id;
+//     var menuBox = document.querySelector(`[data-id="${id}"]`);
+//     menuBox.classList.toggle("hidden")
+//   };
+// });
 
-/* Edit modal**/
-// Get the necessary elements for the edit modal
-const editModal = document.getElementById("editProductModal");
-const editBtns = document.getElementsByClassName("editProductBtn"); //Get all the buttons
-const editSpan = document.getElementById("edit-close");
+// /* Edit modal**/
+// // Get the necessary elements for the edit modal
+// const editModal = document.getElementById("editProductModal");
+// const editBtns = document.getElementsByClassName("editProductBtn"); //Get all the buttons
+// const editSpan = document.getElementById("edit-close");
 
-for (let i = 0; i < editBtns.length; i++) {
-  editBtns[i].onclick = function () {
-    editModal.classList.toggle("hidden");
-  }
-}
+// for (let i = 0; i < editBtns.length; i++) {
+//   editBtns[i].onclick = function () {
+//     editModal.classList.toggle("hidden");
+//   }
+// }
 
-editSpan.onclick = function () {
-  editModal.classList.toggle("hidden");
-}
+// editSpan.onclick = function () {
+//   editModal.classList.toggle("hidden");
+// }
 
-/* Delete modal */
+// /* Delete modal */
 
-// Get the elements needed for the delete method
-const deleteModal = document.getElementById("deleteProductModal");
-const deleteBtns = document.getElementsByClassName("deleteProductBtn");
-const deleteSpan = document.getElementById("delete-close");
+// // Get the elements needed for the delete method
+// const deleteModal = document.getElementById("deleteProductModal");
+// const deleteBtns = document.getElementsByClassName("deleteProductBtn");
+// const deleteSpan = document.getElementById("delete-close");
 
-for (let i = 0; i < deleteBtns.length; i++) {
-  deleteBtns[i].onclick = function () {
-    deleteModal.classList.toggle("hidden");
-  }
-}
-// When the user clicks on <span> (x), close the modal
-deleteSpan.onclick = function () {
-  deleteModal.classList.toggle("hidden");
-}
+// for (let i = 0; i < deleteBtns.length; i++) {
+//   deleteBtns[i].onclick = function () {
+//     deleteModal.classList.toggle("hidden");
+//   }
+// }
+// // When the user clicks on <span> (x), close the modal
+// deleteSpan.onclick = function () {
+//   deleteModal.classList.toggle("hidden");
+// }
 
 //ADD-btns
 let btnCancel = document.getElementById("cancelBtnAdd");
@@ -133,11 +135,14 @@ if (btnDeleteCancel) {
 let btnCfDelete = document.getElementById("confirm-btn-delete");
 
 if (btnCfDelete) {
-  btnCfDelete.addEventListener('click', function () {
+  btnCfDelete.addEventListener('click', function async () {
+    // await APIHandler.deleteProduct(productId);
+    console.log('btnCfDelete')
     let modal = document.querySelector('.delete-modal');
     if (modal) {
       modal.classList.toggle("hidden");
     }
+
   });
 }
 
@@ -147,7 +152,7 @@ import { APIHandler } from './APIs/api';
 document.addEventListener('DOMContentLoaded', function () {
   APIHandler.get('products')
     .then(data => {
-      console.log(data);
+      ProductView.renderProducts(data);
     })
     .catch(error => console.error('Failed to load products:', error));
 });
@@ -192,42 +197,79 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
+// document.addEventListener('DOMContentLoaded', function () {
+//   const editProductModal = document.getElementById('editProductModal');
+
+//   editProductModal.addEventListener('submit', async function (e) {
+//     e.preventDefault();
+
+//     const editproductName = document.getElementById('edit-productName').value;
+//     const editproductQuantity = document.getElementById('edit-productQuantity').value;
+//     const editproductPrice = document.getElementById('edit-productPrice').value;
+//     const editproductstatusdropdown = document.getElementById('edit-status-dropdown').value;
+//     const editproductBrand = document.getElementById('edit-productBrand').value;
+
+//     const editproductData = {
+//       name: editproductName,
+//       quantity: editproductQuantity,
+//       price: editproductPrice,
+//       status: editproductstatusdropdown,
+//       brand: editproductBrand,
+//     };
+
+//     // Send a new data product to the API and process the results
+//     try {
+//       const editproduct = await APIHandler.put('products', editproductData);
+
+//       ProductView.renderNewProducts(editproduct)
+//     } catch (error) {
+//       console.error('Error when editing product:', error);
+//     }
+
+//     // Get the list of new products after adding
+//     try {
+//       const data = await APIHandler.get('products');
+//       console.log(data);
+//     } catch (error) {
+//       console.error('Failed to load products:', error);
+//     };
+
+//   });
+// });
+
 document.addEventListener('DOMContentLoaded', function () {
-  const editProductModal = document.getElementById('editProductModal');
+  // Load and render products
+  APIHandler.get()
+    .then(data => {
+      ProductView.renderProducts(data);
+    })
+    .catch(error => console.error('Failed to load products:', error));
 
-  editProductModal.addEventListener('submit', async function (e) {
-    e.preventDefault();
+  // Setup delete product event listener
+  document.addEventListener('click', async function (e) {
+    if (e.target && e.target.classList.contains('deleteProductBtn')) {
+      e.preventDefault();
+      const productId = e.target.getAttribute('data-product-id');
+      if (!productId) return;
+      console.log({productId})
 
-    const editproductName = document.getElementById('edit-productName').value;
-    const editproductQuantity = document.getElementById('edit-productQuantity').value;
-    const editproductPrice = document.getElementById('edit-productPrice').value;
-    const editproductstatusdropdown = document.getElementById('edit-status-dropdown').value;
-    const editproductBrand = document.getElementById('edit-productBrand').value;
+      try {
+        // Call the API to delete the product
+        await APIHandler.deleteProduct(productId);
 
-    const editproductData = {
-      name: editproductName,
-      quantity: editproductQuantity,
-      price: editproductPrice,
-      status: editproductstatusdropdown,
-      brand: editproductBrand,
-    };
+        console.log(`Product ${productId} deleted`);
 
-    // Send a new data product to the API and process the results
-    try {
-      const editproduct = await APIHandler.put('products', editproductData);
-
-      ProductView.renderNewProducts(editproduct)
-    } catch (error) {
-      console.error('Error when editing product:', error);
+        // Re-fetch and render the product list to reflect changes
+        const updatedProducts = await APIHandler.get('products');
+        ProductView.renderProducts(updatedProducts);
+      } catch (error) {
+        console.error(`Error deleting product ${productId}:`, error);
+      }
     }
-
-    // Get the list of new products after adding
-    try {
-      const data = await APIHandler.get('products');
-      console.log(data);
-    } catch (error) {
-      console.error('Failed to load products:', error);
-    };
-
   });
 });
+
+
+
+
+
