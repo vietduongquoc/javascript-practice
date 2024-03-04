@@ -117,6 +117,28 @@ if (btnCfEdit) {
       modal.classList.toggle("hidden");
     }
   });
+};
+//Delete-btns
+let btnDeleteCancel = document.getElementById("cancel-btn-delete");
+
+if (btnDeleteCancel) {
+  btnDeleteCancel.addEventListener('click', function () {
+    let modal = document.querySelector('.delete-modal');
+    if (modal) {
+      modal.classList.toggle("hidden");
+    }
+  });
+}
+
+let btnCfDelete = document.getElementById("confirm-btn-delete");
+
+if (btnCfDelete) {
+  btnCfDelete.addEventListener('click', function () {
+    let modal = document.querySelector('.delete-modal');
+    if (modal) {
+      modal.classList.toggle("hidden");
+    }
+  });
 }
 
 
