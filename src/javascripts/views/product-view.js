@@ -2,36 +2,6 @@ import { API } from '../constants/url-api';
 
 export default class ProductView {
 
-//   renderAddProductPage() {
-//     this.clearMainContainer();
-//     const mainContent = getElementById('main-content');
-
-//     mainContent.innerHTML = `
-// <div id="addProductModal" class="add-modal hidden">
-// <form class="container modal-content" action="javascript:void(0)">
-//   <span id="add-close">&times;</span>
-//   <h3 class="modal-title">Add new product</h3>
-//   <p class="modal-dcrs">Name</p>
-//   <input class="input" type="text" id="productName" placeholder="Enter name...">
-//   <p class="modal-dcrs">Quantity</p>
-//   <input class="input" type="number" id="productQuantity" placeholder="0">
-//   <p class="modal-dcrs">Price</p>
-//   <input class="input" type="number" id="productPrice" placeholder="0">
-//   <label for="status-dropdown" class="modal-dcrs">Status</label><br>
-//   <select class="input input-select-status" id="status-dropdown" name="options">
-//     <option value="option1">Available</option>
-//     <option value="option2">Sold Out</option>
-//   </select>
-//   <p class="modal-dcrs">Brand</p>
-//   <input class="input" type="text" id="productBrand" placeholder="Enter Brand">
-//   <div class="button-add-modal">
-//     <button id="cancelBtnAdd" class="modal-dcrs btn-form-cancel" type="reset">Cancel</button>
-//     <button id="confirmBtnAdd" class="modal-dcrs-btn btn-form-confirm" type="submit">Confirm</button>
-//   </div>
-// </form>
-// `;
-//   }
-
   static renderNewProducts(product) {
     const {
       name,
@@ -60,7 +30,50 @@ export default class ProductView {
       </td>
     </tr>
     `
-
     tableElement.innerHTML += productListHTML;
+
+    //Get all toggle-btn and assign them to variables togglerBtns
+    let togglerBtns = document.querySelectorAll(".toggler-btn");
+    // Loop through each toggler and add a click event
+    togglerBtns.forEach(function (togglerBtn) {
+      togglerBtn.onclick = function () {
+        const id = togglerBtn.id;
+        var menuBox = document.querySelector(`[data-id="${id}"]`);
+        menuBox.classList.toggle("hidden")
+      };
+    });
+    /* Edit modal**/
+
+    // Get the necessary elements for the edit modal
+    const editModal = document.getElementById("editProductModal");
+    const editBtns = document.getElementsByClassName("editProductBtn"); //Get all the buttons
+    const editSpan = document.getElementById("edit-close");
+
+    for (let i = 0; i < editBtns.length; i++) {
+      editBtns[i].onclick = function () {
+        editModal.classList.toggle("hidden");
+      }
+    }
+
+    editSpan.onclick = function () {
+      editModal.classList.toggle("hidden");
+    };
+
+    /* Delete modal */
+
+    // Get the elements needed for the delete method
+    const deleteModal = document.getElementById("deleteProductModal");
+    const deleteBtns = document.getElementsByClassName("deleteProductBtn");
+    const deleteSpan = document.getElementById("delete-close");
+
+    for (let i = 0; i < deleteBtns.length; i++) {
+      deleteBtns[i].onclick = function () {
+        deleteModal.classList.toggle("hidden");
+      }
+    }
+    // When the user clicks on <span> (x), close the modal
+    deleteSpan.onclick = function () {
+      deleteModal.classList.toggle("hidden");
+    };
   }
 }
