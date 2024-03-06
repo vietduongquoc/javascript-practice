@@ -1,5 +1,4 @@
 import { API } from '../constants/url-api';
-// import showToastify from '../utils/toastify';
 
 
 const APIHandler = {
@@ -40,41 +39,30 @@ const APIHandler = {
     }
   },
 
-  // async put(endpoint, data) {
-  //   try {
-  //     const res = await fetch(
-  //       `${API.BASE_URL}/${endpoint}`,
-  //       {
-  //         method: 'PUT',
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //         },
-  //         body: JSON.stringify(data)
-  //       });
+  async put(endpoint, data) {
+    try {
+      const res = await fetch(
+        `${API.BASE_URL}/${endpoint}`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
 
-  //     if (!res.ok) {
-  //       throw new Error(`Failed to update data to ${endpoint}`);
-  //     }
+      if (!res.ok) {
+        throw new Error(`Failed to update data to ${endpoint}`);
+      }
 
-  //     Toast.success('Product updated successfully!');
-  //   } catch (error) {
-  //     console.error(error);
+      Toast.success('Product updated successfully!');
+    } catch (error) {
+      console.error(error);
 
-  //     Toast.error(error.message);
-  //   }
-  // },
+      Toast.error(error.message);
+    }
+  },
 
-
-  //   async delete(endpoint) {
-  //     const response = await fetch(`${API.DELETE_PRODUCT}/${endpoint}`, {
-  //       method: 'DELETE',
-
-  //     });
-  //     if (!response.ok) {
-  //       throw new Error('Network response was not ok.');
-  //     }
-  //     return await response.json();
-  //   }
 
   async deleteProduct(productId) {
     console.log('deleteProduct: ',productId)
@@ -92,7 +80,7 @@ const APIHandler = {
       }
 
 
-      console.log('Delete successfully!'); // Thay thế này bằng Toast nếu bạn có
+      console.log('Delete successfully!');
 
       return { isSuccess: true };
     } catch (error) {
