@@ -3,7 +3,6 @@ import { API } from '../constants/url-api';
 export default class ProductView {
   static renderProducts(products) {
     const tableElement = document.querySelector('.table');
-    // tableElement.innerHTML = '';
 
 
     products.forEach(product => {
@@ -36,7 +35,7 @@ export default class ProductView {
 
   static renderNewProduct(product) {
     const tableElement = document.querySelector('.table');
-    const { id, imgUrl, name, brand, price, quantity, status } = product;
+    const { id, name, brand, price, quantity, status } = product;
     const btnStatus = status ? 'btn-true' : 'btn-false';
     const textStatus = status ? 'Available' : 'Sold out';
 
@@ -49,11 +48,11 @@ export default class ProductView {
         <td><img src="/gladys.a60930bd.png" alt="glady"></td>
         <td>$${price}</td>
         <td>
-          <img class="toggler-btn" src="/icon-action.07809a11.png" alt="icons-action" data-id="${id}">
-          <div class="hidden menu-box" data-id="${id}">
-            <button class="editProductBtn">Edit</button>
-            <button data-product-id="${id}" class="deleteProductBtn">Delete</button>
-          </div>
+            <img class="toggler-btn" src="/icon-action.07809a11.png" alt="icons-action" data-id="${id}">
+            <div class="hidden menu-box" data-id="${id}">
+              <button class="editProductBtn">Edit</button>
+              <button data-product-id="${id}" class="deleteProductBtn">Delete</button>
+            </div>
         </td>
       </tr>
     `;
@@ -62,21 +61,23 @@ export default class ProductView {
     this.setupToggleEvent(id);
   }
 
+
   static setupToggleEvent(id) {
-    console.log({id})
+    console.log({ id });
+    console.log('setupToggleEvent', id)
     const togglerBtns = document.querySelectorAll('.toggler-btn');
     togglerBtns.forEach(btn => {
       btn.removeEventListener('click', this.toggleMenu);
       btn.addEventListener('click', this.toggleMenu);
     });
-
+    console.log('togglerBtns: ', togglerBtns.getAttribute('data-id'))
     this.setupEditModalEvent();
     this.setupDeleteModalEvent();
   }
 
   static toggleMenu(event) {
     const id = event.target.getAttribute('data-id');
-    console.log(id)
+    console.log('toggleMenu: ',id)
     const menuBox = document.querySelector(`.menu-box[data-id="${id}"]`);
     if (menuBox) {
       menuBox.classList.toggle('hidden');
@@ -110,3 +111,4 @@ export default class ProductView {
     });
   };
 }
+
