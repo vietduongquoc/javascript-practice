@@ -63,31 +63,7 @@ if (btnCfEdit) {
     }
   });
 };
-//Delete-btns
-let btnDeleteCancel = document.getElementById("cancel-btn-delete");
 
-if (btnDeleteCancel) {
-  btnDeleteCancel.addEventListener('click', function () {
-    let modal = document.querySelector('.delete-modal');
-    if (modal) {
-      modal.classList.toggle("hidden");
-    }
-  });
-}
-
-let btnCfDelete = document.getElementById("confirm-btn-delete");
-
-if (btnCfDelete) {
-  btnCfDelete.addEventListener('click', function async () {
-    // await APIHandler.deleteProduct(productId);
-    console.log('btnCfDelete')
-    let modal = document.querySelector('.delete-modal');
-    if (modal) {
-      modal.classList.toggle("hidden");
-    }
-
-  });
-}
 
 document.addEventListener('DOMContentLoaded', function () {
   APIHandler.get('products')
@@ -133,12 +109,6 @@ document.addEventListener('DOMContentLoaded', function () {
     } catch (error) {
       console.error('Failed to load products:', error);
     };
-
+    location.reload()
   });
 });
-
-
-
-
-
-
