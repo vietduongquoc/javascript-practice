@@ -85,9 +85,7 @@ export default class ProductView {
       productRow.innerHTML = newItemHTML;
     }
 
-    this.setupToggleEvent();
-    this.setupEditModalEvent();
-    this.setupDeleteModalEvent();
+    this.setupToggleEvent(id);
   }
 
 
