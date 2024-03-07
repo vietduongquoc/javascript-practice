@@ -115,13 +115,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
 document.addEventListener('DOMContentLoaded', function () {
   const editProductModal = document.getElementById('editProductModal');
-
   editProductModal.addEventListener('submit', async function (e) {
     e.preventDefault();
 
     // Assuming you have a way to set and get the currently editing product's ID.
     const productId = e.target.getAttribute('data-product-id');
 
+    console.log( productId)
     const editProductName = document.getElementById('edit-productName').value;
     const eidtProductQuantity = document.getElementById('edit-productQuantity').value;
     const editProductPrice = document.getElementById('edit-productPrice').value;
@@ -135,10 +135,10 @@ document.addEventListener('DOMContentLoaded', function () {
       status: editProductStatusDropdown === 'Available',
       brand: eidtProductBrand
     };
-
+    console.log('editedProductData: ', editedProductData)
     // Send the edited product data to the API and process the results
     try {
-      const updatedProduct = await APIHandler.editProduct(`products/${productId}`, editedProductData);
+      const updatedProduct = await APIHandler.editProduct(productId, editedProductData);
 
       // Assuming renderEditProduct is similar to renderNewProduct but for updating the UI with the edited product details.
       // If renderNewProduct can handle both new and updated products, you can call it directly instead.

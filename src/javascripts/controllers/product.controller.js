@@ -63,7 +63,7 @@ const APIHandler = {
   // },
 
 
-  async editProduct(productId) {
+  async editProduct(productId, productData) {
     console.log('editProduct: ', productId)
     try {
       const { BASE_URL, PRODUCTS_ENDPOINT } = API;
@@ -74,20 +74,14 @@ const APIHandler = {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Credentials": true
         },
-        body: JSON.stringify({
-
-        })
+        body: JSON.stringify(productData)
       });
 
       if (!res.ok) {
         throw new Error(`Failed to Edit product with ID: ${productId}`);
       }
 
-
-      console.log('Edit successfully!');
 
       return { isSuccess: true };
     } catch (error) {

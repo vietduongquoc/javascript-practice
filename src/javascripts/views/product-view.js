@@ -147,7 +147,7 @@ export default class ProductView {
   }
   static toggleMenu(event) {
     const id = event.target.getAttribute('data-id');
-    console.log('toggleMenu: ', id)
+    // console.log('toggleMenu: ', id)
     const menuBox = document.querySelector(`.menu-box[data-id="${id}"]`);
     if (menuBox) {
       menuBox.classList.toggle('hidden');
@@ -209,7 +209,7 @@ export default class ProductView {
   };
   static deleteProduct(event) {
     const productId = event.target.getAttribute('data-product-id');
-    console.log('deleteProduct: ', productId)
+    // console.log('deleteProduct: ', productId)
     //Delete-btns
     let btnDeleteCancel = document.getElementById("cancel-btn-delete");
     if (btnDeleteCancel) {
@@ -224,7 +224,7 @@ export default class ProductView {
     if (btnCfDelete) {
       btnCfDelete.addEventListener('click', async function () {
         const result = await APIHandler.deleteProduct(productId);
-        console.log('btnCfDelete: ', productId)
+        // console.log('btnCfDelete: ', productId)
         let modal = document.querySelector('.delete-modal');
         if (modal) {
           modal.classList.toggle("hidden");
