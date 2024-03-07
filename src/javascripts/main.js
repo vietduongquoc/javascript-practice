@@ -1,5 +1,5 @@
 import ProductView from './views/product-view';
-import { APIHandler } from './models/product.model';
+import { APIHandler } from './controllers/product.controller';
 import { API } from './constants/url-api';
 
 

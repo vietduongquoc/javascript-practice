@@ -1,19 +1,21 @@
 import { API } from '../constants/url-api';
-import { APIHandler } from '../models/product.model';
+import { APIHandler } from '../controllers/product.controller';
+import { validateForm } from '../models/user.model';
+
 export default class ProductView {
   static renderProducts(products) {
     const tableElement = document.querySelector('.table');
     products.forEach(product => {
-      const { id, imgUrl, name, brand, price, quantity, status } = product;
+      const { id, name,type, brand, price, quantity, status } = product;
       const btnStatus = status ? 'btn-true' : 'btn-false';
       const textStatus = status ? 'Available' : 'Sold out';
       const productListHTML = `
         <tr>
-          <td class="wrap-img"><img class="img-item" src="${imgUrl}" alt="${name}"><span>${name}</span></td>
+          <td class="wrap-name"><span>${name}</span></td>
           <td><button class="btn btn-status text-status ${btnStatus}">${textStatus}</button></td>
-          <td>${brand}</td>
+          <td>${type}</td>
           <td>${quantity}</td>
-          <td><img src="/gladys.a60930bd.png" alt="glady"></td>
+          <td>${brand}</td>
           <td>$${price}</td>
           <td>
             <img class="toggler-btn" src="/icon-action.07809a11.png" alt="icons-action" data-id="${id}">
@@ -30,16 +32,16 @@ export default class ProductView {
   }
   static renderNewProduct(product) {
     const tableElement = document.querySelector('.table');
-    const { id, name, brand, price, quantity, status } = product;
+    const { id, name, type, brand, price, quantity, status } = product;
     const btnStatus = status ? 'btn-true' : 'btn-false';
     const textStatus = status ? 'Available' : 'Sold out';
     const productListHTML = `
       <tr>
-        <td class="wrap-img"><img class="img-item" src="${imgUrl}" alt="${name}"><span>${name}</span></td>
+        <td class="wrap-name"><span>${name}</span></td>
         <td><button class="btn btn-status text-status ${btnStatus}">${textStatus}</button></td>
-        <td>${brand}</td>
+        <td>${type}</td>
         <td>${quantity}</td>
-        <td><img src="/gladys.a60930bd.png" alt="glady"></td>
+        <td>${brand}</td>
         <td>$${price}</td>
         <td>
             <img class="toggler-btn" src="/icon-action.07809a11.png" alt="icons-action" data-id="${id}">
@@ -54,6 +56,52 @@ export default class ProductView {
     // Call setupToggleEvent again to ensure the setup event for the new product
     this.setupToggleEvent(id);
   }
+
+  renderProductFormPage(data = {}) {
+
+    const {
+      id,
+      name = '',
+      price = '',
+      colors = '',
+      brand = '',
+      imgUrl = ''
+    } = data;
+    let color = '';
+    let hexCnpmode = '';
+
+    if (colors && colors.length > 0) {
+      ({ name: color, hexCode } = colors[0]);
+    }
+
+    const tableElement = document.querySelector('.table');
+
+    const productListHTML = `
+     <tr>
+       <td class="wrap-name"><img class="img-item" src="${imgUrl}" alt="${name}"><span>${name}</span></td>
+        <p data-field-error="Name" class="error-message" id="name-error"></p>
+       <td><button class="btn btn-status text-status ${btnStatus}">${textStatus}</button></td>
+       <td>${brand}</td>
+        <p data-field-error="Brand" class="error-message" id="brand-error"></p>
+       <td>${quantity}</td>
+        <p data-field-error="Quantity" class="error-message" id="quantity-error"></p>
+       <td><img src="/gladys.a60930bd.png" alt="glady"></td>
+       <td>$${price}</td>
+        <p data-field-error="Price" class="error-message" id="price-error"></p>
+       <td>
+        <img class="toggler-btn" src="/icon-action.07809a11.png" alt="icons-action" data-id="${id}">
+        <div class="hidden menu-box" data-id="${id}">
+          <button class="editProductBtn">Edit</button>
+          <button data-product-id="${id}" class="deleteProductBtn">Delete</button>
+        </div>
+       </td>
+     </tr>
+  `;
+    tableElement.innerHTML += productListHTML;
+    // Call setupToggleEvent again to ensure the setup event for the new product
+    this.setupToggleEvent(id);
+  }
+
   static setupToggleEvent(id) {
     console.log({ id });
     console.log('setupToggleEvent', id)
@@ -67,7 +115,7 @@ export default class ProductView {
   }
   static toggleMenu(event) {
     const id = event.target.getAttribute('data-id');
-    console.log('toggleMenu: ',id)
+    console.log('toggleMenu: ', id)
     const menuBox = document.querySelector(`.menu-box[data-id="${id}"]`);
     if (menuBox) {
       menuBox.classList.toggle('hidden');
@@ -93,7 +141,7 @@ export default class ProductView {
       document.getElementById("deleteProductModal").classList.toggle("hidden");
     });
   };
-  static deleteProduct (event) {
+  static deleteProduct(event) {
     const productId = event.target.getAttribute('data-product-id');
     console.log('deleteProduct: ', productId)
     //Delete-btns
