@@ -112,3 +112,49 @@ document.addEventListener('DOMContentLoaded', function () {
     location.reload()
   });
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+  const editProductModal = document.getElementById('editProductModal');
+
+  editProductModal.addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    // Assuming you have a way to set and get the currently editing product's ID.
+    const productId = e.target.getAttribute('data-product-id');
+
+    const editProductName = document.getElementById('edit-productName').value;
+    const eidtProductQuantity = document.getElementById('edit-productQuantity').value;
+    const editProductPrice = document.getElementById('edit-productPrice').value;
+    const editProductStatusDropdown = document.getElementById('edit-status-dropdown').value;
+    const eidtProductBrand = document.getElementById('edit-productBrand').value;
+
+    const editedProductData = {
+      name: editProductName,
+      quantity: eidtProductQuantity,
+      price: editProductPrice,
+      status: editProductStatusDropdown === 'Available',
+      brand: eidtProductBrand
+    };
+
+    // Send the edited product data to the API and process the results
+    try {
+      const updatedProduct = await APIHandler.editProduct(`products/${productId}`, editedProductData);
+
+      // Assuming renderEditProduct is similar to renderNewProduct but for updating the UI with the edited product details.
+      // If renderNewProduct can handle both new and updated products, you can call it directly instead.
+      ProductView.renderEditProduct(updatedProduct);
+    } catch (error) {
+      console.error('Error editing product:', error);
+    }
+
+    // Optionally, fetch and refresh the list of products.
+    try {
+      const data = await APIHandler.get('products');
+      ProductView.renderProducts(data); // Assuming this method exists to render all products
+    } catch (error) {
+      console.error('Failed to load products:', error);
+    };
+
+    // location.reload(); // Or close the modal and update the UI as needed without reloading.
+  });
+});

@@ -38,33 +38,72 @@ const APIHandler = {
     }
   },
 
-  async put(endpoint, data) {
+  // async put(endpoint, data) {
+  //   try {
+  //     const res = await fetch(
+  //       `${API.BASE_URL}/${endpoint}`,
+  //       {
+  //         method: 'PUT',
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //         },
+  //         body: JSON.stringify(data)
+  //       });
+
+  //     if (!res.ok) {
+  //       throw new Error(`Failed to update data to ${endpoint}`);
+  //     }
+
+  //     Toast.success('Product updated successfully!');
+  //   } catch (error) {
+  //     console.error(error);
+
+  //     Toast.error(error.message);
+  //   }
+  // },
+
+
+  async editProduct(productId) {
+    console.log('editProduct: ', productId)
     try {
-      const res = await fetch(
-        `${API.BASE_URL}/${endpoint}`,
-        {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data)
-        });
+      const { BASE_URL, PRODUCTS_ENDPOINT } = API;
+
+      const url = `${BASE_URL}/${PRODUCTS_ENDPOINT}/${productId}`;
+
+      const res = await fetch(url, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Credentials": true
+        },
+        body: JSON.stringify({
+
+        })
+      });
 
       if (!res.ok) {
-        throw new Error(`Failed to update data to ${endpoint}`);
+        throw new Error(`Failed to Edit product with ID: ${productId}`);
       }
 
-      Toast.success('Product updated successfully!');
+
+      console.log('Edit successfully!');
+
+      return { isSuccess: true };
     } catch (error) {
       console.error(error);
 
-      Toast.error(error.message);
+
+      console.error('Error edit product:', error.message);
+
+      return { isSuccess: false };
     }
   },
 
 
+
   async deleteProduct(productId) {
-    console.log('deleteProduct: ',productId)
+    console.log('deleteProduct: ', productId)
     try {
       const { BASE_URL, PRODUCTS_ENDPOINT } = API;
 

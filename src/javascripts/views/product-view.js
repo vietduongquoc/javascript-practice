@@ -6,7 +6,7 @@ export default class ProductView {
   static renderProducts(products) {
     const tableElement = document.querySelector('.table');
     products.forEach(product => {
-      const { id, name,type, brand, price, quantity, status } = product;
+      const { id, name, type, brand, price, quantity, status } = product;
       const btnStatus = status ? 'btn-true' : 'btn-false';
       const textStatus = status ? 'Available' : 'Sold out';
       const productListHTML = `
@@ -20,7 +20,7 @@ export default class ProductView {
           <td>
             <img class="toggler-btn" src="/icon-action.07809a11.png" alt="icons-action" data-id="${id}">
             <div class="hidden menu-box" data-id="${id}">
-              <button class="editProductBtn">Edit</button>
+              <button class="editProductBtn" data-product-id="${id}">Edit</button>
               <button data-product-id="${id}" class="deleteProductBtn">Delete</button>
             </div>
           </td>
@@ -46,7 +46,7 @@ export default class ProductView {
         <td>
             <img class="toggler-btn" src="/icon-action.07809a11.png" alt="icons-action" data-id="${id}">
             <div class="hidden menu-box" data-id="${id}">
-              <button class="editProductBtn">Edit</button>
+              <button class="editProductBtn" data-product-id="${id}">Edit</button>
               <button data-product-id="${id}" class="deleteProductBtn">Delete</button>
             </div>
         </td>
@@ -56,6 +56,40 @@ export default class ProductView {
     // Call setupToggleEvent again to ensure the setup event for the new product
     this.setupToggleEvent(id);
   }
+
+  static renderEditProduct(productId) {
+    const { id, name, type, brand, price, quantity, status } = productId;
+    const btnStatus = status ? 'btn-true' : 'btn-false';
+    const textStatus = status ? 'Available' : 'Sold out';
+
+
+    const newItemHTML = `
+        <td class="wrap-name"><span>${name}</span></td>
+        <td><button class="btn btn-status text-status ${btnStatus}">${textStatus}</button></td>
+        <td>${type}</td>
+        <td>${quantity}</td>
+        <td>${brand}</td>
+        <td>$${price}</td>
+        <td>
+            <img class="toggler-btn" src="/icon-action.07809a11.png" alt="icons-action" data-id="${id}">
+            <div class="hidden menu-box" data-id="${id}">
+              <button class="editProductBtn" data-product-id="${id}">Edit</button>
+              <button data-product-id="${id}" class="deleteProductBtn">Delete</button>
+            </div>
+        </td>
+    `;
+
+    // Tìm hàng (tr) của sản phẩm trong bảng dựa vào id và thay thế nội dung của nó
+    const productRow = document.querySelector(`tr[data-id="${id}"]`); // Giả sử mỗi hàng tr có attribute `data-id`
+    if (productRow) {
+      productRow.innerHTML = newItemHTML;
+    }
+
+    this.setupToggleEvent();
+    this.setupEditModalEvent();
+    this.setupDeleteModalEvent();
+  }
+
 
   renderProductFormPage(data = {}) {
 
@@ -121,17 +155,51 @@ export default class ProductView {
       menuBox.classList.toggle('hidden');
     }
   }
+
+
+
+
   static setupEditModalEvent() {
     const editBtns = document.querySelectorAll('.editProductBtn');
     editBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.getElementById("editProductModal").classList.toggle("hidden");
-      });
+      btn.addEventListener('click', this.editProduct);
     });
     document.getElementById("edit-close").addEventListener('click', () => {
       document.getElementById("editProductModal").classList.toggle("hidden");
     });
   }
+  static editProduct(event) {
+    const productId = event.target.getAttribute('data-product-id');
+    console.log('editProduct: ', productId)
+    //Edit-btns
+    let cancelBtnEdit = document.getElementById("cancelBtnEdit");
+    if (cancelBtnEdit) {
+      cancelBtnEdit.addEventListener('click', function () {
+        let modal = document.querySelector('.edit-modal');
+        if (modal) {
+          modal.classList.toggle("hidden");
+        }
+      });
+    }
+    let confirmBtnEdit = document.getElementById("confirmBtnEdit");
+    if (confirmBtnEdit) {
+      confirmBtnEdit.addEventListener('click', async function () {
+        const result = await APIHandler.editProduct(productId);
+        console.log('confirmBtnEdit: ', productId)
+        let modal = document.querySelector('.edit-modal');
+        if (modal) {
+          modal.classList.toggle("hidden");
+        }
+        // location.reload()
+      });
+    }
+    document.getElementById("editProductModal").classList.toggle("hidden");
+  };
+
+
+
+
+
   static setupDeleteModalEvent() {
     const deleteBtns = document.querySelectorAll('.deleteProductBtn');
     deleteBtns.forEach(btn => {
