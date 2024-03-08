@@ -1,7 +1,7 @@
 import { API } from '../constants/url-api';
 
-const APIHandler = {
-  async get() {
+class APIHandler  {
+  static async get() {
     try {
 
       const res = await fetch(`${API.BASE_URL}/${API.PRODUCTS_ENDPOINT}`);
@@ -15,9 +15,9 @@ const APIHandler = {
       console.error(error);
       showToastify(error.message);
     }
-  },
+  }
 
-  async post(endpoint, product) {
+  static async post(endpoint, product) {
     try {
       const res = await fetch(`${API.BASE_URL}/${endpoint}`, {
         method: 'POST',
@@ -36,7 +36,7 @@ const APIHandler = {
     } catch (error) {
       console.error(error);
     }
-  },
+  }
 
   // async put(endpoint, data) {
   //   try {
@@ -63,40 +63,55 @@ const APIHandler = {
   // },
 
 
-  async editProduct(productId, productData) {
-    console.log('editProduct: ', productId)
-    try {
-      const { BASE_URL, PRODUCTS_ENDPOINT } = API;
+  // async editProduct(productId, productData) {
+  //   console.log('editProduct: ', productId)
+  //   try {
+  //     const { BASE_URL, PRODUCTS_ENDPOINT } = API;
 
-      const url = `${BASE_URL}/${PRODUCTS_ENDPOINT}/${productId}`;
+  //     const url = `${BASE_URL}/${PRODUCTS_ENDPOINT}/${productId}`;
 
-      const res = await fetch(url, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(productData)
-      });
+  //     const res = await fetch(url, {
+  //       method: 'PUT',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify(productData)
+  //     });
 
-      if (!res.ok) {
-        throw new Error(`Failed to Edit product with ID: ${productId}`);
-      }
-
-
-      return { isSuccess: true };
-    } catch (error) {
-      console.error(error);
+  //     if (!res.ok) {
+  //       throw new Error(`Failed to Edit product with ID: ${productId}`);
+  //     }
 
 
-      console.error('Error edit product:', error.message);
+  //     return { isSuccess: true };
+  //   } catch (error) {
+  //     console.error(error);
 
-      return { isSuccess: false };
+
+  //     console.error('Error edit product:', error.message);
+
+  //     return { isSuccess: false };
+  //   }
+  // },
+
+  static async editProduct(productId, editedProductData) {
+    const response = await fetch(`${API.BASE_URL}/products/${productId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(editedProductData),
+    });
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
     }
-  },
+
+    return await response.json();
+  }
 
 
-
-  async deleteProduct(productId) {
+  static async deleteProduct(productId) {
     console.log('deleteProduct: ', productId)
     try {
       const { BASE_URL, PRODUCTS_ENDPOINT } = API;

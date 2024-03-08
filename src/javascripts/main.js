@@ -1,6 +1,6 @@
 import ProductView from './views/product-view';
 import { APIHandler } from './controllers/product.controller';
-import { API } from './constants/url-api';
+
 
 
 // Get the modal
@@ -81,6 +81,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const productName = document.getElementById('productName').value;
     const productQuantity = document.getElementById('productQuantity').value;
+    const productType = document.getElementById('productType').value;
     const productPrice = document.getElementById('productPrice').value;
     const productstatusdropdown = document.getElementById('status-dropdown').value;
     const productBrand = document.getElementById('productBrand').value;
@@ -88,6 +89,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const productData = {
       name: productName,
       quantity: productQuantity,
+      type: productType,
       price: productPrice,
       status: productstatusdropdown,
       brand: productBrand
@@ -121,16 +123,18 @@ document.addEventListener('DOMContentLoaded', function () {
     // Assuming you have a way to set and get the currently editing product's ID.
     const productId = e.target.getAttribute('data-product-id');
 
-    console.log( productId)
+    console.log(productId)
     const editProductName = document.getElementById('edit-productName').value;
-    const eidtProductQuantity = document.getElementById('edit-productQuantity').value;
+    const editProductQuantity = document.getElementById('edit-productQuantity').value;
+    const editProductType = document.getElementById('edit-productType').value;
     const editProductPrice = document.getElementById('edit-productPrice').value;
     const editProductStatusDropdown = document.getElementById('edit-status-dropdown').value;
     const eidtProductBrand = document.getElementById('edit-productBrand').value;
 
     const editedProductData = {
       name: editProductName,
-      quantity: eidtProductQuantity,
+      quantity: editProductQuantity,
+      type: editProductType,
       price: editProductPrice,
       status: editProductStatusDropdown === 'Available',
       brand: eidtProductBrand

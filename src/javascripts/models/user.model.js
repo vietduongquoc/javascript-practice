@@ -1,4 +1,4 @@
-class ProductModel {
+class validateForm {
   constructor(name, quantity, price, status, brand) {
     this.name = name;
     this.quantity = quantity;
@@ -12,11 +12,11 @@ class ProductModel {
   }
 
   validateQuantity() {
-    return this.quantity >= 0; // Số lượng không được âm
+    return this.quantity >= 0;
   }
 
   validatePrice() {
-    return this.price >= 0; // Giá không được âm
+    return this.price >= 0;
   }
 
   validateBrand() {
