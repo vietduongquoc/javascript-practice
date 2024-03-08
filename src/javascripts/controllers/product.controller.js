@@ -1,51 +1,146 @@
-// export default class ProductController {
-//   constructor(view, model) {
-//     this.view = view;
-//     this.model = model;
+import { API } from '../constants/url-api';
 
-//   }
+class APIHandler  {
+  static async get() {
+    try {
 
-//   /**
-//    * Calls displaying products
-//    */
-//   async init() {
-//     await this.displayProducts();
-//     console.log("view" ,view);
-//   }
+      const res = await fetch(`${API.BASE_URL}/${API.PRODUCTS_ENDPOINT}`);
 
-//   /**
-//    * Fetches products from the server and displays them
-//    */
-//   async displayProducts() {
-//     const products = await this.model.getAll();
+      if (!res.ok) {
+        throw new Error('Failed to fetch data');
+      }
+      const data = await res.json();
+      return data;
+    } catch (error) {
+      console.error(error);
+      showToastify(error.message);
+    }
+  }
 
-//     this.view.renderProducts(products);
+  static async post(endpoint, product) {
+    try {
+      const res = await fetch(`${API.BASE_URL}/${endpoint}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(product)
+      });
 
-//     this.bindDeleteProductEvent();
-//   }
+      if (!res.ok) {
+        throw new Error(`Failed to post data to ${API.BASE_URL}/${endpoint}`);
+      }
 
-//   /**
-//    * Binds the delete product event to each delete button
-//    * If the deletion is successful, it re-displays the products
-//    */
-//   bindDeleteProductEvent() {
-//     const btnDeleteElements = document.querySelectorAll('.btn-delete');
+      const data = await res.json();
+      return data;
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
-//     btnDeleteElements.forEach(element => {
-//       element.addEventListener('click', async (e) => {
-//         const target = e.target;
-//         const id = target.data.id;
+  // async put(endpoint, data) {
+  //   try {
+  //     const res = await fetch(
+  //       `${API.BASE_URL}/${endpoint}`,
+  //       {
+  //         method: 'PUT',
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //         },
+  //         body: JSON.stringify(data)
+  //       });
 
-//         const { isSuccess } = await this.model.deleteById(id);
+  //     if (!res.ok) {
+  //       throw new Error(`Failed to update data to ${endpoint}`);
+  //     }
 
-//         if(!isSuccess) {
-//           return Toast.error('Failed to delete the product!');
-//         }
+  //     Toast.success('Product updated successfully!');
+  //   } catch (error) {
+  //     console.error(error);
 
-//         Toast.success('Successfully deleted the product!');
-//         this.displayProducts();
-//       });
-//     });
-//   }
-// }
+  //     Toast.error(error.message);
+  //   }
+  // },
 
+
+  // async editProduct(productId, productData) {
+  //   console.log('editProduct: ', productId)
+  //   try {
+  //     const { BASE_URL, PRODUCTS_ENDPOINT } = API;
+
+  //     const url = `${BASE_URL}/${PRODUCTS_ENDPOINT}/${productId}`;
+
+  //     const res = await fetch(url, {
+  //       method: 'PUT',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify(productData)
+  //     });
+
+  //     if (!res.ok) {
+  //       throw new Error(`Failed to Edit product with ID: ${productId}`);
+  //     }
+
+
+  //     return { isSuccess: true };
+  //   } catch (error) {
+  //     console.error(error);
+
+
+  //     console.error('Error edit product:', error.message);
+
+  //     return { isSuccess: false };
+  //   }
+  // },
+
+  static async editProduct(productId, editedProductData) {
+    const response = await fetch(`${API.BASE_URL}/products/${productId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(editedProductData),
+    });
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+
+    return await response.json();
+  }
+
+
+  static async deleteProduct(productId) {
+    console.log('deleteProduct: ', productId)
+    try {
+      const { BASE_URL, PRODUCTS_ENDPOINT } = API;
+
+      const url = `${BASE_URL}/${PRODUCTS_ENDPOINT}/${productId}`;
+
+      const res = await fetch(url, {
+        method: 'DELETE',
+      });
+
+      if (!res.ok) {
+        throw new Error(`Failed to delete product with ID: ${productId}`);
+      }
+
+
+      console.log('Delete successfully!');
+
+      return { isSuccess: true };
+    } catch (error) {
+      console.error(error);
+
+
+      console.error('Error deleting product:', error.message);
+
+      return { isSuccess: false };
+    }
+  }
+
+}
+
+
+export { APIHandler };

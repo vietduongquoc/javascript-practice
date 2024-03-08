@@ -6,11 +6,13 @@
   <!-- The Modal -->
   <div id="addProductModal" class="add-modal hidden">
     <!-- Modal add-product -->
-    <form class="container modal-content" action="javascript:void(0)">
+    <form class="container modal-content" action="javascript:void(0)" id="Product-replenishment">
       <span id="add-close">&times;</span>
       <h3 class="modal-title">Add new product</h3>
       <label for="Name" class="modal-dcrs">Name</label>
       <input class="input" type="text" id="productName" placeholder="Enter name...">
+      <label for="Type" class="modal-dcrs">Type</label>
+      <input class="input" type="text" id="productType" placeholder="Enter name...">
       <label for="Quantity" class="modal-dcrs">Quantity</label>
       <input class="input" type="number" id="productQuantity" placeholder="0">
       <label for="Price" class="modal-dcrs">Price</label>
@@ -36,6 +38,8 @@
       <h3 class="modal-title">Products Information</h3>
       <label for="Name" class="modal-dcrs">Name</label>
       <input class="input" type="text" id="edit-productName" placeholder="Enter name...">
+      <label for="Type" class="modal-dcrs">Type</label>
+      <input class="input" type="text" id="edit-productType" placeholder="Enter name...">
       <label for="Quantity" class="modal-dcrs">Quantity</label>
       <input class="input" type="number" id="edit-productQuantity" placeholder="0">
       <label for="Price" class="modal-dcrs">Price</label>
@@ -62,7 +66,8 @@
       <h3 class="modal-title-delete">Delete product</h3>
       <p class="modal-dcrs-delete">Are you sure you want to delete this product? This action cannot be undone.</p>
       <div class="button-delete-modal">
-        <button id="cancel-btn-delete" class="modal-dcrs btn-form-cancel button-delete-modal-cancel" type="reset">Cancel</button>
+        <button id="cancel-btn-delete" class="modal-dcrs btn-form-cancel button-delete-modal-cancel"
+          type="reset">Cancel</button>
         <button id="confirm-btn-delete" class="btn-form-cancel button-delete-modal-agree" type="submit">Delete</button>
       </div>
     </div>
@@ -81,7 +86,7 @@
   </div> -->
 
   <!-- Homepage -->
-  <table class="table">
+  <table class="table" id="table-content">
     <tr>
       <th>Product</th>
       <th>Status</th>
