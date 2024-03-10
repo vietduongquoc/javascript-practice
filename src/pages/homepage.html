@@ -11,12 +11,16 @@
       <h3 class="modal-title">Add new product</h3>
       <label for="Name" class="modal-dcrs">Name</label>
       <input class="input" type="text" id="productName" placeholder="Enter name...">
+      <p data-field-error="Name" class="error-message" id="name-error"></p>
       <label for="Type" class="modal-dcrs">Type</label>
       <input class="input" type="text" id="productType" placeholder="Enter name...">
+      <p data-field-error="Type" class="error-message" id="type-error"></p>
       <label for="Quantity" class="modal-dcrs">Quantity</label>
       <input class="input" type="number" id="productQuantity" placeholder="0">
+      <p data-field-error="Quantity" class="error-message" id="quantity-error"></p>
       <label for="Price" class="modal-dcrs">Price</label>
       <input class="input" type="number" id="productPrice" placeholder="0">
+      <p data-field-error="Price" class="error-message" id="price-error"></p>
       <label for="status-dropdown" class="modal-dcrs">Status</label><br>
       <select class="input input-select-status" id="status-dropdown" name="options">
         <option value="option1">Available</option>
@@ -24,6 +28,7 @@
       </select>
       <label for="Brand" class="modal-dcrs">Brand</label>
       <input class="input" type="text" id="productBrand" placeholder="Enter Brand">
+      <p data-field-error="Brand" class="error-message" id="brand-error"></p>
       <div class="button-add-modal">
         <button id="cancelBtnAdd" class="modal-dcrs btn-form-cancel" type="reset">Cancel</button>
         <button id="confirmBtnAdd" class="modal-dcrs-btn btn-form-confirm" type="submit">Confirm</button>
