@@ -30,16 +30,16 @@ if (btnCancel) {
     }
   });
 }
-let btnCfAdd = document.getElementById("confirmBtnAdd");
+// let btnCfAdd = document.getElementById("confirmBtnAdd");
 
-if (btnCfAdd) {
-  btnCfAdd.addEventListener('click', function () {
-    let modal = document.querySelector('.add-modal');
-    if (modal) {
-      modal.classList.toggle("hidden");
-    }
-  });
-};
+// if (btnCfAdd) {
+//   btnCfAdd.addEventListener('click', function () {
+//     let modal = document.querySelector('.add-modal');
+//     if (modal) {
+//       modal.classList.toggle("hidden");
+//     }
+//   });
+// };
 
 //Edit-btns
 let btnEditCancel = document.getElementById("cancelBtnEdit");
@@ -72,93 +72,76 @@ document.addEventListener('DOMContentLoaded', function () {
     })
     .catch(error => console.error('Failed to load products:', error));
 });
-
+console.log(1)
 document.addEventListener('DOMContentLoaded', function () {
   const addProductModal = document.getElementById('addProductModal');
 
-  addProductModal.addEventListener('submit', async function (e) {
-    e.preventDefault();
+  addProductModal.addEventListener('submit', async function (event) {
+    event.preventDefault();
 
-    const productName = document.getElementById('productName').value;
-    const productQuantity = document.getElementById('productQuantity').value;
-    const productType = document.getElementById('productType').value;
-    const productPrice = document.getElementById('productPrice').value;
-    const productstatusdropdown = document.getElementById('status-dropdown').value;
-    const productBrand = document.getElementById('productBrand').value;
+      // Get the values from the form inputs
+      const nameValue = document.getElementById('productName').value;
+      const TypeValue = document.getElementById('productType').value;
+      const QuantityValue = document.getElementById('productQuantity').value;
+      const priceValue = document.getElementById('productPrice').value;
+      const brandValue = document.getElementById('productBrand').value;
 
-    const productData = {
-      name: productName,
-      quantity: productQuantity,
-      type: productType,
-      price: productPrice,
-      status: productstatusdropdown,
-      brand: productBrand
-    };
+      // Create a product object with the form input values
+      const productInputs = {
+        'Name': nameValue,
+        'Price': priceValue,
+        'Brand': brandValue,
+        'Type': TypeValue,
+        'Quantity': QuantityValue,
+      }
 
-    // Send a new data product to the API and process the results
-    try {
-      const product = await APIHandler.post('products', productData);
+      const { formError } = validateForm(productInputs);
 
-      ProductView.renderNewProduct(product)
-    } catch (error) {
-      console.error('Error adding product:', error);
-    }
+      // Generate new error messages based on the validation results
+      generateErrorMessages(formError);
 
-    // Get the list of new products after adding
-    try {
-      const data = await APIHandler.get('products');
-      console.log(data);
-    } catch (error) {
-      console.error('Failed to load products:', error);
-    };
-    // location.reload()
-  });
-});
+      // If there are any validation errors, stop the function
+      const isPassed = Object.values(formError).every(value => value === '');
+      if (!isPassed) {
 
-document.addEventListener('DOMContentLoaded', function () {
-  const editProductModal = document.getElementById('editProductModal');
-  editProductModal.addEventListener('submit', async function (e) {
-    e.preventDefault();
+        return event.stopPropagation();
+      }
 
-    // Assuming you have a way to set and get the currently editing product's ID.
-    const productId = e.target.getAttribute('data-product-id');
+      const product = {
+        name: nameValue,
+        price: priceValue,
+        brand: brandValue,
+        type: TypeValue,
+        quantity: QuantityValue
+      }
 
-    console.log(productId)
-    const editProductName = document.getElementById('edit-productName').value;
-    const editProductQuantity = document.getElementById('edit-productQuantity').value;
-    const editProductType = document.getElementById('edit-productType').value;
-    const editProductPrice = document.getElementById('edit-productPrice').value;
-    const editProductStatusDropdown = document.getElementById('edit-status-dropdown').value;
-    const eidtProductBrand = document.getElementById('edit-productBrand').value;
+      switch (this.action) {
+        case ACTION.ADD: {
+          const { isSuccess } = await this.APIHandler.add(product);
 
-    const editedProductData = {
-      name: editProductName,
-      quantity: editProductQuantity,
-      type: editProductType,
-      price: editProductPrice,
-      status: editProductStatusDropdown === 'Available',
-      brand: eidtProductBrand
-    };
-    console.log('editedProductData: ', editedProductData)
-    // Send the edited product data to the API and process the results
-    try {
-      const updatedProduct = await APIHandler.editProduct(productId, editedProductData);
+          if (!isSuccess) {
+            return Toast.error(ADD_PRODUCT_FAILED_MSG);
+          }
 
-      // Assuming renderEditProduct is similar to renderNewProduct but for updating the UI with the edited product details.
-      // If renderNewProduct can handle both new and updated products, you can call it directly instead.
-      ProductView.renderEditProduct(updatedProduct);
-    } catch (error) {
-      console.error('Error editing product:', error);
-    }
+          Toast.success(ADD_PRODUCT_SUCCESS_MSG);
 
-    // Optionally, fetch and refresh the list of products.
-    try {
-      const data = await APIHandler.get('products');
-      ProductView.renderProducts(data); // Assuming this method exists to render all products
-    } catch (error) {
-      console.error('Failed to load products:', error);
-    };
+          return handleRoute({ href: '/' });
 
-    // location.reload(); // Or close the modal and update the UI as needed without reloading.
+        }
+        case ACTION.EDIT: {
+          const { params } = findRoute(window.location.pathname);
+
+          const { isSuccess } = await this.service.editById(params.id, product);
+
+          if (!isSuccess) {
+            return Toast.error(UPDATE_ITEM_FAILED_MSG);
+          }
+
+          Toast.success(UPDATE_ITEM_SUCCESS_MSG);
+
+        }
+      }
+
+      this.displayProductFormPage();
   });
 });
