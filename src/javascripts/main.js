@@ -111,7 +111,7 @@ document.addEventListener('DOMContentLoaded', function () {
     } catch (error) {
       console.error('Failed to load products:', error);
     };
-    location.reload()
+    // location.reload()
   });
 });
 

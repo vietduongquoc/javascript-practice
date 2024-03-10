@@ -42,6 +42,7 @@
 import { validateForm } from "../models/user.model";
 import { ACTION } from "../constants/action";
 import MESSAGES from '../constants/messages';
+import generateErrorMessages from "../../utils/dom";
 
 export default class ProductFormController {
   constructor(view, APIHandler, action) {

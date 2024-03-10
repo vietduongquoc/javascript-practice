@@ -12,7 +12,7 @@
 /* Modal Content */
 .modal-content {
   background-color: var(--background-color-primary);
-  margin: 145px auto;
+  margin: 25px auto;
   padding: 20px;
 }
 
