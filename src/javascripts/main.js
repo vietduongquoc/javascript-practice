@@ -19,6 +19,16 @@ span.onclick = function () {
   modal.classList.toggle("hidden");
 }
 
+// let btnCancel = document.getElementById("cancelBtnAdd");
+// if (btnCancel) {
+//   btnCancel.addEventListener('click', function () {
+//     let modal = document.querySelector('.add-modal');
+//     if (modal) {
+//       modal.classList.toggle("hidden");
+//     }
+//   });
+// }
+
 
 // let btnCfAdd = document.getElementById("confirmBtnAdd");
 

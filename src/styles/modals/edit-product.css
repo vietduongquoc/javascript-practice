@@ -4,15 +4,17 @@
   left: 0;
   top: 0;
   width: 100%;
-  overflow: auto;
+  height: 100%;
   background-color: #0004;
   z-index: 3;
 }
 
 .edit-modal-content {
   background-color: var(--background-color-primary);
-  margin: 145px auto;
+  margin: 50px auto;
   padding: 20px;
+  height: 600px;
+  overflow: scroll;
 }
 
 /* The Close Button */

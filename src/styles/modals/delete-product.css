@@ -4,17 +4,17 @@
   left: 0;
   top: 0;
   width: 100%;
-  overflow: auto;
+  height: 100%;
   background-color: #0004;
   z-index: 3;
  }
 
 /* Modal Content */
 .delete-modal-content {
-  background-color: var(--background-color-primary);
-  margin: 335px auto;
   padding: 24px;
   width: 400px;
+  background-color: var(--background-color-primary);
+  margin: 50px auto;
 }
 
 /* The Close Button */
