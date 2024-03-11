@@ -1,10 +1,6 @@
 const REGEX_PATTERNS = {
-  wordRegexStr: '\\w+',
   integerRegex: /^-?\d+$/,
   digitRegex: /^-?\d*\.?\d+$/,
-  hexCodeRegex: /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3}|[A-Fa-f0-9]{8})$/,
-  camelCaseRegex: /([a-z])([A-Z])/g,
-  firstCharacterRegex: /^./
 }
 
 let formError = {};
@@ -52,7 +48,7 @@ const validateEmptiness = ({ key, value }) =>
  * @param {string} params.key - The field that needs to check
  * @param {string} params.value - The value of that field
  */
-const validateLength = ({ key, value, min = 6 }) =>
+const validateLength = ({ key, value, min = 3 }) =>
   formError[key] = value.trim().length < min ? `${key} must have at least ${min} characters.` : '';
 
 /**

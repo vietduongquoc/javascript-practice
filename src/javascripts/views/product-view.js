@@ -1,6 +1,7 @@
 import { API } from '../constants/url-api';
 import { APIHandler } from '../controllers/product.controller';
-import { validateForm } from '../models/user.model';
+import validateForm from '../../utils/validateProductForm';
+import generateErrorMessages from '../../utils/dom';
 
 export default class ProductView {
   static renderProducts(products) {
@@ -88,7 +89,6 @@ export default class ProductView {
         </form>
       </div>
     `;
-
     // Assuming this.setupToggleEvent sets up the necessary event listeners
     // You might want to check or implement this method to ensure it behaves as expected.
     this.setupToggleEvent(); // Removed id as it doesn't seem necessary for setting up a toggle event based on provided context
@@ -125,8 +125,6 @@ export default class ProductView {
     const { id, name, type, brand, price, quantity, status } = productId;
     const btnStatus = status ? 'btn-true' : 'btn-false';
     const textStatus = status ? 'Available' : 'Sold out';
-
-
     const newItemHTML = `
         <td class="wrap-name"><span>${name}</span></td>
         <td><button class="btn btn-status text-status ${btnStatus}">${textStatus}</button></td>
@@ -142,20 +140,26 @@ export default class ProductView {
             </div>
         </td>
     `;
-
     const productRow = document.querySelector(`tr[data-id="${id}"]`);
     if (productRow) {
       productRow.innerHTML = newItemHTML;
     }
-
     this.setupToggleEvent(id);
   }
-
-
-
-  static setupToggleEvent(id) {
-    console.log({ id });
-    console.log('setupToggleEvent', id)
+  static AddModalEvent() {
+    let btnCancel = document.getElementById("cancelBtnAdd");
+    if (btnCancel) {
+      btnCancel.addEventListener('click', function () {
+        let modal = document.querySelector('.add-modal');
+        if (modal) {
+          modal.classList.toggle("hidden");
+        }
+      });
+    }
+  }
+  static setupToggleEvent() {
+    // console.log({ id });
+    // console.log('setupToggleEvent', id)
     const togglerBtns = document.querySelectorAll('.toggler-btn');
     togglerBtns.forEach(btn => {
       btn.removeEventListener('click', this.toggleMenu);
@@ -166,16 +170,11 @@ export default class ProductView {
   }
   static toggleMenu(event) {
     const id = event.target.getAttribute('data-id');
-    // console.log('toggleMenu: ', id)
     const menuBox = document.querySelector(`.menu-box[data-id="${id}"]`);
     if (menuBox) {
       menuBox.classList.toggle('hidden');
     }
   }
-
-
-
-
   static setupEditModalEvent() {
     const editBtns = document.querySelectorAll('.editProductBtn');
     editBtns.forEach(btn => {
@@ -187,7 +186,8 @@ export default class ProductView {
   }
   static editProduct(event) {
     const productId = event.target.getAttribute('data-product-id');
-    // console.log('editProduct: ', productId)
+    const elementModal = document.getElementsByClassName('edit-modal-content')
+    elementModal[0].setAttribute("data-product-id", productId);
     //Edit-btns
     let cancelBtnEdit = document.getElementById("cancelBtnEdit");
     if (cancelBtnEdit) {
@@ -212,11 +212,6 @@ export default class ProductView {
     }
     document.getElementById("editProductModal").classList.toggle("hidden");
   };
-
-
-
-
-
   static setupDeleteModalEvent() {
     const deleteBtns = document.querySelectorAll('.deleteProductBtn');
     deleteBtns.forEach(btn => {
@@ -254,6 +249,15 @@ export default class ProductView {
     document.getElementById("deleteProductModal").classList.toggle("hidden");
   };
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+  APIHandler.get('products')
+    .then(data => {
+      ProductView.renderProducts(data);
+    })
+    .catch(error => console.error('Failed to load products:', error));
+});
+
 addProductModal.addEventListener('submit', async function (event) {
   event.preventDefault();
 
@@ -261,6 +265,7 @@ addProductModal.addEventListener('submit', async function (event) {
   const nameValue = document.getElementById('productName').value;
   const TypeValue = document.getElementById('productType').value;
   const QuantityValue = document.getElementById('productQuantity').value;
+  const ProductStatusDropdown = document.getElementById('status-dropdown').value;
   const priceValue = document.getElementById('productPrice').value;
   const brandValue = document.getElementById('productBrand').value;
 
@@ -281,8 +286,7 @@ addProductModal.addEventListener('submit', async function (event) {
   // If there are any validation errors, stop the function
   const isPassed = Object.values(formError).every(value => value === '');
   if (!isPassed) {
-
-    return event.stopPropagation();
+    return;
   }
 
   const product = {
@@ -293,123 +297,67 @@ addProductModal.addEventListener('submit', async function (event) {
     quantity: QuantityValue
   }
 
-  switch (this.action) {
-    case ACTION.ADD: {
-      const { isSuccess } = await this.APIHandler.add(product);
+  // Send a new data product to the API and process the results
+  try {
+    const products = await APIHandler.post('products', product);
 
-      if (!isSuccess) {
-        return Toast.error(ADD_PRODUCT_FAILED_MSG);
-      }
-
-      Toast.success(ADD_PRODUCT_SUCCESS_MSG);
-
-      return handleRoute({ href: '/' });
-
-    }
-    case ACTION.EDIT: {
-      const { params } = findRoute(window.location.pathname);
-
-      const { isSuccess } = await this.service.editById(params.id, product);
-
-      if (!isSuccess) {
-        return Toast.error(UPDATE_ITEM_FAILED_MSG);
-      }
-
-      Toast.success(UPDATE_ITEM_SUCCESS_MSG);
-
-    }
+    ProductView.renderNewProduct(products)
+  } catch (error) {
+    console.error('Error adding product:', error);
   }
 
-  this.displayProductFormPage();
+  // Get the list of new products after adding
+  try {
+    const data = await APIHandler.get('products');
+    console.log(data);
+  } catch (error) {
+    console.error('Failed to load products:', error);
+  };
+  location.reload()
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+  const editProductModal = document.getElementById('editProductModal');
+  editProductModal.addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    // Assuming you have a way to set and get the currently editing product's ID.
+    const productId = e.target.getAttribute('data-product-id');
+
+    console.log(productId)
+    const editProductName = document.getElementById('edit-productName').value;
+    const editProductQuantity = document.getElementById('edit-productQuantity').value;
+    const editProductType = document.getElementById('edit-productType').value;
+    const editProductPrice = document.getElementById('edit-productPrice').value;
+    const editProductBrand = document.getElementById('edit-productBrand').value;
+
+    const editedProductData = {
+      name: editProductName,
+      quantity: editProductQuantity,
+      type: editProductType,
+      price: editProductPrice,
+      brand: editProductBrand
+    };
+    console.log('editedProductData: ', editedProductData)
+    // Send the edited product data to the API and process the results
+    try {
+      const updatedProduct = await APIHandler.editProduct(productId, editedProductData);
+
+      // Assuming renderEditProduct is similar to renderNewProduct but for updating the UI with the edited product details.
+      // If renderNewProduct can handle both new and updated products, you can call it directly instead.
+      ProductView.renderEditProduct(updatedProduct);
+    } catch (error) {
+      console.error('Error editing product:', error);
+    }
+    // Optionally, fetch and refresh the list of products.
+    try {
+      const data = await APIHandler.get('products');
+      ProductView.renderProducts(data); // Assuming this method exists to render all products
+    } catch (error) {
+      console.error('Failed to load products:', error);
+    };
+    location.reload(); // Or close the modal and update the UI as needed without reloading.
+  });
 });
 
 
-// document.addEventListener('DOMContentLoaded', function () {
-//   const addProductModal = document.getElementById('addProductModal');
-
-//   addProductModal.addEventListener('submit', async function (e) {
-//     e.preventDefault();
-
-//     const productName = document.getElementById('productName').value;
-//     const productQuantity = document.getElementById('productQuantity').value;
-//     const productType = document.getElementById('productType').value;
-//     const productPrice = document.getElementById('productPrice').value;
-//     const productstatusdropdown = document.getElementById('status-dropdown').value;
-//     const productBrand = document.getElementById('productBrand').value;
-
-//     const productData = {
-//       name: productName,
-//       quantity: productQuantity,
-//       type: productType,
-//       price: productPrice,
-//       status: productstatusdropdown,
-//       brand: productBrand
-//     };
-
-//     // Send a new data product to the API and process the results
-//     try {
-//       const product = await APIHandler.post('products', productData);
-
-//       ProductView.renderNewProduct(product)
-//     } catch (error) {
-//       console.error('Error adding product:', error);
-//     }
-
-//     // Get the list of new products after adding
-//     try {
-//       const data = await APIHandler.get('products');
-//       console.log(data);
-//     } catch (error) {
-//       console.error('Failed to load products:', error);
-//     };
-//     // location.reload()
-//   });
-// });
-
-// document.addEventListener('DOMContentLoaded', function () {
-//   const editProductModal = document.getElementById('editProductModal');
-//   editProductModal.addEventListener('submit', async function (e) {
-//     e.preventDefault();
-
-//     // Assuming you have a way to set and get the currently editing product's ID.
-//     const productId = e.target.getAttribute('data-product-id');
-
-//     console.log(productId)
-//     const editProductName = document.getElementById('edit-productName').value;
-//     const editProductQuantity = document.getElementById('edit-productQuantity').value;
-//     const editProductType = document.getElementById('edit-productType').value;
-//     const editProductPrice = document.getElementById('edit-productPrice').value;
-//     const editProductStatusDropdown = document.getElementById('edit-status-dropdown').value;
-//     const eidtProductBrand = document.getElementById('edit-productBrand').value;
-
-//     const editedProductData = {
-//       name: editProductName,
-//       quantity: editProductQuantity,
-//       type: editProductType,
-//       price: editProductPrice,
-//       status: editProductStatusDropdown === 'Available',
-//       brand: eidtProductBrand
-//     };
-//     console.log('editedProductData: ', editedProductData)
-//     // Send the edited product data to the API and process the results
-//     try {
-//       const updatedProduct = await APIHandler.editProduct(productId, editedProductData);
-
-//       // Assuming renderEditProduct is similar to renderNewProduct but for updating the UI with the edited product details.
-//       // If renderNewProduct can handle both new and updated products, you can call it directly instead.
-//       ProductView.renderEditProduct(updatedProduct);
-//     } catch (error) {
-//       console.error('Error editing product:', error);
-//     }
-
-//     // Optionally, fetch and refresh the list of products.
-//     try {
-//       const data = await APIHandler.get('products');
-//       ProductView.renderProducts(data); // Assuming this method exists to render all products
-//     } catch (error) {
-//       console.error('Failed to load products:', error);
-//     };
-
-//     // location.reload(); // Or close the modal and update the UI as needed without reloading.
-//   });
-// });
