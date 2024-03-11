@@ -25,6 +25,7 @@
   max-width: 345px;
   margin: 0 auto;
   width: 100%;
+  align-items: center;
 }
 
 @media (min-width: 768px) {
@@ -41,6 +42,7 @@
 
   .container-big {
     max-width: 735px;
+    align-items: normal;
   }
 }
 

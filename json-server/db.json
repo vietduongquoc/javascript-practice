@@ -7,7 +7,8 @@
       "type": "Bravo",
       "quantity": 9117,
       "brand": "Evan Flores",
-      "price": 452.85
+      "price": 452.85,
+      "createdAt": 1710141660
     },
     {
       "id": 2,
@@ -16,7 +17,8 @@
       "type": "Alfa",
       "quantity": 3064,
       "brand": "Arlene Wilson",
-      "price": 901.31
+      "price": 901.31,
+      "createdAt": 1710141660
     },
     {
       "id": "3",
@@ -25,7 +27,8 @@
       "type": "Bravo",
       "quantity": 9195,
       "brand": "Jennie Cooper",
-      "price": 641.2
+      "price": 641.2,
+      "createdAt": 1710141660
     },
     {
       "id": 4,
@@ -34,7 +37,8 @@
       "type": "Alfa",
       "quantity": 3128,
       "brand": "Philip Steward",
-      "price": 510.3
+      "price": 510.3,
+      "createdAt": 1710141660
     },
     {
       "id": 5,
@@ -43,7 +47,8 @@
       "type": "Bravo",
       "quantity": 9892,
       "brand": "Jorge Black",
-      "price": 828.9
+      "price": 828.9,
+      "createdAt": 1710141660
     },
     {
       "id": 6,
@@ -52,7 +57,8 @@
       "type": "Gold",
       "quantity": 9011,
       "brand": "Gladys Jones",
-      "price": 845.59
+      "price": 845.59,
+      "createdAt": 1710141660
     }
 
   ]
