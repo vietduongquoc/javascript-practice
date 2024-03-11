@@ -4,16 +4,18 @@
   left: 0;
   top: 0;
   width: 100%;
-  overflow: auto;
   background-color: #0004;
   z-index: 3;
+  height: 100%;
 }
 
 /* Modal Content */
 .modal-content {
   background-color: var(--background-color-primary);
-  margin: 25px auto;
+  margin: 50px auto;
   padding: 20px;
+  height: 500px;
+  overflow: scroll;
 }
 
 /* The Close Button */
@@ -41,7 +43,7 @@
 
 .modal-dcrs {
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--text-color-primary);
 }
 
@@ -53,3 +55,15 @@
 .button-add-modal {
   text-align: end;
 }
+
+.error-message {
+  color: var(--text-color-red);
+  color: blue;
+}
+
+@media (min-width: 768px) {
+  .modal-content {
+    height: 650px;
+  }
+}
+

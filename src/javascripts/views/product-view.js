@@ -32,6 +32,8 @@ export default class ProductView {
     this.setupToggleEvent();
   }
 
+  renderPagination
+
   renderProductFormPage(data = {}) {
     const {
       ADD_PRODUCT_HEADING,
@@ -146,17 +148,6 @@ export default class ProductView {
     }
     this.setupToggleEvent(id);
   }
-  static AddModalEvent() {
-    let btnCancel = document.getElementById("cancelBtnAdd");
-    if (btnCancel) {
-      btnCancel.addEventListener('click', function () {
-        let modal = document.querySelector('.add-modal');
-        if (modal) {
-          modal.classList.toggle("hidden");
-        }
-      });
-    }
-  }
   static setupToggleEvent() {
     // console.log({ id });
     // console.log('setupToggleEvent', id)
@@ -167,6 +158,18 @@ export default class ProductView {
     });
     this.setupEditModalEvent();
     this.setupDeleteModalEvent();
+    this.AddModalEvent();
+  }
+  static AddModalEvent() {
+    let btnCancel = document.getElementById("cancelBtnAdd");
+    if (btnCancel) {
+      btnCancel.addEventListener('click', function () {
+        let modal = document.querySelector('.add-modal');
+        if (modal) {
+          modal.classList.toggle("hidden");
+        }
+      });
+    }
   }
   static toggleMenu(event) {
     const id = event.target.getAttribute('data-id');

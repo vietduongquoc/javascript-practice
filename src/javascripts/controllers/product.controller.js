@@ -1,19 +1,36 @@
 import { API } from '../constants/url-api';
 
-class APIHandler  {
+class APIHandler {
   static async get() {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const page = urlParams.get('page');
+
+    const url = new URL('https://65dbf3583ea883a15292483f.mockapi.io/api/products');
+
+    if(page) {
+      url.searchParams.append('page', page);
+      url.searchParams.append('limit', '6');
+    }
+
     try {
+      // Use the generated URL with query parameters for the fetch call
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
 
-      const res = await fetch(`${API.BASE_URL}/${API.PRODUCTS_ENDPOINT}`);
-
-      if (!res.ok) {
+      if (!response.ok) {
         throw new Error('Failed to fetch data');
       }
-      const data = await res.json();
+
+      const data = await response.json();
+
       return data;
     } catch (error) {
-      console.error(error);
-      showToastify(error.message);
+      console.error('Error fetching data:', error);
     }
   }
 

@@ -14,7 +14,6 @@
   "license": "ISC",
   "dependencies": {
     "button.css": "^1.0.1",
-    "json-server": "^1.0.0-alpha.23",
     "parcel": "^2.11.0",
     "react-toastify": "^10.0.4",
     "toastify-js": "^1.12.0"
