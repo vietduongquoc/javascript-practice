@@ -14,7 +14,7 @@
   background-color: var(--background-color-primary);
   margin: 50px auto;
   padding: 20px;
-  height: 600px;
+  height: 500px;
   overflow: scroll;
 }
 
@@ -43,7 +43,7 @@
 
 .modal-dcrs {
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--text-color-primary);
 }
 
@@ -60,3 +60,10 @@
   color: var(--text-color-red);
   color: blue;
 }
+
+@media (min-width: 768px) {
+  .modal-content {
+    height: 650px;
+  }
+}
+

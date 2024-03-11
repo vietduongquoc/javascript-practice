@@ -32,6 +32,8 @@ export default class ProductView {
     this.setupToggleEvent();
   }
 
+  renderPagination
+
   renderProductFormPage(data = {}) {
     const {
       ADD_PRODUCT_HEADING,
