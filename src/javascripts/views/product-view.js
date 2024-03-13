@@ -6,6 +6,7 @@ import iconAction from '../../assets/images/icon-action.png';
 
 export default class ProductView {
   static renderProducts(products) {
+    const homepage = document.querySelector('.homepage');
     const tableElement = document.querySelector('.table');
     products.forEach(product => {
       const { id, name, type, brand, price, quantity, status } = product;
@@ -30,6 +31,26 @@ export default class ProductView {
       `;
       tableElement.innerHTML += productListHTML;
     });
+
+    const paginationHTML = `
+        <nav class="pagination-container">
+          <a class="pagination-link" id="prev-button" aria-label="Previous page" title="Previous page">
+            &lt;
+          </a>
+
+          <div id="pagination-numbers">
+            <a class="pagination-link" href="/?page=1">1</a>
+            <a class="pagination-link" href="/?page=2">2</a>
+            <a class="pagination-link" href="/?page=3">3</a>
+          </div>
+
+          <a class="pagination-link" id="next-button" aria-label="Next page" title="Next page">
+            &gt;
+          </a>
+        </nav>
+      `;
+    homepage.innerHTML += paginationHTML;
+    console.log(homepage)
     this.setupToggleEvent();
   }
 

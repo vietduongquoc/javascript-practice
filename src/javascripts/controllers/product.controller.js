@@ -5,13 +5,15 @@ class APIHandler {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const page = urlParams.get('page');
-
+    console.log(page)
     const url = new URL('https://65dbf3583ea883a15292483f.mockapi.io/api/products');
 
     if(page) {
-      url.searchParams.append('page', 1);
-      url.searchParams.append('limit', '6');
+      url.searchParams.append('page', page);
+      url.searchParams.append('limit', '8');
     }
+
+    console.log(url)
 
     try {
       // Use the generated URL with query parameters for the fetch call
@@ -101,3 +103,5 @@ class APIHandler {
 
 }
 export { APIHandler };
+
+
