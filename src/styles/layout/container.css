@@ -6,6 +6,9 @@
   cursor: pointer;
   border-radius: 8px;
   background-color: var(--background-color-primary);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .container-sm {

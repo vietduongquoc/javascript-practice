@@ -1,6 +1,5 @@
 import ProductView from './views/product-view';
 import { APIHandler } from './controllers/product.controller';
-import { validateForm } from './models/user.model';
 import { API } from './constants/url-api';
 
 // Get the modal

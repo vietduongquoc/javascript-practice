@@ -206,7 +206,7 @@ export default class ProductView {
     if (confirmBtnEdit) {
       confirmBtnEdit.addEventListener('click', async function () {
         const result = await APIHandler.editProduct(productId);
-        console.log('confirmBtnEdit: ', productId)
+        // console.log('confirmBtnEdit: ', productId)
         let modal = document.querySelector('.edit-modal');
         if (modal) {
           modal.classList.toggle("hidden");
@@ -269,7 +269,6 @@ addProductModal.addEventListener('submit', async function (event) {
   const nameValue = document.getElementById('productName').value;
   const TypeValue = document.getElementById('productType').value;
   const QuantityValue = document.getElementById('productQuantity').value;
-  const ProductStatusDropdown = document.getElementById('status-dropdown').value;
   const priceValue = document.getElementById('productPrice').value;
   const brandValue = document.getElementById('productBrand').value;
 
@@ -328,7 +327,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Assuming you have a way to set and get the currently editing product's ID.
     const productId = e.target.getAttribute('data-product-id');
 
-    console.log(productId)
+    // console.log(productId)
     const editProductName = document.getElementById('edit-productName').value;
     const editProductQuantity = document.getElementById('edit-productQuantity').value;
     const editProductType = document.getElementById('edit-productType').value;
