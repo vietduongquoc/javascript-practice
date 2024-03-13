@@ -2,6 +2,7 @@ import { API } from '../constants/url-api';
 import { APIHandler } from '../controllers/product.controller';
 import validateForm from '../../utils/validateProductForm';
 import generateErrorMessages from '../../utils/dom';
+import iconAction from '../../assets/images/icon-action.png';
 
 export default class ProductView {
   static renderProducts(products) {
@@ -19,7 +20,7 @@ export default class ProductView {
           <td>${brand}</td>
           <td>$${price}</td>
           <td>
-            <img class="toggler-btn" src="/icon-action.07809a11.png" alt="icons-action" data-id="${id}">
+            <img class="toggler-btn" src="${iconAction}" alt="icons-action" data-id="${id}">
             <div class="hidden menu-box" data-id="${id}">
               <button class="editProductBtn" data-product-id="${id}">Edit</button>
               <button data-product-id="${id}" class="deleteProductBtn">Delete</button>
@@ -110,7 +111,7 @@ export default class ProductView {
         <td>${brand}</td>
         <td>$${price}</td>
         <td>
-            <img class="toggler-btn" src="/icon-action.07809a11.png" alt="icons-action" data-id="${id}">
+            <img class="toggler-btn" src="${iconAction}" alt="icons-action" data-id="${id}">
             <div class="hidden menu-box" data-id="${id}">
               <button class="editProductBtn" data-product-id="${id}">Edit</button>
               <button data-product-id="${id}" class="deleteProductBtn">Delete</button>
@@ -362,5 +363,3 @@ document.addEventListener('DOMContentLoaded', function () {
     location.reload(); // Or close the modal and update the UI as needed without reloading.
   });
 });
-
-
