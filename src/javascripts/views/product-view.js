@@ -27,7 +27,7 @@ export default class ProductView {
   static renderProducts(products) {
     const homepage = document.querySelector('.table');
     const tableElement = document.querySelector('.table');
-    // homepage.innerHTML = ''
+    homepage.innerHTML = ''
     products.forEach(product => {
       const { id, name, type, brand, price, quantity, status } = product;
       const btnStatus = status ? 'btn-true' : 'btn-false';
