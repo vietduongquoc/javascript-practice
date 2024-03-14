@@ -53,7 +53,7 @@ export default class ProductView {
     });
 
     const paginationHTML = `
-        <tr class="pagination-container">
+        <div class="pagination-container">
           <div class="pagination-link" id="prev-button" aria-label="Previous page" title="Previous page">
             &lt;
           </div>
@@ -64,7 +64,7 @@ export default class ProductView {
           <div class="pagination-link" id="next-button" aria-label="Next page" title="Next page">
             &gt;
           </div>
-        <tr>
+        <div>
       `;
     homepage.innerHTML += paginationHTML;
     // console.log(homepage)
