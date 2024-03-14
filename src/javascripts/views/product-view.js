@@ -233,7 +233,7 @@ export default class ProductView {
     document.getElementById('edit-productName').value = document.getElementById(`product-name-${productId}`).innerText
     document.getElementById('edit-productQuantity').value = document.getElementById(`product-quantity-${productId}`).innerText;
     document.getElementById('edit-productType').value = document.getElementById(`product-type-${productId}`).innerText;
-    document.getElementById('edit-productPrice').value = document.getElementById(`product-price-${productId}`).innerText;
+    document.getElementById('edit-productPrice').value = document.getElementById(`product-price-${productId}`).innerText.substring(1); //used to return a portion of a given string from the first index to the last index. Indexing starts from zero (0).
     document.getElementById('edit-productBrand').value = document.getElementById(`product-brand-${productId}`).innerText;
 
     //Edit-btns
