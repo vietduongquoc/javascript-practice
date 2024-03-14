@@ -25,19 +25,15 @@ export default class ProductView {
   }
 
   static renderProducts(products) {
-    const homepage = document.getElementById('table-products');
-
-    // const tableElement = document.querySelector('.table');
-    homepage.innerHTML = '<tr></tr>'
-    // element = document.getElementById("element-id");
-    homepage.parentNode.removeChild(homepage);
-    console.log('homepage ', homepage);
+    const homepage = document.querySelector('.table');
+    const tableElement = document.querySelector('.table');
+    // homepage.innerHTML = ''
     products.forEach(product => {
       const { id, name, type, brand, price, quantity, status } = product;
       const btnStatus = status ? 'btn-true' : 'btn-false';
       const textStatus = status ? 'Available' : 'Sold out';
       const productListHTML = `
-
+        <tr>
         <td id="product-name-${id}"><span>${name}</span></td>
         <td><button class="btn btn-status text-status ${btnStatus}">${textStatus}</button></td>
         <td id="product-type-${id}">${type}</td>
@@ -51,10 +47,9 @@ export default class ProductView {
               <button data-product-id="${id}" class="deleteProductBtn">Delete</button>
             </div>
           </td>
-
+        </tr>
       `;
-      homepage.innerHTML += productListHTML;
-      // console.log();
+      tableElement.innerHTML += productListHTML;
     });
 
     const paginationHTML = `
