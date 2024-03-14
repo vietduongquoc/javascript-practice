@@ -1,17 +1,11 @@
 import { API } from '../constants/url-api';
 
 class APIHandler {
-  static async get() {
+  static async get({ page='1' }) {
     const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    const page = urlParams.get('page');
-
-    const url = new URL('https://65dbf3583ea883a15292483f.mockapi.io/api/products');
-
-    if(page) {
-      url.searchParams.append('page', 1);
-      url.searchParams.append('limit', '6');
-    }
+    // const urlParams = new URLSearchParams(queryString);
+    // const page = urlParams.get('page');
+    const url = new URL(`https://65dbf3583ea883a15292483f.mockapi.io/api/products?page=${page}&limit=8`);
 
     try {
       // Use the generated URL with query parameters for the fetch call
@@ -101,3 +95,4 @@ class APIHandler {
 
 }
 export { APIHandler };
+

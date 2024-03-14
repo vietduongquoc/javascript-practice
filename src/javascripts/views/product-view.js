@@ -5,20 +5,41 @@ import generateErrorMessages from '../../utils/dom';
 import iconAction from '../../assets/images/icon-action.png';
 
 export default class ProductView {
+  static bindClickPagination() {
+    const homepage = document.querySelector('.homepage');
+    homepage.addEventListener('click', (e) => {
+      const target = e.target;
+
+      if (!target.classList.contains('pagination-link')) {
+        return;
+      }
+
+      const page = target.textContent;
+
+      APIHandler.get({ page: page })
+        .then(data => {
+          ProductView.renderProducts(data);
+        })
+        .catch(error => console.error('Failed to load products:', error));
+    });
+  }
+
   static renderProducts(products) {
+    const homepage = document.querySelector('.table');
     const tableElement = document.querySelector('.table');
+    // homepage.innerHTML = ''
     products.forEach(product => {
       const { id, name, type, brand, price, quantity, status } = product;
       const btnStatus = status ? 'btn-true' : 'btn-false';
       const textStatus = status ? 'Available' : 'Sold out';
       const productListHTML = `
         <tr>
-          <td class="wrap-name"><span>${name}</span></td>
-          <td><button class="btn btn-status text-status ${btnStatus}">${textStatus}</button></td>
-          <td>${type}</td>
-          <td>${quantity}</td>
-          <td>${brand}</td>
-          <td>$${price}</td>
+        <td id="product-name-${id}"><span>${name}</span></td>
+        <td><button class="btn btn-status text-status ${btnStatus}">${textStatus}</button></td>
+        <td id="product-type-${id}">${type}</td>
+        <td id="product-quantity-${id}">${quantity}</td>
+        <td id="product-brand-${id}">${brand}</td>
+        <td id="product-price-${id}">$${price}</td>
           <td>
             <img class="toggler-btn" src="${iconAction}" alt="icons-action" data-id="${id}">
             <div class="hidden menu-box" data-id="${id}">
@@ -30,10 +51,26 @@ export default class ProductView {
       `;
       tableElement.innerHTML += productListHTML;
     });
-    this.setupToggleEvent();
-  }
 
-  renderPagination
+    const paginationHTML = `
+        <div class="pagination-container">
+          <div class="pagination-link" id="prev-button" aria-label="Previous page" title="Previous page">
+            &lt;
+          </div>
+              <button class="pagination-link">1</button>
+              <button class="pagination-link">2</button>
+              <button class="pagination-link">3</button>
+
+          <div class="pagination-link" id="next-button" aria-label="Next page" title="Next page">
+            &gt;
+          </div>
+        <div>
+      `;
+    homepage.innerHTML += paginationHTML;
+    // console.log(homepage)
+    this.setupToggleEvent();
+    this.bindClickPagination();
+  }
 
   renderProductFormPage(data = {}) {
     const {
@@ -192,6 +229,13 @@ export default class ProductView {
     const productId = event.target.getAttribute('data-product-id');
     const elementModal = document.getElementsByClassName('edit-modal-content')
     elementModal[0].setAttribute("data-product-id", productId);
+
+    document.getElementById('edit-productName').value = document.getElementById(`product-name-${productId}`).innerText
+    document.getElementById('edit-productQuantity').value = document.getElementById(`product-quantity-${productId}`).innerText;
+    document.getElementById('edit-productType').value = document.getElementById(`product-type-${productId}`).innerText;
+    document.getElementById('edit-productPrice').value = document.getElementById(`product-price-${productId}`).innerText;
+    document.getElementById('edit-productBrand').value = document.getElementById(`product-brand-${productId}`).innerText;
+
     //Edit-btns
     let cancelBtnEdit = document.getElementById("cancelBtnEdit");
     if (cancelBtnEdit) {
@@ -206,7 +250,7 @@ export default class ProductView {
     if (confirmBtnEdit) {
       confirmBtnEdit.addEventListener('click', async function () {
         const result = await APIHandler.editProduct(productId);
-        console.log('confirmBtnEdit: ', productId)
+        // console.log('confirmBtnEdit: ', productId)
         let modal = document.querySelector('.edit-modal');
         if (modal) {
           modal.classList.toggle("hidden");
@@ -253,113 +297,3 @@ export default class ProductView {
     document.getElementById("deleteProductModal").classList.toggle("hidden");
   };
 }
-
-document.addEventListener('DOMContentLoaded', function () {
-  APIHandler.get('products')
-    .then(data => {
-      ProductView.renderProducts(data);
-    })
-    .catch(error => console.error('Failed to load products:', error));
-});
-
-addProductModal.addEventListener('submit', async function (event) {
-  event.preventDefault();
-
-  // Get the values from the form inputs
-  const nameValue = document.getElementById('productName').value;
-  const TypeValue = document.getElementById('productType').value;
-  const QuantityValue = document.getElementById('productQuantity').value;
-  const ProductStatusDropdown = document.getElementById('status-dropdown').value;
-  const priceValue = document.getElementById('productPrice').value;
-  const brandValue = document.getElementById('productBrand').value;
-
-  // Create a product object with the form input values
-  const productInputs = {
-    'Name': nameValue,
-    'Price': priceValue,
-    'Brand': brandValue,
-    'Type': TypeValue,
-    'Quantity': QuantityValue,
-  }
-
-  const { formError } = validateForm(productInputs);
-
-  // Generate new error messages based on the validation results
-  generateErrorMessages(formError);
-
-  // If there are any validation errors, stop the function
-  const isPassed = Object.values(formError).every(value => value === '');
-  if (!isPassed) {
-    return;
-  }
-
-  const product = {
-    name: nameValue,
-    price: priceValue,
-    brand: brandValue,
-    type: TypeValue,
-    quantity: QuantityValue
-  }
-
-  // Send a new data product to the API and process the results
-  try {
-    const products = await APIHandler.post('products', product);
-
-    ProductView.renderNewProduct(products)
-  } catch (error) {
-    console.error('Error adding product:', error);
-  }
-
-  // Get the list of new products after adding
-  try {
-    const data = await APIHandler.get('products');
-    console.log(data);
-  } catch (error) {
-    console.error('Failed to load products:', error);
-  };
-  location.reload()
-});
-
-document.addEventListener('DOMContentLoaded', function () {
-  const editProductModal = document.getElementById('editProductModal');
-  editProductModal.addEventListener('submit', async function (e) {
-    e.preventDefault();
-
-    // Assuming you have a way to set and get the currently editing product's ID.
-    const productId = e.target.getAttribute('data-product-id');
-
-    console.log(productId)
-    const editProductName = document.getElementById('edit-productName').value;
-    const editProductQuantity = document.getElementById('edit-productQuantity').value;
-    const editProductType = document.getElementById('edit-productType').value;
-    const editProductPrice = document.getElementById('edit-productPrice').value;
-    const editProductBrand = document.getElementById('edit-productBrand').value;
-
-    const editedProductData = {
-      name: editProductName,
-      quantity: editProductQuantity,
-      type: editProductType,
-      price: editProductPrice,
-      brand: editProductBrand
-    };
-    console.log('editedProductData: ', editedProductData)
-    // Send the edited product data to the API and process the results
-    try {
-      const updatedProduct = await APIHandler.editProduct(productId, editedProductData);
-
-      // Assuming renderEditProduct is similar to renderNewProduct but for updating the UI with the edited product details.
-      // If renderNewProduct can handle both new and updated products, you can call it directly instead.
-      ProductView.renderEditProduct(updatedProduct);
-    } catch (error) {
-      console.error('Error editing product:', error);
-    }
-    // Optionally, fetch and refresh the list of products.
-    try {
-      const data = await APIHandler.get('products');
-      ProductView.renderProducts(data); // Assuming this method exists to render all products
-    } catch (error) {
-      console.error('Failed to load products:', error);
-    };
-    location.reload(); // Or close the modal and update the UI as needed without reloading.
-  });
-});

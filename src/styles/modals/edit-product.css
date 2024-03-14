@@ -11,10 +11,9 @@
 
 .edit-modal-content {
   background-color: var(--background-color-primary);
-  margin: 50px auto;
+  margin: 150px auto;
   padding: 20px;
   height: 500px;
-  overflow: scroll;
 }
 
 /* The Close Button */
@@ -36,8 +35,6 @@
   font-size: 18px;
   font-weight: 600;
   color: var(--text-color-primary);
-  margin-top: 10px;
-  margin-bottom: 30px;
 }
 
 .modal-dcrs {
@@ -52,6 +49,6 @@
 
 @media (min-width: 768px) {
   .edit-modal-content {
-    height: 650px;
+    height: 560px;
   }
 }
