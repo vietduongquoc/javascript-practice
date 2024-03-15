@@ -1,6 +1,8 @@
 import ProductView from './views/product-view';
 import { APIHandler } from './controllers/product.controller';
 import { API } from './constants/url-api';
+import validateForm from '../utils/validateProductForm';
+import generateErrorMessages from '../utils/dom';
 
 const homePage = document.querySelector('.homepage');
 // Get the modal
@@ -15,14 +17,34 @@ homePage.addEventListener('click', (e) => {
   const modal = document.getElementById("addProductModal");
 
   if (target.id === 'addBtn' || target.id === "add-close") {
+    modal.firstElementChild.reset();
     modal.classList.toggle('hidden');
   }
+
+  else if (target.classList.contains('pagination-link')) {
+    const url = target.getAttribute('href');
+    e.preventDefault();
+    window.history.pushState(null, '', url);
+
+    const page = target.textContent;
+    ProductView.currentPage = parseInt(page);
+
+    APIHandler.get()
+      .then(data => {
+        ProductView.renderProducts(data);
+      })
+      .catch(error => console.error('Failed to load products:', error));
+  }
+
 });
 
 
 
-document.addEventListener('DOMContentLoaded', function () {
-  APIHandler.get({ page: '1' })
+document.addEventListener('DOMContentLoaded', async function () {
+  const dataLength = await APIHandler.getDataLength();
+  ProductView.totalPages = parseInt(dataLength / 8) + 1;
+
+  APIHandler.get()
     .then(data => {
       ProductView.renderProducts(data);
     })
@@ -66,24 +88,29 @@ addProductModal.addEventListener('submit', async function (event) {
     type: TypeValue,
     quantity: QuantityValue
   }
-
+  let targetPage = 1;
   // Send a new data product to the API and process the results
   try {
-    const products = await APIHandler.post('products', product);
+    const dataLength = await APIHandler.getDataLength();
+    targetPage = parseInt((dataLength / 8)) + 1;
 
-    ProductView.renderNewProduct(products)
+    await APIHandler.post('products', product);
+
+    ProductView.totalPages = parseInt((dataLength / 8)) + 1;
+
   } catch (error) {
     console.error('Error adding product:', error);
   }
 
   // Get the list of new products after adding
   try {
-    const data = await APIHandler.get('products');
-    console.log(data);
+    const data = await APIHandler.get({ page: targetPage });
+    addProductModal.classList.toggle('hidden');
+    ProductView.renderProducts(data);
   } catch (error) {
     console.error('Failed to load products:', error);
   };
-  location.reload()
+
 });
 
 document.addEventListener('DOMContentLoaded', function () {

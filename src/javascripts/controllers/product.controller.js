@@ -1,11 +1,41 @@
 import { API } from '../constants/url-api';
 
 class APIHandler {
-  static async get({ page='1' }) {
+  static async getDataLength() {
+    const url = new URL(`https://65dbf3583ea883a15292483f.mockapi.io/api/products`);
+
+    try {
+      // Use the generated URL with query parameters for the fetch call
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch data');
+      }
+
+      const data = await response.json();
+      const dataLength = data.length;
+
+      return dataLength;
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  }
+
+  static async get() {
     const queryString = window.location.search;
-    // const urlParams = new URLSearchParams(queryString);
-    // const page = urlParams.get('page');
-    const url = new URL(`https://65dbf3583ea883a15292483f.mockapi.io/api/products?page=${page}&limit=8`);
+    const url = new URL(`https://65dbf3583ea883a15292483f.mockapi.io/api/products`);
+    const urlParams = new URLSearchParams(queryString);
+    const page = urlParams.get('page');
+
+    if(page) {
+      url.searchParams.append('page', page);
+      url.searchParams.append('limit', '8');
+    }
 
     try {
       // Use the generated URL with query parameters for the fetch call
@@ -65,7 +95,7 @@ class APIHandler {
     return await response.json();
   }
   static async deleteProduct(productId) {
-    console.log('deleteProduct: ', productId)
+    // console.log('deleteProduct: ', productId)
     try {
       const { BASE_URL, PRODUCTS_ENDPOINT } = API;
 
