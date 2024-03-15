@@ -5,7 +5,7 @@ import generateErrorMessages from '../../utils/dom';
 import iconAction from '../../assets/images/icon-action.png';
 
 export default class ProductView {
-  static currentPage = parseInt(new URLSearchParams(window.location.search).get('page'));
+  static currentPage = parseInt(new URLSearchParams(window.location.search).get('page') || '1');
   static totalPages = 0;
 
   static renderProducts(products) {

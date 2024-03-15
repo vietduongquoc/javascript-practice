@@ -32,10 +32,10 @@ class APIHandler {
     const urlParams = new URLSearchParams(queryString);
     const page = urlParams.get('page');
 
-    if(page) {
-      url.searchParams.append('page', page);
+
+      url.searchParams.append('page', page || 1);
       url.searchParams.append('limit', '8');
-    }
+
 
     try {
       // Use the generated URL with query parameters for the fetch call
