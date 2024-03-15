@@ -290,7 +290,7 @@ export default class ProductView {
         if (modal) {
           modal.classList.toggle("hidden");
         }
-        // location.reload()
+        location.reload()
       });
     }
     document.getElementById("deleteProductModal").classList.toggle("hidden");
