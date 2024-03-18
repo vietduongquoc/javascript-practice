@@ -45,12 +45,12 @@ export default class ProductView {
   static renderProducts(products) {
     const tableElement = document.querySelector('.table');
     const rowElement = document.querySelectorAll('.product-row');
-    console.log('tableElement ', tableElement);
+    // console.log('tableElement ', tableElement);
     if (rowElement.length) {
       rowElement.forEach(e => e.remove());
       // rowElement.innerHTML = ''
     }
-    console.log('rowElement ', rowElement);
+    // console.log('rowElement ', rowElement);
     products.forEach(product => {
       const { id, name, type, brand, price, quantity, status } = product;
       const btnStatus = status ? 'btn-true' : 'btn-false';
