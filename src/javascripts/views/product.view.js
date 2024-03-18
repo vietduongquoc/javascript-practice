@@ -5,36 +5,29 @@ import generateErrorMessages from '../../utils/dom';
 import iconAction from '../../assets/images/icon-action.png';
 
 export default class ProductView {
-  static currentPage = parseInt(new URLSearchParams(window.location.search).get('page') || '1');
-  static totalPages = 0;
+  static bindClickPagination() {
+    const homepage = document.querySelector('.homepage');
+    homepage.addEventListener('click', (e) => {
+      const target = e.target;
+
+      if (!target.classList.contains('pagination-link')) {
+        return;
+      }
+
+      const page = target.textContent;
+
+      APIHandler.get({ page: page })
+        .then(data => {
+          ProductView.renderProducts(data);
+        })
+        .catch(error => console.error('Failed to load products:', error));
+    });
+  }
 
   static renderProducts(products) {
     const homepage = document.querySelector('.table');
     const tableElement = document.querySelector('.table');
-    homepage.innerHTML = '';
-
-    const productRowHeaderHTML = `
-      <tr>
-        <th>Product</th>
-        <th>Status</th>
-        <th>Type</th>
-        <th>Quantity</th>
-        <th>Brand</th>
-        <th>Price</th>
-        <th>Action</th>
-      </tr>
-      <tr>
-        <td class="select-search">Search</td>
-        <td class="select-all">All</td>
-        <td class="select-all">All</td>
-        <td class="select-search">Search</td>
-        <td class="select-search">Search</td>
-        <td class="select-search">Search</td>
-        <td></td>
-      </tr>
-    `;
-    tableElement.innerHTML += productRowHeaderHTML;
-
+    homepage.innerHTML = ''
     products.forEach(product => {
       const { id, name, type, brand, price, quantity, status } = product;
       const btnStatus = status ? 'btn-true' : 'btn-false';
@@ -61,16 +54,22 @@ export default class ProductView {
 
     const paginationHTML = `
         <div class="pagination-container">
-            ${this.currentPage === 1 || this.currentPage === 2 ? '': `<a href="/?page=${this.currentPage - 2}" class="pagination-link">${this.currentPage - 2}</a>`}
-            ${this.currentPage === 1 ? '': `<a href="/?page=${this.currentPage - 1}" class="pagination-link">${this.currentPage - 1}</a>`}
-            <a href="/?page=${this.currentPage}" class="current-link pagination-link">${this.currentPage}</a>
-            ${this.totalPages > this.currentPage ? `<a href="/?page=${this.currentPage + 1}" class="pagination-link">${this.currentPage + 1}</a>`: ''}
-            ${this.totalPages > this.currentPage + 1 ? `<a href="/?page=${this.currentPage + 2}" class="pagination-link">${this.currentPage + 2}</a>`: ''}
+          <div class="pagination-link" id="prev-button" aria-label="Previous page" title="Previous page">
+            &lt;
+          </div>
+              <button class="pagination-link">1</button>
+              <button class="pagination-link">2</button>
+              <button class="pagination-link">3</button>
+
+          <div class="pagination-link" id="next-button" aria-label="Next page" title="Next page">
+            &gt;
+          </div>
         <div>
       `;
     homepage.innerHTML += paginationHTML;
     // console.log(homepage)
     this.setupToggleEvent();
+    this.bindClickPagination();
   }
 
   renderProductFormPage(data = {}) {
@@ -188,6 +187,8 @@ export default class ProductView {
     this.setupToggleEvent(id);
   }
   static setupToggleEvent() {
+    // console.log({ id });
+    // console.log('setupToggleEvent', id)
     const togglerBtns = document.querySelectorAll('.toggler-btn');
     togglerBtns.forEach(btn => {
       btn.removeEventListener('click', this.toggleMenu);

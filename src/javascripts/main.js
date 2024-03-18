@@ -1,8 +1,19 @@
-import ProductView from './views/product-view';
+import ProductView from './views/product.view';
 import { APIHandler } from './controllers/product.controller';
 import { API } from './constants/url-api';
 import validateForm from '../utils/validateProductForm';
 import generateErrorMessages from '../utils/dom';
+
+
+// import ProductController from "./controllers/product.controller";
+// import ProductModel from "./models/product.model";
+// import ProductView from "./views/product.view";
+
+// new ProductController(new ProductModel(), new ProductView());
+
+
+
+
 
 const homePage = document.querySelector('.homepage');
 // Get the modal
@@ -156,3 +167,6 @@ document.addEventListener('DOMContentLoaded', function () {
     location.reload(); // Or close the modal and update the UI as needed without reloading.
   });
 });
+
+
+
