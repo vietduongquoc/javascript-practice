@@ -5,41 +5,64 @@ import generateErrorMessages from '../../utils/dom';
 import iconAction from '../../assets/images/icon-action.png';
 
 export default class ProductView {
+  // static bindClickPagination() {
+  //   const homepage = document.querySelector('.homepage');
+  //   homepage.addEventListener('click', (e) => {
+  //     const target = e.target;
+
+  //     if (!target.classList.contains('pagination-link')) {
+  //       return;
+  //     }
+
+  //     const page = target.textContent;
+
+  //     APIHandler.get({ page: page })
+  //       .then(data => {
+  //         ProductView.renderProducts(data);
+  //       })
+  //       .catch(error => console.error('Failed to load products:', error));
+  //   });
+  // }
+
   static bindClickPagination() {
     const homepage = document.querySelector('.homepage');
-    homepage.addEventListener('click', (e) => {
-      const target = e.target;
-
+    homepage.removeEventListener('click', this.handlePagination);
+    homepage.addEventListener('click', this.handlePagination);
+  }
+  static handlePagination(event) {
+    const target = event.target;
       if (!target.classList.contains('pagination-link')) {
         return;
       }
-
       const page = target.textContent;
-
       APIHandler.get({ page: page })
         .then(data => {
           ProductView.renderProducts(data);
         })
         .catch(error => console.error('Failed to load products:', error));
-    });
   }
 
   static renderProducts(products) {
-    const homepage = document.querySelector('.table');
     const tableElement = document.querySelector('.table');
-    homepage.innerHTML = ''
+    const rowElement = document.querySelectorAll('.product-row');
+    console.log('tableElement ', tableElement);
+    if (rowElement.length) {
+      rowElement.forEach(e => e.remove());
+      // rowElement.innerHTML = ''
+    }
+    console.log('rowElement ', rowElement);
     products.forEach(product => {
       const { id, name, type, brand, price, quantity, status } = product;
       const btnStatus = status ? 'btn-true' : 'btn-false';
       const textStatus = status ? 'Available' : 'Sold out';
       const productListHTML = `
-        <tr>
-        <td id="product-name-${id}"><span>${name}</span></td>
-        <td><button class="btn btn-status text-status ${btnStatus}">${textStatus}</button></td>
-        <td id="product-type-${id}">${type}</td>
-        <td id="product-quantity-${id}">${quantity}</td>
-        <td id="product-brand-${id}">${brand}</td>
-        <td id="product-price-${id}">$${price}</td>
+        <tr class="product-row">
+          <td id="product-name-${id}"><span>${name}</span></td>
+          <td><button class="btn btn-status text-status ${btnStatus}">${textStatus}</button></td>
+          <td id="product-type-${id}">${type}</td>
+          <td id="product-quantity-${id}">${quantity}</td>
+          <td id="product-brand-${id}">${brand}</td>
+          <td id="product-price-${id}">$${price}</td>
           <td>
             <img class="toggler-btn" src="${iconAction}" alt="icons-action" data-id="${id}">
             <div class="hidden menu-box" data-id="${id}">
@@ -51,26 +74,75 @@ export default class ProductView {
       `;
       tableElement.innerHTML += productListHTML;
     });
-
-    const paginationHTML = `
-        <div class="pagination-container">
-          <div class="pagination-link" id="prev-button" aria-label="Previous page" title="Previous page">
-            &lt;
-          </div>
-              <button class="pagination-link">1</button>
-              <button class="pagination-link">2</button>
-              <button class="pagination-link">3</button>
-
-          <div class="pagination-link" id="next-button" aria-label="Next page" title="Next page">
-            &gt;
-          </div>
-        <div>
+    if (!rowElement.length) {
+      const paginationElement = document.querySelector('.pagination-container');
+      console.log('paginationElement ', paginationElement)
+      const paginationHTML = `
+        <div class="pagination-link" id="prev-button" aria-label="Previous page" title="Previous page">
+          &lt;
+        </div>
+            <button class="pagination-link">1</button>
+            <button class="pagination-link">2</button>
+            <button class="pagination-link">3</button>
+        <div class="pagination-link" id="next-button" aria-label="Next page" title="Next page">
+          &gt;
+        </div>
       `;
-    homepage.innerHTML += paginationHTML;
-    // console.log(homepage)
+
+      paginationElement.innerHTML += paginationHTML;
+
+    }
     this.setupToggleEvent();
     this.bindClickPagination();
   }
+
+  // static renderProducts(products) {
+  //   const homepage = document.querySelector('.table');
+  //   const tableElement = document.querySelector('.table');
+  //   homepage.innerHTML = ''
+  //   products.forEach(product => {
+  //     const { id, name, type, brand, price, quantity, status } = product;
+  //     const btnStatus = status ? 'btn-true' : 'btn-false';
+  //     const textStatus = status ? 'Available' : 'Sold out';
+  //     const productListHTML = `
+  //       <tr>
+  //       <td id="product-name-${id}"><span>${name}</span></td>
+  //       <td><button class="btn btn-status text-status ${btnStatus}">${textStatus}</button></td>
+  //       <td id="product-type-${id}">${type}</td>
+  //       <td id="product-quantity-${id}">${quantity}</td>
+  //       <td id="product-brand-${id}">${brand}</td>
+  //       <td id="product-price-${id}">$${price}</td>
+  //         <td>
+  //           <img class="toggler-btn" src="${iconAction}" alt="icons-action" data-id="${id}">
+  //           <div class="hidden menu-box" data-id="${id}">
+  //             <button class="editProductBtn" data-product-id="${id}">Edit</button>
+  //             <button data-product-id="${id}" class="deleteProductBtn">Delete</button>
+  //           </div>
+  //         </td>
+  //       </tr>
+  //     `;
+  //     tableElement.innerHTML += productListHTML;
+  //   });
+
+  //   const paginationHTML = `
+  //       <div class="pagination-container">
+  //         <div class="pagination-link" id="prev-button" aria-label="Previous page" title="Previous page">
+  //           &lt;
+  //         </div>
+  //             <button class="pagination-link">1</button>
+  //             <button class="pagination-link">2</button>
+  //             <button class="pagination-link">3</button>
+
+  //         <div class="pagination-link" id="next-button" aria-label="Next page" title="Next page">
+  //           &gt;
+  //         </div>
+  //       <div>
+  //     `;
+  //   homepage.innerHTML += paginationHTML;
+  //   // console.log(homepage)
+  //   this.setupToggleEvent();
+  //   this.bindClickPagination();
+  // }
 
   renderProductFormPage(data = {}) {
     const {
@@ -233,7 +305,7 @@ export default class ProductView {
     document.getElementById('edit-productName').value = document.getElementById(`product-name-${productId}`).innerText
     document.getElementById('edit-productQuantity').value = document.getElementById(`product-quantity-${productId}`).innerText;
     document.getElementById('edit-productType').value = document.getElementById(`product-type-${productId}`).innerText;
-    document.getElementById('edit-productPrice').value = document.getElementById(`product-price-${productId}`).innerText.substring(1); //used to return a portion of a given string from the first index to the last index. Indexing starts from zero (0).
+    document.getElementById('edit-productPrice').value = document.getElementById(`product-price-${productId}`).innerText.substring(1); //used to return the part of the given string from the start index to the end index. Indexing starts from zero (0).
     document.getElementById('edit-productBrand').value = document.getElementById(`product-brand-${productId}`).innerText;
 
     //Edit-btns
