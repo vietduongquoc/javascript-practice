@@ -77,7 +77,7 @@
 
 @media (min-width: 1440px) {
   .loader {
-    max-width: 90px;
-    max-height: 90px;
+    max-width: 50px;
+    max-height: 50px;
   }
 }
