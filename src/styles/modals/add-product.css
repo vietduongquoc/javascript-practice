@@ -17,21 +17,6 @@
   height: 550px;
 }
 
-/* The Close Button */
-#add-close {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-#add-close:hover,
-#add-close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
-}
-
 .modal-title {
   font-size: 18px;
   font-weight: 600;

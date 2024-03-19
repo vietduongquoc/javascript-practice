@@ -5,30 +5,36 @@ import ProductView from "./views/product.view"
 // new ProductController(new ProductModel(), new ProductView());
 
 
-const homePage = document.querySelector('.homepage');
-// Get the button that opens the modal
-const btn = document.getElementById("addBtn");
+function showLoader() {
+  document.getElementById('loader').style.display = 'block';
+}
 
-homePage.addEventListener('click', (e) => {
-  const target = e.target;
-  const modal = document.getElementById("addProductModal");
-  if (target.id === 'addBtn' || target.id === "add-close") {
-    modal.firstElementChild.reset();
-    modal.classList.toggle('hidden');
-  }
-  else if (target.classList.contains('pagination-link')) {
-    const url = target.getAttribute('href');
-    e.preventDefault();
-    window.history.pushState(null, '', url);
-    const page = target.textContent;
-    ProductView.currentPage = parseInt(page);
+// Hàm để ẩn biểu tượng tải
+function hideLoader() {
+  document.getElementById('loader').style.display = 'none';
+}
 
-    ProductModel.get()
-      .then(data => {
-        ProductView.renderProducts(data);
-      })
-      .catch(error => console.error('Failed to load products:', error));
+// Hàm gọi API và thực hiện hiển thị/ẩn biểu tượng tải
+async function callAPI() {
+  try {
+    showLoader(); // Hiển thị biểu tượng tải trước khi gọi API
+
+    const response = await fetch('https://api.example.com/data');
+    if (!response.ok) {
+      throw new Error('Failed to fetch data');
+    }
+
+    const data = await response.json();
+    console.log(data); // Xử lý dữ liệu từ API
+
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  } finally {
+    hideLoader(); // Ẩn biểu tượng tải sau khi nhận được phản hồi từ API
   }
-});
+}
+
+// Gọi hàm để thực hiện gọi API và xử lý dữ liệu
+callAPI();
 
 
