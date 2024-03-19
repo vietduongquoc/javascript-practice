@@ -53,7 +53,9 @@ export default class ProductModel {
   }
 
   static async post(endpoint, product) {
+    const loader = document.querySelector('.loader');
     try {
+      loader.classList.toggle('hidden');
       const res = await fetch(`${API.BASE_URL}/${endpoint}`, {
         method: 'POST',
         headers: {
@@ -69,24 +71,39 @@ export default class ProductModel {
     } catch (error) {
       console.error(error);
     }
+    finally {
+      loader.classList.toggle('hidden');
+    }
   }
 
   static async editProduct(productId, editedProductData) {
-    const response = await fetch(`${API.BASE_URL}/products/${productId}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(editedProductData),
-    });
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
+    const loader = document.querySelector('.loader');
+    try {
+      loader.classList.toggle('hidden');
+      const response = await fetch(`${API.BASE_URL}/products/${productId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(editedProductData),
+      });
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await res.json();
+      return data;
+    } catch (error) {
+      console.error(error);
     }
-    return await response.json();
+    finally {
+      loader.classList.toggle('hidden');
+    }
+      // return await response.json();
   }
   static async deleteProduct(productId) {
-    // console.log('deleteProduct: ', productId)
+    const loader = document.querySelector('.loader');
     try {
+      loader.classList.toggle('hidden');
       const { BASE_URL, PRODUCTS_ENDPOINT } = API;
       const url = `${BASE_URL}/${PRODUCTS_ENDPOINT}/${productId}`;
       const res = await fetch(url, {
@@ -101,6 +118,9 @@ export default class ProductModel {
       console.error(error);
       console.error('Error deleting product:', error.message);
       return { isSuccess: false };
+    }
+    finally {
+      loader.classList.toggle('hidden');
     }
   }
 }
