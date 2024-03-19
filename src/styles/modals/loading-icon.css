@@ -1,4 +1,5 @@
 .loader {
+  top: 500;
   position: fixed;
   width: 100%;
   background-color: #0004;
