@@ -100,6 +100,7 @@ export default class ProductModel {
     }
       // return await response.json();
   }
+
   static async deleteProduct(productId) {
     const loader = document.querySelector('.loader');
     try {
