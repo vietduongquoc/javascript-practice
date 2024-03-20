@@ -30,6 +30,8 @@ export default class ProductModel {
     const page = urlParams.get('page');
     url.searchParams.append('page', page || 1);
     url.searchParams.append('limit', '8');
+    url.searchParams.append('sortBy', 'createdAt');
+    url.searchParams.append('order', 'desc');
     try {
       loader.classList.toggle('hidden');
       // Use the generated URL with query parameters for the fetch call

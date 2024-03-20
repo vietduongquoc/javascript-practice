@@ -142,7 +142,7 @@ export default class ProductView {
     const textStatus = status ? 'Available' : 'Sold out';
     const productListHTML = `
       <tr>
-        <td class="wrap-name"><span>${name}</span></td>
+        <td><span>${name}</span></td>
         <td><button class="btn btn-status text-status ${btnStatus}">${textStatus}</button></td>
         <td>${type}</td>
         <td>${quantity}</td>
