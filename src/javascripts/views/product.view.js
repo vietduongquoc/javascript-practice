@@ -1,29 +1,9 @@
-import { API } from '../constants/url-api';
-import { APIHandler } from '../controllers/product.controller';
+import ProductModel from '../models/product.model';
 import validateForm from '../../utils/validateProductForm';
 import generateErrorMessages from '../../utils/dom';
 import iconAction from '../../assets/images/icon-action.png';
 
 export default class ProductView {
-  // static bindClickPagination() {
-  //   const homepage = document.querySelector('.homepage');
-  //   homepage.addEventListener('click', (e) => {
-  //     const target = e.target;
-
-  //     if (!target.classList.contains('pagination-link')) {
-  //       return;
-  //     }
-
-  //     const page = target.textContent;
-
-  //     APIHandler.get({ page: page })
-  //       .then(data => {
-  //         ProductView.renderProducts(data);
-  //       })
-  //       .catch(error => console.error('Failed to load products:', error));
-  //   });
-  // }
-
   static bindClickPagination() {
     const homepage = document.querySelector('.homepage');
     homepage.removeEventListener('click', this.handlePagination);
@@ -35,12 +15,13 @@ export default class ProductView {
         return;
       }
       const page = target.textContent;
-      APIHandler.get({ page: page })
+      ProductModel.get({ page: page })
         .then(data => {
           ProductView.renderProducts(data);
         })
         .catch(error => console.error('Failed to load products:', error));
   }
+    // console.log('rowElement ', rowElement);
 
   static renderProducts(products) {
     const tableElement = document.querySelector('.table');
@@ -88,61 +69,11 @@ export default class ProductView {
           &gt;
         </div>
       `;
-
       paginationElement.innerHTML += paginationHTML;
-
     }
     this.setupToggleEvent();
     this.bindClickPagination();
   }
-
-  // static renderProducts(products) {
-  //   const homepage = document.querySelector('.table');
-  //   const tableElement = document.querySelector('.table');
-  //   homepage.innerHTML = ''
-  //   products.forEach(product => {
-  //     const { id, name, type, brand, price, quantity, status } = product;
-  //     const btnStatus = status ? 'btn-true' : 'btn-false';
-  //     const textStatus = status ? 'Available' : 'Sold out';
-  //     const productListHTML = `
-  //       <tr>
-  //       <td id="product-name-${id}"><span>${name}</span></td>
-  //       <td><button class="btn btn-status text-status ${btnStatus}">${textStatus}</button></td>
-  //       <td id="product-type-${id}">${type}</td>
-  //       <td id="product-quantity-${id}">${quantity}</td>
-  //       <td id="product-brand-${id}">${brand}</td>
-  //       <td id="product-price-${id}">$${price}</td>
-  //         <td>
-  //           <img class="toggler-btn" src="${iconAction}" alt="icons-action" data-id="${id}">
-  //           <div class="hidden menu-box" data-id="${id}">
-  //             <button class="editProductBtn" data-product-id="${id}">Edit</button>
-  //             <button data-product-id="${id}" class="deleteProductBtn">Delete</button>
-  //           </div>
-  //         </td>
-  //       </tr>
-  //     `;
-  //     tableElement.innerHTML += productListHTML;
-  //   });
-
-  //   const paginationHTML = `
-  //       <div class="pagination-container">
-  //         <div class="pagination-link" id="prev-button" aria-label="Previous page" title="Previous page">
-  //           &lt;
-  //         </div>
-  //             <button class="pagination-link">1</button>
-  //             <button class="pagination-link">2</button>
-  //             <button class="pagination-link">3</button>
-
-  //         <div class="pagination-link" id="next-button" aria-label="Next page" title="Next page">
-  //           &gt;
-  //         </div>
-  //       <div>
-  //     `;
-  //   homepage.innerHTML += paginationHTML;
-  //   // console.log(homepage)
-  //   this.setupToggleEvent();
-  //   this.bindClickPagination();
-  // }
 
   renderProductFormPage(data = {}) {
     const {
@@ -150,7 +81,6 @@ export default class ProductView {
       EDIT_PRODUCT_HEADING
     } = MESSAGES;
     const headingPage = Object.keys(data).length === 0 ? ADD_PRODUCT_HEADING : EDIT_PRODUCT_HEADING;
-
     // Destructure with default values to handle new product case (data = {})
     const {
       id = '', // Default to an empty string if id is not present
@@ -160,13 +90,10 @@ export default class ProductView {
       brand = '',
       type = ''
     } = data;
-
     // It's getElementById, not getElementById, and should be called on document
     const tableContent = document.getElementById('table-content');
-
     // Check if the id attribute should be included
     const productIdAttribute = id ? `data-product-id="${id}"` : '';
-
     tableContent.innerHTML = `
       <div id="addProductModal" class="add-modal hidden">
         <form class="container modal-content" action="javascript:void(0)" ${productIdAttribute} id="product-form">
@@ -258,9 +185,8 @@ export default class ProductView {
     }
     this.setupToggleEvent(id);
   }
+
   static setupToggleEvent() {
-    // console.log({ id });
-    // console.log('setupToggleEvent', id)
     const togglerBtns = document.querySelectorAll('.toggler-btn');
     togglerBtns.forEach(btn => {
       btn.removeEventListener('click', this.toggleMenu);
@@ -270,6 +196,7 @@ export default class ProductView {
     this.setupDeleteModalEvent();
     this.AddModalEvent();
   }
+
   static AddModalEvent() {
     let btnCancel = document.getElementById("cancelBtnAdd");
     if (btnCancel) {
@@ -280,14 +207,16 @@ export default class ProductView {
         }
       });
     }
-  }
+  };
+
   static toggleMenu(event) {
     const id = event.target.getAttribute('data-id');
     const menuBox = document.querySelector(`.menu-box[data-id="${id}"]`);
     if (menuBox) {
       menuBox.classList.toggle('hidden');
     }
-  }
+  };
+
   static setupEditModalEvent() {
     const editBtns = document.querySelectorAll('.editProductBtn');
     editBtns.forEach(btn => {
@@ -296,7 +225,8 @@ export default class ProductView {
     document.getElementById("edit-close").addEventListener('click', () => {
       document.getElementById("editProductModal").classList.toggle("hidden");
     });
-  }
+  };
+
   static editProduct(event) {
     const productId = event.target.getAttribute('data-product-id');
     const elementModal = document.getElementsByClassName('edit-modal-content')
@@ -321,7 +251,7 @@ export default class ProductView {
     let confirmBtnEdit = document.getElementById("confirmBtnEdit");
     if (confirmBtnEdit) {
       confirmBtnEdit.addEventListener('click', async function () {
-        const result = await APIHandler.editProduct(productId);
+        const result = await ProductModel.editProduct(productId);
         // console.log('confirmBtnEdit: ', productId)
         let modal = document.querySelector('.edit-modal');
         if (modal) {
@@ -357,7 +287,7 @@ export default class ProductView {
     let btnCfDelete = document.getElementById("confirm-btn-delete");
     if (btnCfDelete) {
       btnCfDelete.addEventListener('click', async function () {
-        const result = await APIHandler.deleteProduct(productId);
+        const result = await ProductModel.deleteProduct(productId);
         // console.log('btnCfDelete: ', productId)
         let modal = document.querySelector('.delete-modal');
         if (modal) {
@@ -369,3 +299,127 @@ export default class ProductView {
     document.getElementById("deleteProductModal").classList.toggle("hidden");
   };
 }
+
+document.addEventListener('DOMContentLoaded', async function () {
+  const dataLength = await ProductModel.getDataLength();
+  ProductView.totalPages = parseInt(dataLength / 8) + 1;
+
+  ProductModel.get()
+    .then(data => {
+      ProductView.renderProducts(data);
+    })
+    .catch(error => console.error('Failed to load products:', error));
+});
+
+addProductModal.addEventListener('submit', async function (event) {
+  event.preventDefault();
+
+  // Get the values from the form inputs
+  const nameValue = document.getElementById('productName').value;
+  const TypeValue = document.getElementById('productType').value;
+  const QuantityValue = document.getElementById('productQuantity').value;
+  const priceValue = document.getElementById('productPrice').value;
+  const brandValue = document.getElementById('productBrand').value;
+
+  // Create a product object with the form input values
+  const productInputs = {
+    'Name': nameValue,
+    'Price': priceValue,
+    'Brand': brandValue,
+    'Type': TypeValue,
+    'Quantity': QuantityValue,
+  }
+
+  const { formError } = validateForm(productInputs);
+
+  // Generate new error messages based on the validation results
+  generateErrorMessages(formError);
+
+  // If there are any validation errors, stop the function
+  const isPassed = Object.values(formError).every(value => value === '');
+  if (!isPassed) {
+    return;
+  }
+
+  const product = {
+    name: nameValue,
+    price: priceValue,
+    brand: brandValue,
+    type: TypeValue,
+    quantity: QuantityValue
+  }
+  let targetPage = 1;
+  // Send a new data product to the API and process the results
+  try {
+    const dataLength = await ProductModel.getDataLength();
+    targetPage = parseInt((dataLength / 8)) + 1;
+
+    await ProductModel.post('products', product);
+
+    ProductView.totalPages = parseInt((dataLength / 8)) + 1;
+
+  } catch (error) {
+    console.error('Error adding product:', error);
+  }
+
+  // Get the list of new products after adding
+  try {
+    const data = await ProductModel.get({ page: targetPage });
+    addProductModal.classList.toggle('hidden');
+    ProductView.renderProducts(data);
+  } catch (error) {
+    console.error('Failed to load products:', error);
+  };
+
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+  const editProductModal = document.getElementById('editProductModal');
+  editProductModal.addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    // Assuming you have a way to set and get the currently editing product's ID.
+    const productId = e.target.getAttribute('data-product-id');
+
+    // console.log(productId)
+    const editProductName = document.getElementById('edit-productName').value;
+    const editProductQuantity = document.getElementById('edit-productQuantity').value;
+    const editProductType = document.getElementById('edit-productType').value;
+    const editProductPrice = document.getElementById('edit-productPrice').value;
+    const editProductBrand = document.getElementById('edit-productBrand').value;
+
+    const editedProductData = {
+      name: editProductName,
+      quantity: editProductQuantity,
+      type: editProductType,
+      price: editProductPrice,
+      brand: editProductBrand
+    };
+    console.log('editedProductData: ', editedProductData)
+    // Send the edited product data to the API and process the results
+    try {
+      const updatedProduct = await ProductModel.editProduct(productId, editedProductData);
+
+      // Assuming renderEditProduct is similar to renderNewProduct but for updating the UI with the edited product details.
+      // If renderNewProduct can handle both new and updated products, you can call it directly instead.
+      ProductView.renderEditProduct(updatedProduct);
+    } catch (error) {
+      console.error('Error editing product:', error);
+    }
+    // Optionally, fetch and refresh the list of products.
+    try {
+      const data = await ProductModel.get('products');
+      ProductView.renderProducts(data); // Assuming this method exists to render all products
+    } catch (error) {
+      console.error('Failed to load products:', error);
+    };
+    location.reload(); // Or close the modal and update the UI as needed without reloading.
+  });
+});
+
+
+
+
+
+
+

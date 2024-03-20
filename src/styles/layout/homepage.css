@@ -66,10 +66,9 @@ td {
 
 .pagination-container {
   margin-top: 30px;
-  width: 100px;
   display: flex;
+  justify-content: center;
   border-bottom: 0.5px solid #ffffff;
-  /* padding: 10px; */
 }
 
 .pagination-link {
@@ -80,9 +79,7 @@ td {
   border-radius: 8px;
   border: none;
   background-color: var(--background-color-primary);
-  margin-left: 55px;
   text-decoration: none;
-  margin-right: 15px;
 }
 
 .current-link {
@@ -93,8 +90,6 @@ td {
   color: var(--text-collor-white);
   background-color: var(--background-color-second);
 }
-
-
 
 @media (min-width: 768px) {
   h1 {
@@ -162,18 +157,12 @@ td {
     z-index: 2;
   }
 
-  .page-link {
-    font-weight: 600;
-    font-size: 14px;
-    min-width: 50px;
-    padding: 10px;
-  }
-
   .pagination-link {
     font-size: 18px;
     font-weight: 700;
     border-radius: 8px;
-    margin-left: 130px;
+    padding: 10px 20px;
+    margin-right: 10px;
   }
 }
 
@@ -230,8 +219,7 @@ td {
     font-size: 18px;
     font-weight: 700;
     border-radius: 8px;
-    margin-left: 200px;
-    text-decoration: none;
+    padding: 15px 25px;
   }
 
   .pagination-container {
