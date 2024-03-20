@@ -6,7 +6,6 @@ import iconAction from '../../assets/images/icon-action.png';
 export default class ProductView {
   static currentPage = parseInt(new URLSearchParams(window.location.search).get('page') || '1');
   static totalPages = 0;
-
   static bindClickPagination() {
     const homepage = document.querySelector('.homepage');
     homepage.removeEventListener('click', this.handlePagination);
@@ -14,15 +13,15 @@ export default class ProductView {
   }
   static handlePagination(event) {
     const target = event.target;
-      if (!target.classList.contains('pagination-link')) {
-        return;
-      }
-      const page = target.textContent;
-      ProductModel.get({ page: page })
-        .then(data => {
-          ProductView.renderProducts(data);
-        })
-        .catch(error => console.error('Failed to load products:', error));
+    if (!target.classList.contains('pagination-link')) {
+      return;
+    }
+    const page = target.textContent;
+    ProductModel.get({ page: page })
+      .then(data => {
+        ProductView.renderProducts(data);
+      })
+      .catch(error => console.error('Failed to load products:', error));
   }
 
   static renderProducts(products) {
@@ -31,9 +30,7 @@ export default class ProductView {
     // console.log('tableElement ', tableElement);
     if (rowElement.length) {
       rowElement.forEach(e => e.remove());
-      // rowElement.innerHTML = ''
     }
-    // console.log('rowElement ', rowElement);
     products.forEach(product => {
       const { id, name, type, brand, price, quantity, status } = product;
       const btnStatus = status ? 'btn-true' : 'btn-false';
@@ -61,11 +58,17 @@ export default class ProductView {
       const paginationElement = document.querySelector('.pagination-container');
       // console.log(this.currentPage, this.totalPages)
       const paginationHTML = `
-        ${this.currentPage === 1 || this.currentPage === 2 ? '': `<a href="/?page=${this.currentPage - 2}" class="pagination-link">${this.currentPage - 2}</a>`}
-        ${this.currentPage === 1 ? '': `<a href="/?page=${this.currentPage - 1}" class="pagination-link">${this.currentPage - 1}</a>`}
+        <div id="prev-button" aria-label="Previous page" title="Previous page">
+        &lt;
+        </div>
+        ${this.currentPage === 1 || this.currentPage === 2 ? '' : `<a href="/?page=${this.currentPage - 2}" class="pagination-link">${this.currentPage - 2}</a>`}
+        ${this.currentPage === 1 ? '' : `<a href="/?page=${this.currentPage - 1}" class="pagination-link">${this.currentPage - 1}</a>`}
         <a href="/?page=${this.currentPage}" class="pagination-link">${this.currentPage}</a>
-        ${this.totalPages > this.currentPage ? `<a href="/?page=${this.currentPage + 1}" class="pagination-link">${this.currentPage + 1}</a>`: ''}
-        ${this.totalPages > this.currentPage + 1 ? `<a href="/?page=${this.currentPage + 2}" class="pagination-link">${this.currentPage + 2}</a>`: ''}
+        ${this.totalPages > this.currentPage ? `<a href="/?page=${this.currentPage + 1}" class="pagination-link">${this.currentPage + 1}</a>` : ''}
+        ${this.totalPages > this.currentPage + 1 ? `<a href="/?page=${this.currentPage + 2}" class="pagination-link">${this.currentPage + 2}</a>` : ''}
+        <div id="next-button" aria-label="Next page" title="Next page">
+            &gt;
+        </div>
       `;
       paginationElement.innerHTML += paginationHTML;
     }
@@ -92,6 +95,7 @@ export default class ProductView {
     const tableContent = document.getElementById('table-content');
     // Check if the id attribute should be included
     const productIdAttribute = id ? `data-product-id="${id}"` : '';
+
     tableContent.innerHTML = `
       <div id="addProductModal" class="add-modal hidden">
         <form class="container modal-content" action="javascript:void(0)" ${productIdAttribute} id="product-form">
@@ -233,7 +237,7 @@ export default class ProductView {
     document.getElementById('edit-productName').value = document.getElementById(`product-name-${productId}`).innerText
     document.getElementById('edit-productQuantity').value = document.getElementById(`product-quantity-${productId}`).innerText;
     document.getElementById('edit-productType').value = document.getElementById(`product-type-${productId}`).innerText;
-    document.getElementById('edit-productPrice').value = document.getElementById(`product-price-${productId}`).innerText.substring(1); //used to return the part of the given string from the start index to the end index. Indexing starts from zero (0).
+    document.getElementById('edit-productPrice').value = document.getElementById(`product-price-${productId}`).innerText.substring(1);
     document.getElementById('edit-productBrand').value = document.getElementById(`product-brand-${productId}`).innerText;
 
     //Edit-btns
@@ -260,6 +264,7 @@ export default class ProductView {
     }
     document.getElementById("editProductModal").classList.toggle("hidden");
   };
+
   static setupDeleteModalEvent() {
     const deleteBtns = document.querySelectorAll('.deleteProductBtn');
     deleteBtns.forEach(btn => {
@@ -269,9 +274,9 @@ export default class ProductView {
       document.getElementById("deleteProductModal").classList.toggle("hidden");
     });
   };
+
   static deleteProduct(event) {
     const productId = event.target.getAttribute('data-product-id');
-    // console.log('deleteProduct: ', productId)
     //Delete-btns
     let btnDeleteCancel = document.getElementById("cancel-btn-delete");
     if (btnDeleteCancel) {

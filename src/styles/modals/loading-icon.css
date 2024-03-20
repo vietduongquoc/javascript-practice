@@ -11,9 +11,9 @@
   border-top: 5px solid rgba(17, 223, 17, 0.712);
   max-width: 40px;
   max-height: 40px;
-  -webkit-animation: spin 4s linear infinite;
+  -webkit-animation: spin 2s linear infinite;
   /* Safari */
-  animation: spin 3s linear infinite;
+  animation: spin 2s linear infinite;
   border-bottom: 5px solid rgba(17, 223, 17, 0.712);
   border-right: 5px solid #f3f3f3;
   margin: 0 auto;
