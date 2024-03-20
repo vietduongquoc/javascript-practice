@@ -4,6 +4,9 @@ import generateErrorMessages from '../../utils/dom';
 import iconAction from '../../assets/images/icon-action.png';
 
 export default class ProductView {
+  static currentPage = parseInt(new URLSearchParams(window.location.search).get('page') || '1');
+  static totalPages = 0;
+
   static bindClickPagination() {
     const homepage = document.querySelector('.homepage');
     homepage.removeEventListener('click', this.handlePagination);
@@ -21,17 +24,16 @@ export default class ProductView {
         })
         .catch(error => console.error('Failed to load products:', error));
   }
-    // console.log('rowElement ', rowElement);
 
   static renderProducts(products) {
     const tableElement = document.querySelector('.table');
     const rowElement = document.querySelectorAll('.product-row');
-    console.log('tableElement ', tableElement);
+    // console.log('tableElement ', tableElement);
     if (rowElement.length) {
       rowElement.forEach(e => e.remove());
       // rowElement.innerHTML = ''
     }
-    console.log('rowElement ', rowElement);
+    // console.log('rowElement ', rowElement);
     products.forEach(product => {
       const { id, name, type, brand, price, quantity, status } = product;
       const btnStatus = status ? 'btn-true' : 'btn-false';
@@ -57,17 +59,13 @@ export default class ProductView {
     });
     if (!rowElement.length) {
       const paginationElement = document.querySelector('.pagination-container');
-      console.log('paginationElement ', paginationElement)
+      // console.log(this.currentPage, this.totalPages)
       const paginationHTML = `
-        <div class="pagination-link" id="prev-button" aria-label="Previous page" title="Previous page">
-          &lt;
-        </div>
-            <button class="pagination-link">1</button>
-            <button class="pagination-link">2</button>
-            <button class="pagination-link">3</button>
-        <div class="pagination-link" id="next-button" aria-label="Next page" title="Next page">
-          &gt;
-        </div>
+        ${this.currentPage === 1 || this.currentPage === 2 ? '': `<a href="/?page=${this.currentPage - 2}" class="pagination-link">${this.currentPage - 2}</a>`}
+        ${this.currentPage === 1 ? '': `<a href="/?page=${this.currentPage - 1}" class="pagination-link">${this.currentPage - 1}</a>`}
+        <a href="/?page=${this.currentPage}" class="pagination-link">${this.currentPage}</a>
+        ${this.totalPages > this.currentPage ? `<a href="/?page=${this.currentPage + 1}" class="pagination-link">${this.currentPage + 1}</a>`: ''}
+        ${this.totalPages > this.currentPage + 1 ? `<a href="/?page=${this.currentPage + 2}" class="pagination-link">${this.currentPage + 2}</a>`: ''}
       `;
       paginationElement.innerHTML += paginationHTML;
     }
