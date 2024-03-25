@@ -2,29 +2,22 @@ import { API } from '../constants/url-api';
 
 export default class ProductService {
   static getPaginatedProducts = async (page = 1, limit = 8) => {
-    const queryString = window.location.search;
     const url = new URL(`${API.BASE_URL}/${API.PRODUCTS_ENDPOINT}`);
     url.searchParams.append('page', page);
     url.searchParams.append('limit', limit);
-    try {
-      // Use the generated URL with query parameters for the fetch call
-      const response = await fetch(url, {
+    const response = await fetch(url, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
         }
-      });
-      if (!response.ok) {
+    });
+    if (!response.ok) {
         throw new Error('Failed to fetch data');
-      }
-      const data = await response.json();
-      return data;
-    } catch (error) {
     }
-  }
+    return await response.json();
+}
 
   static async post(endpoint, product) {
-    try {
       const res = await fetch(`${API.BASE_URL}/${endpoint}`, {
         method: 'POST',
         headers: {
@@ -37,9 +30,6 @@ export default class ProductService {
       }
       const data = await res.json();
       return data;
-    } catch (error) {
-      // console.error(error);
-    }
   }
 }
   // static async editProduct(productId, editedProductData) {

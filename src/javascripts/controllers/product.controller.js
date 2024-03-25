@@ -7,7 +7,7 @@ export default class ProductController {
     this.productView = productView;
     // this.addProductModal = document.getElementById("addProductModal");
     // this.bindAddProductModal();
-    // this.bindToggleModel();
+    // this.bindToggleModal();
   }
 
   init = () => {
@@ -16,6 +16,7 @@ export default class ProductController {
   }
 
   renderProducts = async () => {
+    this.productView.toggleLoader();
     const data = await ProductService.getPaginatedProducts();
     const products = this.productModel.createList(data);
     this.productView.renderProductsGrid(products);
