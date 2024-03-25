@@ -136,7 +136,6 @@
 //   });
 // });
 
-import ProductModel from '../models/product.model';
 import validateForm from '../../utils/validateProductForm';
 import generateErrorMessages from '../../utils/dom';
 import renderProductRow from '../templates/product';
@@ -160,7 +159,7 @@ export default class ProductView {
   }
 
   renderProducts(products) {
-    return (this.tableElement.innerHTML = displayProduct(products));
+    this.tableElement.innerHTML = displayProduct(products);
   };
 
   // static currentPage = parseInt(new URLSearchParams(window.location.search).get('page') || '1');
@@ -183,7 +182,7 @@ export default class ProductView {
   //     .catch(error => console.error('Failed to load products:', error));
   // };
 
-  // bindToggleModel() {
+  // bindToggleModal() {
   //   const homePage = document.querySelector('.homepage');
   //   const addModal = document.getElementById("addProductModal");
   //   const editModal = document.getElementById("editProductModal");

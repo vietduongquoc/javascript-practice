@@ -1,21 +1,22 @@
 import ProductService from "../api.service/product.service";
+import ProductModel from "../models/product.model";
 
 export default class ProductController {
   constructor (productModel, productView) {
     this.productModel = productModel;
     this.productView = productView;
-    this.addProductModal = document.getElementById("addProductModal");
+    // this.addProductModal = document.getElementById("addProductModal");
     // this.bindAddProductModal();
     // this.bindToggleModel();
   }
 
   init = () => {
     this.renderProducts();
-    this.productView.bindToggleModel();
+    // this.productView.bindToggleModal();
   }
 
   renderProducts = async () => {
-    const data = await ProductService.getProduct();
+    const data = await ProductService.getPaginatedProducts();
     const products = this.productModel.createList(data);
     this.productView.renderProductsGrid(products);
     this.productView.renderProducts(products);

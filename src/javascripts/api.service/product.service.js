@@ -1,13 +1,11 @@
 import { API } from '../constants/url-api';
 
 export default class ProductService {
-  static getProduct = async () => {
+  static getPaginatedProducts = async (page = 1, limit = 8) => {
     const queryString = window.location.search;
     const url = new URL(`${API.BASE_URL}/${API.PRODUCTS_ENDPOINT}`);
-    const urlParams = new URLSearchParams(queryString);
-    const page = urlParams.get('page');
-    url.searchParams.append('page', page || 1);
-    url.searchParams.append('limit', '8');
+    url.searchParams.append('page', page);
+    url.searchParams.append('limit', limit);
     try {
       // Use the generated URL with query parameters for the fetch call
       const response = await fetch(url, {
@@ -22,7 +20,6 @@ export default class ProductService {
       const data = await response.json();
       return data;
     } catch (error) {
-      console.error('Error fetching data:', error);
     }
   }
 
@@ -41,10 +38,10 @@ export default class ProductService {
       const data = await res.json();
       return data;
     } catch (error) {
-      console.error(error);
+      // console.error(error);
     }
   }
-
+}
   // static async editProduct(productId, editedProductData) {
   //   try {
   //     const response = await fetch(`${API.BASE_URL}/products/${productId}`, {
@@ -82,5 +79,5 @@ export default class ProductService {
   //     return { isSuccess: false };
   //   }
   // }
-}
+
 
