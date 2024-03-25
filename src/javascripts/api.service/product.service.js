@@ -3,14 +3,12 @@ import { API } from '../constants/url-api';
 export default class ProductService {
   static getProduct = async () => {
     const queryString = window.location.search;
-    // const url = new URL(`https://65dbf3583ea883a15292483f.mockapi.io/api/products`);
     const url = new URL(`${API.BASE_URL}/${API.PRODUCTS_ENDPOINT}`);
     const urlParams = new URLSearchParams(queryString);
     const page = urlParams.get('page');
     url.searchParams.append('page', page || 1);
     url.searchParams.append('limit', '8');
     try {
-      loader.classList.toggle('hidden');
       // Use the generated URL with query parameters for the fetch call
       const response = await fetch(url, {
         method: 'GET',
@@ -30,7 +28,6 @@ export default class ProductService {
 
   static async post(endpoint, product) {
     try {
-      loader.classList.toggle('hidden');
       const res = await fetch(`${API.BASE_URL}/${endpoint}`, {
         method: 'POST',
         headers: {
@@ -48,44 +45,42 @@ export default class ProductService {
     }
   }
 
-  static async editProduct(productId, editedProductData) {
-    try {
-      loader.classList.toggle('hidden');
-      const response = await fetch(`${API.BASE_URL}/products/${productId}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(editedProductData),
-      });
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      const data = await res.json();
-      return data;
-    } catch (error) {
-      console.error(error);
-    }
-  }
+  // static async editProduct(productId, editedProductData) {
+  //   try {
+  //     const response = await fetch(`${API.BASE_URL}/products/${productId}`, {
+  //       method: 'PUT',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify(editedProductData),
+  //     });
+  //     if (!response.ok) {
+  //       throw new Error('Network response was not ok');
+  //     }
+  //     const data = await res.json();
+  //     return data;
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }
 
-  static async deleteProduct(productId) {
-    try {
-      loader.classList.toggle('hidden');
-      const { BASE_URL, PRODUCTS_ENDPOINT } = API;
-      const url = `${BASE_URL}/${PRODUCTS_ENDPOINT}/${productId}`;
-      const res = await fetch(url, {
-        method: 'DELETE',
-      });
-      if (!res.ok) {
-        throw new Error(`Failed to delete product with ID: ${productId}`);
-      }
-      console.log('Delete successfully!');
-      return { isSuccess: true };
-    } catch (error) {
-      console.error(error);
-      console.error('Error deleting product:', error.message);
-      return { isSuccess: false };
-    }
-  }
+  // static async deleteProduct(productId) {
+  //   try {
+  //     const { BASE_URL, PRODUCTS_ENDPOINT } = API;
+  //     const url = `${BASE_URL}/${PRODUCTS_ENDPOINT}/${productId}`;
+  //     const res = await fetch(url, {
+  //       method: 'DELETE',
+  //     });
+  //     if (!res.ok) {
+  //       throw new Error(`Failed to delete product with ID: ${productId}`);
+  //     }
+  //     console.log('Delete successfully!');
+  //     return { isSuccess: true };
+  //   } catch (error) {
+  //     console.error(error);
+  //     console.error('Error deleting product:', error.message);
+  //     return { isSuccess: false };
+  //   }
+  // }
 }
 
