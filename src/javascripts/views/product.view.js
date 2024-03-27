@@ -100,6 +100,7 @@
 import generateErrorMessages from '../../utils/dom';
 import { displayProduct, renderNewProduct, renderProductFormPage, displayPagination } from '../templates/product';
 import ProductService from '../api.service/product.service';
+import ProductController from '../controllers/product.controller';
 
 export default class ProductView {
   constructor() {
@@ -136,7 +137,7 @@ export default class ProductView {
       brand: productData.brand,
       type: productData.type,
       quantity: productData.quantity,
-      status:productData.status
+      status: productData.status
     }));
     this.renderProducts(products);
   };
@@ -184,7 +185,121 @@ export default class ProductView {
       });
     };
   };
+
+  bindToggleModel = () => {
+    const homePage = document.querySelector('.homepage');
+    const editModal = document.getElementById("editProductModal");
+    homePage.addEventListener('click', async (e) => {
+      const target = e.target;
+      const id = target.getAttribute('data-id');
+      const menuBox = document.querySelector(`.menu-box[data-id="${id}"]`);
+      if (menuBox) {
+        menuBox.classList.toggle('hidden');
+      }
+      if (target.classList.contains('editProductBtn')) {
+        const productId = target.getAttribute('data-product-id');
+        //  Set values for edit modal
+        document.getElementById('edit-productName').value = document.getElementById(`product-name-${productId}`).innerText;
+        document.getElementById('edit-productQuantity').value = document.getElementById(`product-quantity-${productId}`).innerText;
+        document.getElementById('edit-productType').value = document.getElementById(`product-type-${productId}`).innerText;
+        document.getElementById('edit-productPrice').value = document.getElementById(`product-price-${productId}`).innerText.substring(1);
+        document.getElementById('edit-productBrand').value = document.getElementById(`product-brand-${productId}`).innerText;
+        // this.productController.loadProductData (productId);
+        editModal.classList.toggle('hidden');
+      }
+    });
+  };
+
+  toggleEditModal = () => {
+    const editModal = document.getElementById("editProductModal");
+    editModal.classList.toggle("hidden");
+  };
+
+  bindEditModalEvents = () => {
+    // Cancel button for edit modal
+    const btnCancelEdit = document.getElementById("cancelBtnEdit");
+    if (btnCancelEdit) {
+      btnCancelEdit.addEventListener('click', () => {
+        this.toggleEditModal();
+        // editModal.classList.toggle("hidden");
+      });
+    }
+    // Confirm button for edit modal
+    const btnConfirmEdit = document.getElementById("confirmBtnEdit");
+    if (btnConfirmEdit) {
+      btnConfirmEdit.addEventListener('click', async () => {
+        // Code to handle edit confirmation
+        this.toggleEditModal();
+        // location.reload();
+      });
+    }
+  };
+
+
+  // bindToggleModel = () => {
+  //   const homePage = document.querySelector('.homepage');
+  //   const editModal = document.getElementById("editProductModal");
+  //   // const deleteModal = document.getElementById("deleteProductModal");
+
+  //   homePage.addEventListener('click', async (e) => {
+  //     const target = e.target;
+  //     const id = target.getAttribute('data-id');
+  //     const menuBox = document.querySelector(`.menu-box[data-id="${id}"]`);
+  //     if (menuBox) {
+  //       menuBox.classList.toggle('hidden');
+  //     }
+  //     if (target.classList.contains('editProductBtn')) {
+  //       const productId = target.getAttribute('data-product-id');
+  //       // Set values for edit modal
+  //       document.getElementById('edit-productName').value = document.getElementById(`product-name-${productId}`).innerText;
+  //       document.getElementById('edit-productQuantity').value = document.getElementById(`product-quantity-${productId}`).innerText;
+  //       document.getElementById('edit-productType').value = document.getElementById(`product-type-${productId}`).innerText;
+  //       document.getElementById('edit-productPrice').value = document.getElementById(`product-price-${productId}`).innerText.substring(1);
+  //       document.getElementById('edit-productBrand').value = document.getElementById(`product-brand-${productId}`).innerText;
+  //       editModal.classList.toggle('hidden');
+  //     }
+  //     // if (target.classList.contains('deleteProductBtn')) {
+  //     //   const productId = target.getAttribute('data-product-id');
+  //     //   deleteModal.classList.toggle('hidden');
+  //     // }
+  //   });
+  //   // Cancel button for edit modal
+  //   const btnCancelEdit = document.getElementById("cancelBtnEdit");
+  //   if (btnCancelEdit) {
+  //     btnCancelEdit.addEventListener('click', () => {
+  //       editModal.classList.toggle("hidden");
+  //     });
+  //   }
+  //   // Confirm button for edit modal
+  //   const btnConfirmEdit = document.getElementById("confirmBtnEdit");
+  //   if (btnConfirmEdit) {
+  //     btnConfirmEdit.addEventListener('click', async () => {
+  //       // Code to handle edit confirmation
+  //       editModal.classList.toggle("hidden");
+  //       // location.reload();
+  //     });
+  //   }
+
+  //   // // Cancel button for delete modal
+  //   // const btnCancelDelete = document.getElementById("cancel-btn-delete");
+  //   // if (btnCancelDelete) {
+  //   //   btnCancelDelete.addEventListener('click', () => {
+  //   //     deleteModal.classList.toggle("hidden");
+  //   //   });
+  //   // }
+
+  //   // // Confirm button for delete modal
+  //   // const btnConfirmDelete = document.getElementById("confirm-btn-delete");
+  //   // if (btnConfirmDelete) {
+  //   //   btnConfirmDelete.addEventListener('click', async () => {
+  //   //     deleteModal.classList.toggle("hidden");
+  //   //     // location.reload();
+  //   //   });
+  //   // }
+  // };
 }
+
+
 
 
 
