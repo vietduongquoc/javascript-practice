@@ -11,7 +11,7 @@ export default class ProductController {
 
   init = () => {
     this.renderProducts();
-    // this.handleAddProductSubmit();
+    this.handerEventHandlers();
     // this.productView.bindToggleModel();
   }
 
@@ -21,17 +21,33 @@ export default class ProductController {
     const products = this.productModel.createList(data);
     this.productView.renderProductsGrid(products);
     this.productView.renderProducts(products);
-    this.productView.bindAddProductModal(this.handleAddProductSubmit);
     this.productView.toggleLoader();
     // this.productView.bindClickPagination();
   }
 
-  bindEventHandlers = () => {
-    // this.productView.handleEditProduct = this.handleEditProduct;
-    // this.productView.handleSubmitAddProduct = this.handleAddProduct;
+  handerEventHandlers = () => {
+    this.productView.bindAddProductModal(this.handleAddProductSubmit);
   }
+
   handleAddProductSubmit = async (productInputs) => {
-    const newProductEntity = new ProductEntity(productInputs);
+    const {
+      Name: name,
+      Type: type,
+      Brand: brand,
+      Price: price,
+      Quantity: quantity
+    } = productInputs;
+
+    const data = {
+      name,
+      type,
+      brand,
+      price,
+      quantity,
+      status: true,
+    }
+
+    const newProductEntity = new ProductEntity(data);
 
     const { formError } = this.productModel.validateForm(productInputs);
 
@@ -41,16 +57,16 @@ export default class ProductController {
       this.productView.showFormErrors(formError);
       return;
     }
-
     try {
       // Send product data to the server
       await ProductService.post('products', newProductEntity);
-
+      this.productView.toggleAddModal();
       // Render products
       const data = await ProductService.getPaginatedProducts();
-
+      const products = this.productModel.createList(data);
+      this.productView.renderProducts(data);
       // Update total pages
-      this.productView.loadProductList(data);
+      this.productView.loadProductList(products);
     } catch (error) {
       console.error('Failed to add product:', error);
     }

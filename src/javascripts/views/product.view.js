@@ -112,6 +112,7 @@ export default class ProductView {
   toggleLoader = () => {
     this.loader.classList.toggle('hidden');
   };
+  toggleAddModal = () => this.addProductModal.classList.toggle("hidden");
 
   renderProductsGrid = (products) => {
     if (this.rowElement.length) {
@@ -127,8 +128,21 @@ export default class ProductView {
     const errorMessages = generateErrorMessages(formError);
   }
 
+  loadProductList = (data) => {
+    const products = data.map(productData => ({
+      name: productData.name,
+      price: productData.price,
+      brand: productData.brand,
+      type: productData.type,
+      quantity: productData.quantity,
+      status:productData.status
+    }));
+    this.renderProducts(products);
+  };
+
   bindAddProductModal = (handler) => {
     this.addProductModal.addEventListener('submit', async (event) => {
+      event.preventDefault();
       const nameValue = document.getElementById('productName').value;
       const TypeValue = document.getElementById('productType').value;
       const QuantityValue = document.getElementById('productQuantity').value;
@@ -167,33 +181,8 @@ export default class ProductView {
           form.submit();
         }
       });
-    }
-  }
-
-  // bindSubmitAddProduct = (handler) => {
-  //   this.addProductModal.addEventListener('submit', async (event) => {
-  //     event.preventDefault();
-
-  //     const nameValue = document.getElementById('productName').value;
-  //     const TypeValue = document.getElementById('productType').value;
-  //     const QuantityValue = document.getElementById('productQuantity').value;
-  //     const priceValue = document.getElementById('productPrice').value;
-  //     const brandValue = document.getElementById('productBrand').value;
-
-  //     const productInputs = {
-  //       'Name': nameValue,
-  //       'Price': priceValue,
-  //       'Brand': brandValue,
-  //       'Type': TypeValue,
-  //       'Quantity': QuantityValue,
-  //     };
-  //     const product = {
-  //       name: nameValue,
-  //       price: priceValue,
-  //       brand: brandValue,
-  //       type: TypeValue,
-  //       quantity: QuantityValue
-  //     };
+    };
+  };
 }
 
 
