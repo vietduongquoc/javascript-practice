@@ -112,6 +112,7 @@ export default class ProductView {
   toggleLoader = () => {
     this.loader.classList.toggle('hidden');
   };
+
   toggleAddModal = () => this.addProductModal.classList.toggle("hidden");
 
   renderProductsGrid = (products) => {

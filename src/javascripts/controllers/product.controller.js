@@ -61,17 +61,19 @@ export default class ProductController {
       return;
     }
     try {
+      this.productView.toggleLoader(); // Display the loading icon when sending a request to add a product
       // Send product data to the server
       await ProductService.post('products', newProductEntity);
       this.productView.toggleAddModal();
       // Render products
       const data = await ProductService.getPaginatedProducts();
       const products = this.productModel.createList(data);
-      this.productView.renderProducts(data);
-      // Update total pages
       this.productView.loadProductList(products);
     } catch (error) {
       console.error('Failed to add product:', error);
+    }
+    finally {
+      this.productView.toggleLoader(); // Turn off icon loading after processing is complete
     }
   }
 
