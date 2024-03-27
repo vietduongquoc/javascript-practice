@@ -97,7 +97,6 @@
 //   // };
 
 
-import validateForm from '../../utils/validateProductForm';
 import generateErrorMessages from '../../utils/dom';
 import { displayProduct, renderNewProduct, renderProductFormPage, displayPagination } from '../templates/product';
 import ProductService from '../api.service/product.service';
@@ -107,6 +106,7 @@ export default class ProductView {
     this.loader = document.querySelector('.loader');
     this.tableElement = document.querySelector('.table');
     this.rowElement = document.querySelectorAll('.product-row');
+    this.addProductModal = document.getElementById("addProductModal");
   }
 
   toggleLoader = () => {
@@ -123,14 +123,78 @@ export default class ProductView {
     this.tableElement.innerHTML = displayProduct(products);
   };
 
+  showFormErrors = (formError) => {
+    const errorMessages = generateErrorMessages(formError);
+  }
+
+  bindAddProductModal = (handler) => {
+    this.addProductModal.addEventListener('submit', async (event) => {
+      const nameValue = document.getElementById('productName').value;
+      const TypeValue = document.getElementById('productType').value;
+      const QuantityValue = document.getElementById('productQuantity').value;
+      const priceValue = document.getElementById('productPrice').value;
+      const brandValue = document.getElementById('productBrand').value;
+      const productInputs = {
+        'Name': nameValue,
+        'Price': priceValue,
+        'Brand': brandValue,
+        'Type': TypeValue,
+        'Quantity': QuantityValue,
+      };
+      await handler(productInputs);
+    });
+
+    const addBtn = document.getElementById('addBtn');
+    if (addBtn) {
+      addBtn.addEventListener('click', () => {
+        this.addProductModal.firstElementChild.reset();
+        this.addProductModal.classList.toggle('hidden');
+      });
+    }
+
+    const btnCancelAdd = document.getElementById("cancelBtnAdd");
+    if (btnCancelAdd) {
+      btnCancelAdd.addEventListener('click', () => {
+        this.addProductModal.classList.toggle("hidden");
+      });
+    }
+
+    const btnConfirmAdd = document.getElementById("confirmBtnAdd");
+    if (btnConfirmAdd) {
+      btnConfirmAdd.addEventListener('click', async () => {
+        const form = this.addProductModal.querySelector('form');
+        if (form) {
+          form.submit();
+        }
+      });
+    }
+  }
+
+  // bindSubmitAddProduct = (handler) => {
+  //   this.addProductModal.addEventListener('submit', async (event) => {
+  //     event.preventDefault();
+
+  //     const nameValue = document.getElementById('productName').value;
+  //     const TypeValue = document.getElementById('productType').value;
+  //     const QuantityValue = document.getElementById('productQuantity').value;
+  //     const priceValue = document.getElementById('productPrice').value;
+  //     const brandValue = document.getElementById('productBrand').value;
+
+  //     const productInputs = {
+  //       'Name': nameValue,
+  //       'Price': priceValue,
+  //       'Brand': brandValue,
+  //       'Type': TypeValue,
+  //       'Quantity': QuantityValue,
+  //     };
+  //     const product = {
+  //       name: nameValue,
+  //       price: priceValue,
+  //       brand: brandValue,
+  //       type: TypeValue,
+  //       quantity: QuantityValue
+  //     };
 }
-
-
-
-
-
-
-
 
 
 

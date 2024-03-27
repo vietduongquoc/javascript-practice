@@ -1,17 +1,17 @@
 import ProductService from "../api.service/product.service";
-import validateForm from "../../utils/validateProductForm";
-import generateErrorMessages from "../../utils/dom";
 import ProductModel from "../models/product.model";
+import ProductView from "../views/product.view";
+import ProductEntity from "../models/product.entity";
 
 export default class ProductController {
   constructor(productModel, productView) {
     this.productModel = productModel;
     this.productView = productView;
-    this.addProductModal = document.getElementById("addProductModal");
   }
 
   init = () => {
     this.renderProducts();
+    // this.handleAddProductSubmit();
     // this.productView.bindToggleModel();
   }
 
@@ -21,9 +21,39 @@ export default class ProductController {
     const products = this.productModel.createList(data);
     this.productView.renderProductsGrid(products);
     this.productView.renderProducts(products);
+    this.productView.bindAddProductModal(this.handleAddProductSubmit);
     this.productView.toggleLoader();
-    this.bindAddProductModal();
     // this.productView.bindClickPagination();
+  }
+
+  bindEventHandlers = () => {
+    // this.productView.handleEditProduct = this.handleEditProduct;
+    // this.productView.handleSubmitAddProduct = this.handleAddProduct;
+  }
+  handleAddProductSubmit = async (productInputs) => {
+    const newProductEntity = new ProductEntity(productInputs);
+
+    const { formError } = this.productModel.validateForm(productInputs);
+
+    const isPassed = Object.values(formError).every(value => value === '');
+
+    if (!isPassed) {
+      this.productView.showFormErrors(formError);
+      return;
+    }
+
+    try {
+      // Send product data to the server
+      await ProductService.post('products', newProductEntity);
+
+      // Render products
+      const data = await ProductService.getPaginatedProducts();
+
+      // Update total pages
+      this.productView.loadProductList(data);
+    } catch (error) {
+      console.error('Failed to add product:', error);
+    }
   }
 
   // bindToggleModel = () => {
@@ -64,22 +94,6 @@ export default class ProductController {
   //     // }
   //   });
 
-  //   // Cancel button for add modal
-  //   // const btnCancelAdd = document.getElementById("cancelBtnAdd");
-  //   // if (btnCancelAdd) {
-  //   //   btnCancelAdd.addEventListener('click', () => {
-  //   //     addModal.classList.toggle("hidden");
-  //   //   });
-  //   // }
-
-  //   // const btnConfirmAdd = document.getElementById("confirmBtnAdd");
-  //   // if (btnConfirmAdd) {
-  //   //   btnConfirmAdd.addEventListener('click', async () => {
-  //   //     // const submitEvent = new Event('submit');
-  //   //     // this.addProductModal.dispatchEvent(submitEvent);
-  //   //   });
-  //   // }
-
   //   // Cancel button for edit modal
   //   // const btnCancelEdit = document.getElementById("cancelBtnEdit");
   //   // if (btnCancelEdit) {
@@ -118,87 +132,6 @@ export default class ProductController {
   //   //   });
   //   // }
   // };
-
-  bindAddProductModal = () => {
-    const addProductModal = document.getElementById('addProductModal');
-    addProductModal.addEventListener('submit', async (event) => {
-      event.preventDefault();
-
-      // Get the values from the form inputs
-      const nameValue = document.getElementById('productName').value;
-      const TypeValue = document.getElementById('productType').value;
-      const QuantityValue = document.getElementById('productQuantity').value;
-      const priceValue = document.getElementById('productPrice').value;
-      const brandValue = document.getElementById('productBrand').value;
-
-      // Create a product object with the form input values
-      const productInputs = {
-        'Name': nameValue,
-        'Price': priceValue,
-        'Brand': brandValue,
-        'Type': TypeValue,
-        'Quantity': QuantityValue,
-      };
-      const { formError } = validateForm(productInputs);
-      // Generate new error messages based on the validation results
-      generateErrorMessages(formError);
-      // If there are any validation errors, stop the function
-      const isPassed = Object.values(formError).every(value => value === '');
-      if (!isPassed) {
-        return;
-      }
-      // Create product object
-      const product = {
-        name: nameValue,
-        price: priceValue,
-        brand: brandValue,
-        type: TypeValue,
-        quantity: QuantityValue
-      };
-
-      try {
-        // Send product data to the server
-        await ProductService.post('products', product);
-
-        // Update total pages
-        const dataLength = await ProductService.getPaginatedProducts();
-        this.productView.totalPages = parseInt((dataLength / 8)) + 1;
-
-        // Render products
-        const data = await ProductService.getPaginatedProducts();
-        this.addProductModal.classList.toggle('hidden');
-        this.productView.renderProducts(data);
-      } catch (error) {
-        console.error('Failed to add product:', error);
-      }
-    });
-    // Add event for the add button
-    const addBtn = document.getElementById('addBtn');
-    if (addBtn) {
-      addBtn.addEventListener('click', () => {
-        addProductModal.firstElementChild.reset(); // Reset form
-        addProductModal.classList.toggle('hidden'); // Open modal
-      });
-    }
-    // Add event for cancel button
-    const btnCancelAdd = document.getElementById("cancelBtnAdd");
-    if (btnCancelAdd) {
-      btnCancelAdd.addEventListener('click', () => {
-        addProductModal.classList.toggle("hidden");
-      });
-    }
-    // Add event for confirm button
-    const btnConfirmAdd = document.getElementById("confirmBtnAdd");
-    if (btnConfirmAdd) {
-      btnConfirmAdd.addEventListener('click', async () => {
-        const addProductModal = document.getElementById('addProductModal');
-        const form = addProductModal.querySelector('form');
-        if (form) {
-          form.submit();
-        }
-      });
-    }
-  };
 
   // bindClickPagination = () => {
   //   const homepage = document.querySelector('.homepage');
