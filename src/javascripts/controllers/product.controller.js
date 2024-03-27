@@ -7,6 +7,9 @@ export default class ProductController {
   constructor(productModel, productView) {
     this.productModel = productModel;
     this.productView = productView;
+    // this.addProductModal = document.getElementById("addProductModal");
+    // this.bindAddProductModal();
+    // this.bindToggleModal();
   }
 
   init = () => {

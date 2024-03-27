@@ -321,17 +321,17 @@ export const renderProductFormPage = (data = {}) => {
           <input value="${name}" data-field="Name" class="input" type="text" id="productName" placeholder="Enter name...">
           <p data-field-error="Name" class="error-message" id="name-error"></p>
 
-          <label for="productType" class="modal-dcrs">Type</label>
-          <input value="${type}" data-field="Type" class="input" type="text" id="productType" placeholder="Enter type...">
-          <p data-field-error="Type" class="error-message" id="type-error"></p>
+// //           <label for="productType" class="modal-dcrs">Type</label>
+// //           <input value="${type}" data-field="Type" class="input" type="text" id="productType" placeholder="Enter type...">
+// //           <p data-field-error="Type" class="error-message" id="type-error"></p>
 
-          <label for="productQuantity" class="modal-dcrs">Quantity</label>
-          <input value="${quantity}" data-field="Quantity" class="input" type="number" id="productQuantity" placeholder="0">
-          <p data-field-error="Quantity" class="error-message" id="quantity-error"></p>
+// //           <label for="productQuantity" class="modal-dcrs">Quantity</label>
+// //           <input value="${quantity}" data-field="Quantity" class="input" type="number" id="productQuantity" placeholder="0">
+// //           <p data-field-error="Quantity" class="error-message" id="quantity-error"></p>
 
-          <label for="productPrice" class="modal-dcrs">Price</label>
-          <input value="${price}" data-field="Price" class="input" type="number" id="productPrice" placeholder="0">
-          <p data-field-error="Price" class="error-message" id="price-error"></p>
+// //           <label for="productPrice" class="modal-dcrs">Price</label>
+// //           <input value="${price}" data-field="Price" class="input" type="number" id="productPrice" placeholder="0">
+// //           <p data-field-error="Price" class="error-message" id="price-error"></p>
 
           <label for="productBrand" class="modal-dcrs">Brand</label>
           <input value="${brand}" data-field="Brand" class="input" type="text" id="productBrand" placeholder="Enter Brand">
