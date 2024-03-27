@@ -5,6 +5,8 @@ export default class ProductService {
     const url = new URL(`${API.BASE_URL}/${API.PRODUCTS_ENDPOINT}`);
     url.searchParams.append('page', page);
     url.searchParams.append('limit', limit);
+    url.searchParams.append('sortBy', 'createdAt');
+    url.searchParams.append('order', 'desc');
     const response = await fetch(url, {
         method: 'GET',
         headers: {
@@ -48,6 +50,45 @@ export default class ProductService {
   //     return data;
   //   } catch (error) {
   //     console.error(error);
+  //   }
+  // }
+
+
+  // static async editProduct(productId, editedProductData) {
+  //   try {
+  //     const response = await fetch(`${API.BASE_URL}/products/${productId}`, {
+  //       method: 'PUT',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify(editedProductData),
+  //     });
+  //     if (!response.ok) {
+  //       throw new Error('Network response was not ok');
+  //     }
+  //     const data = await res.json();
+  //     return data;
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }
+
+  // static async deleteProduct(productId) {
+  //   try {
+  //     const { BASE_URL, PRODUCTS_ENDPOINT } = API;
+  //     const url = `${BASE_URL}/${PRODUCTS_ENDPOINT}/${productId}`;
+  //     const res = await fetch(url, {
+  //       method: 'DELETE',
+  //     });
+  //     if (!res.ok) {
+  //       throw new Error(`Failed to delete product with ID: ${productId}`);
+  //     }
+  //     console.log('Delete successfully!');
+  //     return { isSuccess: true };
+  //   } catch (error) {
+  //     console.error(error);
+  //     console.error('Error deleting product:', error.message);
+  //     return { isSuccess: false };
   //   }
   // }
 
