@@ -11,7 +11,7 @@ export default class ProductController {
 
   init = () => {
     this.renderProducts();
-    this.handerEventHandlers();
+    this.handeEventHandlers();
   }
 
   renderProducts = async () => {
@@ -24,13 +24,14 @@ export default class ProductController {
     // this.productView.bindClickPagination();
   }
 
-  handerEventHandlers = () => {
-    this.productView.bindAddProductModal(this.handlerAddProductSubmit);
-    this.productView.bindToggleModel();
-    this.productView.bindEditModalEvents(this.handlerEditProduct);
+  handeEventHandlers = () => {
+    this.productView.bindAddProductModal(this.handleAddProductSubmit);
+    this.productView.bindToggleModal();
+    this.productView.bindEditModalEvents(this.handleEditProduct);
+    this.productView.bindDeleteModalEvents(this.handleConfirmDelete);
   }
 
-  handlerAddProductSubmit = async (productInputs) => {
+  handleAddProductSubmit = async (productInputs) => {
     const {
       Name: name,
       Type: type,
@@ -62,7 +63,6 @@ export default class ProductController {
       this.productView.toggleLoader(); // Display the loading icon when sending a request to add a product
       // Send product data to the server
       await ProductService.post('products', newProductEntity);
-      this.productView.toggleAddModal();
       // Render products
       const data = await ProductService.getPaginatedProducts();
       const products = this.productModel.createList(data);
@@ -71,51 +71,43 @@ export default class ProductController {
       console.error('Failed to add product:', error);
     }
     finally {
+      this.productView.toggleAddModal();
       this.productView.toggleLoader(); // Turn off icon loading after processing is complete
     }
   }
 
-  handlerEditProduct = async (productId, editedProductData) => {
+  handleEditProduct = async (productId, editedProductData) => {
     try {
       this.productView.toggleLoader();
-      const updatedProduct = await ProductService.editProduct(productId, editedProductData);
+      await ProductService.editProduct(productId, editedProductData);
       // Render products
       const data = await ProductService.getPaginatedProducts();
       const products = this.productModel.createList(data);
       this.productView.loadProductList(products);
-      return updatedProduct;
     } catch (error) {
       console.error('Error editing product:', error);
       throw error;
     } finally {
       this.productView.toggleEditModal();
       this.productView.toggleLoader();
+    };
+  };
+
+  handleConfirmDelete = async (productId) => {
+    try {
+      this.productView.toggleLoader();
+      await ProductService.deleteProduct(productId); // Call the delete method from ProductService
+      const data = await ProductService.getPaginatedProducts(); // Refresh the product list after deletion
+      const products = this.productModel.createList(data);
+      this.productView.loadProductList(products);  // Update the product list in the view
+    } catch (error) {
+      console.error('Error deleting product:', error);
     }
-  }
-
-  // bindToggleModel = () => {
-  //   const homePage = document.querySelector('.homepage');
-  //   const addModal = document.getElementById("addProductModal");
-  //   // const editModal = document.getElementById("editProductModal");
-  //   // const deleteModal = document.getElementById("deleteProductModal");
-  // bindClickPagination = () => {
-  //   const homepage = document.querySelector('.homepage');
-  //   homepage.removeEventListener('click', this.handlePagination);
-  //   homepage.addEventListener('click', this.handlePagination);
-  // };
-
-  // handlePagination = (event) => {
-  //   const target = event.target;
-  //   if (!target.classList.contains('pagination-link')) {
-  //     return;
-  //   }
-  //   const page = target.textContent;
-  //   ProductService.get({ page: page })
-  //     .then(data => {
-  //       this.renderNewProduct(data);
-  //     })
-  //     .catch(error => console.error('Failed to load products:', error));
-  // };
+    finally {
+      this.productView.toggleDeleteModal();
+      this.productView.toggleLoader(); // Turn off icon loading after processing is complete
+    };
+  };
 }
 
 
