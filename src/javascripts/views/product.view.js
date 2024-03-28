@@ -52,7 +52,7 @@
 
 
 import generateErrorMessages from '../../utils/dom';
-import { displayProduct, renderNewProduct, renderProductFormPage, displayPagination } from '../templates/product';
+import { displayProduct, displayPagination } from '../templates/product';
 import ProductService from '../api.service/product.service';
 import ProductController from '../controllers/product.controller';
 
@@ -63,13 +63,16 @@ export default class ProductView {
     this.rowElement = document.querySelectorAll('.product-row');
     this.addProductModal = document.getElementById("addProductModal");
     this.editModal = document.getElementById("editProductModal");
+    this.deleteModal = document.getElementById("deleteProductModal");
+  }
+
+  test = () => {
+    console.log(12323);
   }
 
   toggleLoader = () => {
     this.loader.classList.toggle('hidden');
   };
-
-  toggleAddModal = () => this.addProductModal.classList.toggle("hidden");
 
   renderProductsGrid = (products) => {
     if (this.rowElement.length) {
@@ -87,6 +90,7 @@ export default class ProductView {
 
   loadProductList = (data) => {
     const products = data.map(productData => ({
+      id: productData.id,
       name: productData.name,
       price: productData.price,
       brand: productData.brand,
@@ -97,20 +101,22 @@ export default class ProductView {
     this.renderProducts(products);
   };
 
+  toggleAddModal = () => this.addProductModal.classList.toggle("hidden");
+
   bindAddProductModal = (handler) => {
     this.addProductModal.addEventListener('submit', async (event) => {
       event.preventDefault();
       const nameValue = document.getElementById('productName').value;
-      const TypeValue = document.getElementById('productType').value;
-      const QuantityValue = document.getElementById('productQuantity').value;
+      const typeValue = document.getElementById('productType').value;
+      const quantityValue = document.getElementById('productQuantity').value;
       const priceValue = document.getElementById('productPrice').value;
       const brandValue = document.getElementById('productBrand').value;
       const productInputs = {
         'Name': nameValue,
         'Price': priceValue,
         'Brand': brandValue,
-        'Type': TypeValue,
-        'Quantity': QuantityValue,
+        'Type': typeValue,
+        'Quantity': quantityValue,
       };
       await handler(productInputs);
     });
@@ -141,15 +147,13 @@ export default class ProductView {
     };
   };
 
-  bindToggleModel = () => {
+  bindToggleModal = () => {
     const homePage = document.querySelector('.homepage');
-    // const editModal = document.getElementById("editProductModal");
-    // const deleteModal = document.getElementById("deleteProductModal");
     homePage.addEventListener('click', async (e) => {
       const target = e.target;
       const id = target.getAttribute('data-id');
-      const menuBox = document.querySelector(`.menu-box[data-id="${id}"]`);
-      if (menuBox) {
+
+      if(target.classList.contains('toggler-btn')) {
         menuBox.classList.toggle('hidden');
       }
       if (target.classList.contains('editProductBtn')) {
@@ -163,10 +167,11 @@ export default class ProductView {
         document.getElementById('confirmBtnEdit').value = productId;
         this.editModal.classList.toggle('hidden');
       }
-      // if (target.classList.contains('deleteProductBtn')) {
-      //   const productId = target.getAttribute('data-product-id');
-      //   deleteModal.classList.toggle('hidden');
-      // }
+      if (target.classList.contains('deleteProductBtn')) {
+        const productId = target.getAttribute('data-product-id');
+        document.getElementById('confirm-btn-delete').value = productId;
+        this.deleteModal.classList.toggle('hidden');
+      }
     });
   };
 
@@ -175,7 +180,7 @@ export default class ProductView {
     editModal.classList.toggle("hidden");
   }
 
-  bindEditModalEvents = (handlerEditProduct) => {
+  bindEditModalEvents = (handleEditProduct) => {
     const btnCancelEdit = document.getElementById("cancelBtnEdit");
     if (btnCancelEdit) {
       btnCancelEdit.addEventListener('click', () => {
@@ -202,34 +207,36 @@ export default class ProductView {
         };
 
         try {
-          const productId = document.getElementById('confirmBtnEdit').value;
-          await handlerEditProduct(productId, editedProductData);
+          await handleEditProduct(productId, editedProductData);
         } catch (error) {
           console.error('Error editing product:', error);
         }
       });
-    }
+    };
+  };
+
+  toggleDeleteModal() {
+    const deleteModal = document.getElementById("deleteProductModal");
+    deleteModal.classList.toggle("hidden");
   }
 
-  // bindToggleModel = () => {
-  //   // const deleteModal = document.getElementById("deleteProductModal");
-  //   // // Cancel button for delete modal
-  //   // const btnCancelDelete = document.getElementById("cancel-btn-delete");
-  //   // if (btnCancelDelete) {
-  //   //   btnCancelDelete.addEventListener('click', () => {
-  //   //     deleteModal.classList.toggle("hidden");
-  //   //   });
-  //   // }
-
-  //   // // Confirm button for delete modal
-  //   // const btnConfirmDelete = document.getElementById("confirm-btn-delete");
-  //   // if (btnConfirmDelete) {
-  //   //   btnConfirmDelete.addEventListener('click', async () => {
-  //   //     deleteModal.classList.toggle("hidden");
-  //   //     // location.reload();
-  //   //   });
-  //   // }
-  // };
+  bindDeleteModalEvents = (handleConfirmDelete) => {
+    // Cancel button for delete modal
+    const btnCancelDelete = document.getElementById("cancel-btn-delete");
+    if (btnCancelDelete) {
+      btnCancelDelete.addEventListener('click', () => {
+        this.toggleDeleteModal();
+      });
+    }
+    // Confirm button for delete modal
+    const btnConfirmDelete = document.getElementById("confirm-btn-delete");
+    if (btnConfirmDelete) {
+      btnConfirmDelete.addEventListener('click', async () => {
+        const productId = btnConfirmDelete.value // Get the ID of the product to be deleted
+        await handleConfirmDelete(productId); // Call the product deletion method from ProductController
+      });
+    };
+  };
 }
 
 

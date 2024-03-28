@@ -65,6 +65,7 @@ export const displayProduct = (products) => {
 };
 
 export const productTemplate = (product) => {
+  console.log('product',product);
   const { id, name, type, brand, price, quantity, status } = product;
   const btnStatus = status ? 'btn-true' : 'btn-false';
   const textStatus = status ? 'Available' : 'Sold out';
