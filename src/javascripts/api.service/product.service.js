@@ -35,43 +35,20 @@ export default class ProductService {
   }
 
   static async editProduct(productId, editedProductData) {
-    try {
-      const response = await fetch(`${API.BASE_URL}/products/${productId}`, {
+      const res = await fetch(`${API.BASE_URL}/products/${productId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(editedProductData),
       });
-      if (!response.ok) {
+      if (!res.ok) {
         throw new Error('Network response was not ok');
       }
       const data = await res.json();
       return data;
-    } catch (error) {
-      console.error(error);
-    }
   }
 }
-
-// static async editProduct(productId, editedProductData) {
-//   try {
-//     const response = await fetch(`${API.BASE_URL}/products/${productId}`, {
-//       method: 'PUT',
-//       headers: {
-//         'Content-Type': 'application/json',
-//       },
-//       body: JSON.stringify(editedProductData),
-//     });
-//     if (!response.ok) {
-//       throw new Error('Network response was not ok');
-//     }
-//     const data = await res.json();
-//     return data;
-//   } catch (error) {
-//     console.error(error);
-//   }
-// }
 
 // static async deleteProduct(productId) {
 //   try {

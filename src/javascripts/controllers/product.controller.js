@@ -25,11 +25,12 @@ export default class ProductController {
   }
 
   handerEventHandlers = () => {
-    this.productView.bindAddProductModal(this.handleAddProductSubmit);
-    this.productView.bindToggleModel(this.loadProductData);
+    this.productView.bindAddProductModal(this.handlerAddProductSubmit);
+    this.productView.bindToggleModel();
+    this.productView.bindEditModalEvents(this.handlerEditProduct);
   }
 
-  handleAddProductSubmit = async (productInputs) => {
+  handlerAddProductSubmit = async (productInputs) => {
     const {
       Name: name,
       Type: type,
@@ -74,16 +75,24 @@ export default class ProductController {
     }
   }
 
-  loadProductData  = async (productId) => {
-  console.log("loadProductData",loadProductData);
-    const productData = await ProductService.getProductById(productId);
-    if (productData) {
-        this.productView.populateEditModal(productData);
-        this.productView.toggleEditModal();
-    } else {
-        console.error('Failed to load product data.');
+  handlerEditProduct = async (productId, editedProductData) => {
+    try {
+      this.productView.toggleLoader();
+      const updatedProduct = await ProductService.editProduct(productId, editedProductData);
+      // Render products
+      const data = await ProductService.getPaginatedProducts();
+      const products = this.productModel.createList(data);
+      this.productView.loadProductList(products);
+      return updatedProduct;
+    } catch (error) {
+      console.error('Error editing product:', error);
+      throw error;
+    } finally {
+      this.productView.toggleEditModal();
+      this.productView.toggleLoader();
     }
-};
+  }
+
   // bindToggleModel = () => {
   //   const homePage = document.querySelector('.homepage');
   //   const addModal = document.getElementById("addProductModal");

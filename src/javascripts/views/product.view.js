@@ -30,52 +30,6 @@
 //     .catch(error => console.error('Failed to load products:', error));
 // });
 
-
-// document.addEventListener('DOMContentLoaded', function () {
-//   const editProductModal = document.getElementById('editProductModal');
-//   editProductModal.addEventListener('submit', async function (e) {
-//     e.preventDefault();
-
-//     // Assuming you have a way to set and get the currently editing product's ID.
-//     const productId = e.target.getAttribute('data-product-id');
-
-//     // console.log(productId)
-//     const editProductName = document.getElementById('edit-productName').value;
-//     const editProductQuantity = document.getElementById('edit-productQuantity').value;
-//     const editProductType = document.getElementById('edit-productType').value;
-//     const editProductPrice = document.getElementById('edit-productPrice').value;
-//     const editProductBrand = document.getElementById('edit-productBrand').value;
-
-//     const editedProductData = {
-//       name: editProductName,
-//       quantity: editProductQuantity,
-//       type: editProductType,
-//       price: editProductPrice,
-//       brand: editProductBrand
-//     };
-//     console.log('editedProductData: ', editedProductData)
-//     // Send the edited product data to the API and process the results
-//     try {
-//       const updatedProduct = await ProductModel.editProduct(productId, editedProductData);
-
-//       // Assuming renderEditProduct is similar to renderNewProduct but for updating the UI with the edited product details.
-//       // If renderNewProduct can handle both new and updated products, you can call it directly instead.
-//       ProductView.renderEditProduct(updatedProduct);
-//     } catch (error) {
-//       console.error('Error editing product:', error);
-//     }
-//     // Optionally, fetch and refresh the list of products.
-//     try {
-//       const data = await ProductModel.get('products');
-//       ProductView.renderProducts(data); // Assuming this method exists to render all products
-//     } catch (error) {
-//       console.error('Failed to load products:', error);
-//     };
-//     location.reload(); // Or close the modal and update the UI as needed without reloading.
-//   });
-// });
-
-
 //   static currentPage = parseInt(new URLSearchParams(window.location.search).get('page') || '1');
 //   static totalPages = 0;
 //   // bindClickPagination() {
@@ -108,6 +62,7 @@ export default class ProductView {
     this.tableElement = document.querySelector('.table');
     this.rowElement = document.querySelectorAll('.product-row');
     this.addProductModal = document.getElementById("addProductModal");
+    this.editModal = document.getElementById("editProductModal");
   }
 
   toggleLoader = () => {
@@ -188,7 +143,8 @@ export default class ProductView {
 
   bindToggleModel = () => {
     const homePage = document.querySelector('.homepage');
-    const editModal = document.getElementById("editProductModal");
+    // const editModal = document.getElementById("editProductModal");
+    // const deleteModal = document.getElementById("deleteProductModal");
     homePage.addEventListener('click', async (e) => {
       const target = e.target;
       const id = target.getAttribute('data-id');
@@ -204,82 +160,59 @@ export default class ProductView {
         document.getElementById('edit-productType').value = document.getElementById(`product-type-${productId}`).innerText;
         document.getElementById('edit-productPrice').value = document.getElementById(`product-price-${productId}`).innerText.substring(1);
         document.getElementById('edit-productBrand').value = document.getElementById(`product-brand-${productId}`).innerText;
-        // this.productController.loadProductData (productId);
-        editModal.classList.toggle('hidden');
+        document.getElementById('confirmBtnEdit').value = productId;
+        this.editModal.classList.toggle('hidden');
       }
+      // if (target.classList.contains('deleteProductBtn')) {
+      //   const productId = target.getAttribute('data-product-id');
+      //   deleteModal.classList.toggle('hidden');
+      // }
     });
   };
 
-  toggleEditModal = () => {
+  toggleEditModal() {
     const editModal = document.getElementById("editProductModal");
     editModal.classList.toggle("hidden");
-  };
+  }
 
-  bindEditModalEvents = () => {
-    // Cancel button for edit modal
+  bindEditModalEvents = (handlerEditProduct) => {
     const btnCancelEdit = document.getElementById("cancelBtnEdit");
     if (btnCancelEdit) {
       btnCancelEdit.addEventListener('click', () => {
-        this.toggleEditModal();
-        // editModal.classList.toggle("hidden");
+        const editModal = document.getElementById("editProductModal");
+        editModal.classList.toggle("hidden");
       });
     }
-    // Confirm button for edit modal
+
     const btnConfirmEdit = document.getElementById("confirmBtnEdit");
     if (btnConfirmEdit) {
       btnConfirmEdit.addEventListener('click', async () => {
-        // Code to handle edit confirmation
-        this.toggleEditModal();
-        // location.reload();
+        const editProductName = document.getElementById('edit-productName').value;
+        const editProductQuantity = document.getElementById('edit-productQuantity').value;
+        const editProductType = document.getElementById('edit-productType').value;
+        const editProductPrice = document.getElementById('edit-productPrice').value;
+        const editProductBrand = document.getElementById('edit-productBrand').value;
+
+        const editedProductData = {
+          name: editProductName,
+          quantity: editProductQuantity,
+          type: editProductType,
+          price: editProductPrice,
+          brand: editProductBrand
+        };
+
+        try {
+          const productId = document.getElementById('confirmBtnEdit').value;
+          await handlerEditProduct(productId, editedProductData);
+        } catch (error) {
+          console.error('Error editing product:', error);
+        }
       });
     }
-  };
-
+  }
 
   // bindToggleModel = () => {
-  //   const homePage = document.querySelector('.homepage');
-  //   const editModal = document.getElementById("editProductModal");
   //   // const deleteModal = document.getElementById("deleteProductModal");
-
-  //   homePage.addEventListener('click', async (e) => {
-  //     const target = e.target;
-  //     const id = target.getAttribute('data-id');
-  //     const menuBox = document.querySelector(`.menu-box[data-id="${id}"]`);
-  //     if (menuBox) {
-  //       menuBox.classList.toggle('hidden');
-  //     }
-  //     if (target.classList.contains('editProductBtn')) {
-  //       const productId = target.getAttribute('data-product-id');
-  //       // Set values for edit modal
-  //       document.getElementById('edit-productName').value = document.getElementById(`product-name-${productId}`).innerText;
-  //       document.getElementById('edit-productQuantity').value = document.getElementById(`product-quantity-${productId}`).innerText;
-  //       document.getElementById('edit-productType').value = document.getElementById(`product-type-${productId}`).innerText;
-  //       document.getElementById('edit-productPrice').value = document.getElementById(`product-price-${productId}`).innerText.substring(1);
-  //       document.getElementById('edit-productBrand').value = document.getElementById(`product-brand-${productId}`).innerText;
-  //       editModal.classList.toggle('hidden');
-  //     }
-  //     // if (target.classList.contains('deleteProductBtn')) {
-  //     //   const productId = target.getAttribute('data-product-id');
-  //     //   deleteModal.classList.toggle('hidden');
-  //     // }
-  //   });
-  //   // Cancel button for edit modal
-  //   const btnCancelEdit = document.getElementById("cancelBtnEdit");
-  //   if (btnCancelEdit) {
-  //     btnCancelEdit.addEventListener('click', () => {
-  //       editModal.classList.toggle("hidden");
-  //     });
-  //   }
-  //   // Confirm button for edit modal
-  //   const btnConfirmEdit = document.getElementById("confirmBtnEdit");
-  //   if (btnConfirmEdit) {
-  //     btnConfirmEdit.addEventListener('click', async () => {
-  //       // Code to handle edit confirmation
-  //       editModal.classList.toggle("hidden");
-  //       // location.reload();
-  //     });
-  //   }
-
   //   // // Cancel button for delete modal
   //   // const btnCancelDelete = document.getElementById("cancel-btn-delete");
   //   // if (btnCancelDelete) {
