@@ -7,15 +7,11 @@ export default class ProductController {
   constructor(productModel, productView) {
     this.productModel = productModel;
     this.productView = productView;
-    // this.addProductModal = document.getElementById("addProductModal");
-    // this.bindAddProductModal();
-    // this.bindToggleModal();
   }
 
   init = () => {
     this.renderProducts();
     this.handerEventHandlers();
-    // this.productView.bindToggleModel();
   }
 
   renderProducts = async () => {
@@ -29,10 +25,12 @@ export default class ProductController {
   }
 
   handerEventHandlers = () => {
-    this.productView.bindAddProductModal(this.handleAddProductSubmit);
+    this.productView.bindAddProductModal(this.handlerAddProductSubmit);
+    this.productView.bindToggleModel();
+    this.productView.bindEditModalEvents(this.handlerEditProduct);
   }
 
-  handleAddProductSubmit = async (productInputs) => {
+  handlerAddProductSubmit = async (productInputs) => {
     const {
       Name: name,
       Type: type,
@@ -77,83 +75,29 @@ export default class ProductController {
     }
   }
 
+  handlerEditProduct = async (productId, editedProductData) => {
+    try {
+      this.productView.toggleLoader();
+      const updatedProduct = await ProductService.editProduct(productId, editedProductData);
+      // Render products
+      const data = await ProductService.getPaginatedProducts();
+      const products = this.productModel.createList(data);
+      this.productView.loadProductList(products);
+      return updatedProduct;
+    } catch (error) {
+      console.error('Error editing product:', error);
+      throw error;
+    } finally {
+      this.productView.toggleEditModal();
+      this.productView.toggleLoader();
+    }
+  }
+
   // bindToggleModel = () => {
   //   const homePage = document.querySelector('.homepage');
   //   const addModal = document.getElementById("addProductModal");
   //   // const editModal = document.getElementById("editProductModal");
   //   // const deleteModal = document.getElementById("deleteProductModal");
-
-  //   homePage.addEventListener('click', async (e) => {
-  //     const target = e.target;
-
-  //     if (target.id === 'addBtn') {
-  //       addModal.firstElementChild.reset();
-  //       addModal.classList.toggle('hidden');
-  //     }
-
-  //     // const id = target.getAttribute('data-id');
-  //     // const menuBox = document.querySelector(`.menu-box[data-id="${id}"]`);
-  //     // if (menuBox) {
-  //     //   menuBox.classList.toggle('hidden');
-  //     // }
-
-  //     // if (target.classList.contains('editProductBtn')) {
-  //     //   const productId = target.getAttribute('data-product-id');
-  //     //   // Set values for edit modal
-  //     //   document.getElementById('edit-productName').value = document.getElementById(`product-name-${productId}`).innerText;
-  //     //   document.getElementById('edit-productQuantity').value = document.getElementById(`product-quantity-${productId}`).innerText;
-  //     //   document.getElementById('edit-productType').value = document.getElementById(`product-type-${productId}`).innerText;
-  //     //   document.getElementById('edit-productPrice').value = document.getElementById(`product-price-${productId}`).innerText.substring(1);
-  //     //   document.getElementById('edit-productBrand').value = document.getElementById(`product-brand-${productId}`).innerText;
-
-  //     //   editModal.classList.toggle('hidden');
-  //     // }
-
-  //     // if (target.classList.contains('deleteProductBtn')) {
-  //     //   const productId = target.getAttribute('data-product-id');
-  //     //   deleteModal.classList.toggle('hidden');
-  //     // }
-  //   });
-
-  //   // Cancel button for edit modal
-  //   // const btnCancelEdit = document.getElementById("cancelBtnEdit");
-  //   // if (btnCancelEdit) {
-  //   //   btnCancelEdit.addEventListener('click', () => {
-  //   //     editModal.classList.toggle("hidden");
-  //   //   });
-  //   // }
-
-  //   // Confirm button for edit modal
-  //   // const btnConfirmEdit = document.getElementById("confirmBtnEdit");
-  //   // if (btnConfirmEdit) {
-  //   //   btnConfirmEdit.addEventListener('click', async () => {
-  //   //     // Code to handle edit confirmation
-  //   //     // await ProductModel.editProduct(productId);
-  //   //     editModal.classList.toggle("hidden");
-  //   //     // location.reload();
-  //   //   });
-  //   // }
-
-  //   // Cancel button for delete modal
-  //   // const btnCancelDelete = document.getElementById("cancel-btn-delete");
-  //   // if (btnCancelDelete) {
-  //   //   btnCancelDelete.addEventListener('click', () => {
-  //   //     deleteModal.classList.toggle("hidden");
-  //   //   });
-  //   // }
-
-  //   // Confirm button for delete modal
-  //   // const btnConfirmDelete = document.getElementById("confirm-btn-delete");
-  //   // if (btnConfirmDelete) {
-  //   //   btnConfirmDelete.addEventListener('click', async () => {
-  //   //     // Code to handle delete confirmation
-  //   //     // await ProductModel.deleteProduct(productId);
-  //   //     deleteModal.classList.toggle("hidden");
-  //   //     // location.reload();
-  //   //   });
-  //   // }
-  // };
-
   // bindClickPagination = () => {
   //   const homepage = document.querySelector('.homepage');
   //   homepage.removeEventListener('click', this.handlePagination);
