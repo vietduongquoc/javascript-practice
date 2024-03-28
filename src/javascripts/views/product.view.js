@@ -233,35 +233,6 @@ export default class ProductView {
       });
     };
   };
-
-  // Cập nhật sự kiện cho các nút edit và delete sau khi render lại sản phẩm
-  updateEventListeners = () => {
-    this.bindToggleModal();
-    this.bindEditModalEvents(ProductController.handleEditProduct);
-    this.bindDeleteModalEvents(ProductController.handleConfirmDelete);
-  };
-
-  // Xử lý khi người dùng thực hiện edit sản phẩm
-  handleEditProduct = async (productId, editedProductData) => {
-    try {
-      await ProductController.handleEditProduct(productId, editedProductData); // Gọi hàm xử lý edit từ ProductController
-      this.toggleEditModal(); // Ẩn modal edit
-      this.updateProductList(); // Cập nhật lại danh sách sản phẩm
-    } catch (error) {
-      console.error('Error editing product:', error);
-    }
-  };
-
-  // Xử lý khi người dùng thực hiện delete sản phẩm
-  handleDeleteProduct = async (productId) => {
-    try {
-      await ProductController.handleConfirmDelete(productId); // Gọi hàm xác nhận delete từ ProductController
-      this.toggleDeleteModal(); // Ẩn modal delete
-      this.updateProductList(); // Cập nhật lại danh sách sản phẩm
-    } catch (error) {
-      console.error('Error deleting product:', error);
-    }
-  };
 }
 
 
