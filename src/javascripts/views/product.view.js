@@ -66,6 +66,10 @@ export default class ProductView {
     this.deleteModal = document.getElementById("deleteProductModal");
   }
 
+  test = () => {
+    console.log(12323);
+  }
+
   toggleLoader = () => {
     this.loader.classList.toggle('hidden');
   };
@@ -86,6 +90,7 @@ export default class ProductView {
 
   loadProductList = (data) => {
     const products = data.map(productData => ({
+      id: productData.id,
       name: productData.name,
       price: productData.price,
       brand: productData.brand,
@@ -147,8 +152,8 @@ export default class ProductView {
     homePage.addEventListener('click', async (e) => {
       const target = e.target;
       const id = target.getAttribute('data-id');
-      const menuBox = document.querySelector(`.menu-box[data-id="${id}"]`);
-      if (menuBox) {
+
+      if(target.classList.contains('toggler-btn')) {
         menuBox.classList.toggle('hidden');
       }
       if (target.classList.contains('editProductBtn')) {
@@ -202,7 +207,6 @@ export default class ProductView {
         };
 
         try {
-          const productId = document.getElementById('confirmBtnEdit').value;
           await handleEditProduct(productId, editedProductData);
         } catch (error) {
           console.error('Error editing product:', error);
