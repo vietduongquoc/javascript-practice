@@ -21,7 +21,8 @@ export default class ProductController {
     this.productView.renderProductsGrid(products);
     this.productView.renderProducts(products);
     this.productView.toggleLoader();
-    // this.productView.bindClickPagination();
+    this.productView.displayPagination(ProductService.currentPage, ProductService.totalPage)
+    this.productView.bindClickPagination(this.handlePagination);
   }
 
   handeEventHandlers = () => {
@@ -110,6 +111,22 @@ export default class ProductController {
       this.productView.toggleDeleteModal();
       this.productView.toggleLoader(); // Turn off icon loading after processing is complete
     };
+  };
+
+  handlePagination = async (event) => {
+    const target = event.target;
+    if (!target.classList.contains('pagination-link')) {
+      return;
+    }
+    event.preventDefault();
+
+    const url = target.getAttribute('href');
+    window.history.pushState(null, '', url);
+
+    const page = parseInt(target.textContent);
+    const products = await ProductService.getPaginatedProducts(page);
+    // const products = this.productModel.createList(data);
+    this.productView.loadProductList(products);
   };
 }
 
