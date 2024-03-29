@@ -1,48 +1,3 @@
-// export const renderNewProduct = (product) => {
-//   // console.log(product);
-//   const tableElement = document.querySelector('.table');
-//   const { id, name, type, brand, price, quantity, status } = product;
-//   const btnStatus = status ? 'btn-true' : 'btn-false';
-//   const textStatus = status ? 'Available' : 'Sold out';
-//   const productListHTML = `
-//     <tr>
-//       <td class="wrap-name"><span>${name}</span></td>
-//       <td><button class="btn btn-status text-status ${btnStatus}">${textStatus}</button></td>
-//       <td>${type}</td>
-//       <td>${quantity}</td>
-//       <td>${brand}</td>
-//       <td>$${price}</td>
-//       <td>
-//           <img class="toggler-btn" src="${iconAction}" alt="icons-action" data-id="${id}">
-//           <div class="hidden menu-box" data-id="${id}">
-//             <button class="editProductBtn" data-product-id="${id}">Edit</button>
-//             <button data-product-id="${id}" class="deleteProductBtn">Delete</button>
-//           </div>
-//       </td>
-//     </tr>
-//   `;
-//   tableElement.insertAdjacentHTML('beforeend', productListHTML);
-//   setupToggleEvent(id);
-// }
-// // if (!rowElement.length) {
-// //   const paginationElement = document.querySelector('.pagination-container');
-// //   // console.log(this.currentPage, this.totalPages)
-// //   const paginationHTML = `
-// //               <div id="prev-button" aria-label="Previous page" title="Previous page">
-// //               &lt;
-// //               </div>
-// //               ${this.currentPage === 1 || this.currentPage === 2 ? '' : `<a href="/?page=${this.currentPage - 2}" class="pagination-link">${this.currentPage - 2}</a>`}
-// //               ${this.currentPage === 1 ? '' : `<a href="/?page=${this.currentPage - 1}" class="pagination-link">${this.currentPage - 1}</a>`}
-// //               <a href="/?page=${this.currentPage}" class="pagination-link">${this.currentPage}</a>
-// //               ${this.totalPages > this.currentPage ? `<a href="/?page=${this.currentPage + 1}" class="pagination-link">${this.currentPage + 1}</a>` : ''}
-// //               ${this.totalPages > this.currentPage + 1 ? `<a href="/?page=${this.currentPage + 2}" class="pagination-link">${this.currentPage + 2}</a>` : ''}
-// //               <div id="next-button" aria-label="Next page" title="Next page">
-// //                   &gt;
-// //               </div>
-// //             `;
-// //   paginationElement.innerHTML += paginationHTML;
-// // }
-
 import iconAction from '../../assets/images/icon-action.png';
 
 export const displayProduct = (products) => {
@@ -65,7 +20,6 @@ export const displayProduct = (products) => {
 };
 
 export const productTemplate = (product) => {
-  console.log('product',product);
   const { id, name, type, brand, price, quantity, status } = product;
   const btnStatus = status ? 'btn-true' : 'btn-false';
   const textStatus = status ? 'Available' : 'Sold out';

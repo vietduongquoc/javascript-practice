@@ -1,35 +1,3 @@
-// export default class ProductView {
-//   static currentPage = parseInt(new URLSearchParams(window.location.search).get('page') || '1');
-//   static totalPages = 0;
-//   static bindClickPagination() {
-//     const homepage = document.querySelector('.homepage');
-//     homepage.removeEventListener('click', this.handlePagination);
-//     homepage.addEventListener('click', this.handlePagination);
-//   }
-//   static handlePagination(event) {
-//     const target = event.target;
-//     if (!target.classList.contains('pagination-link')) {
-//       return;
-//     }
-//     const page = target.textContent;
-//     ProductModel.get({ page: page })
-//       .then(data => {
-//         ProductView.renderProductss(data);
-//       })
-//       .catch(error => console.error('Failed to load products:', error));
-//   }
-
-// document.addEventListener('DOMContentLoaded', async function () {
-//   const dataLength = await ProductModel.getDataLength();
-//   ProductView.totalPages = parseInt(dataLength / 8) + 1;
-
-//   ProductModel.get()
-//     .then(data => {
-//       ProductView.renderProducts(data);
-//     })
-//     .catch(error => console.error('Failed to load products:', error));
-// });
-
 //   static currentPage = parseInt(new URLSearchParams(window.location.search).get('page') || '1');
 //   static totalPages = 0;
 //   // bindClickPagination() {
@@ -108,11 +76,13 @@ export default class ProductView {
       event.preventDefault();
       const nameValue = document.getElementById('productName').value;
       const typeValue = document.getElementById('productType').value;
+      const statusValue = document.getElementById('status-dropdown').value === "true";
       const quantityValue = document.getElementById('productQuantity').value;
       const priceValue = document.getElementById('productPrice').value;
       const brandValue = document.getElementById('productBrand').value;
       const productInputs = {
         'Name': nameValue,
+        'Status':statusValue,
         'Price': priceValue,
         'Brand': brandValue,
         'Type': typeValue,
@@ -152,8 +122,8 @@ export default class ProductView {
     homePage.addEventListener('click', async (e) => {
       const target = e.target;
       const id = target.getAttribute('data-id');
-
       if(target.classList.contains('toggler-btn')) {
+        const menuBox = target.nextElementSibling;
         menuBox.classList.toggle('hidden');
       }
       if (target.classList.contains('editProductBtn')) {
@@ -192,10 +162,12 @@ export default class ProductView {
     const btnConfirmEdit = document.getElementById("confirmBtnEdit");
     if (btnConfirmEdit) {
       btnConfirmEdit.addEventListener('click', async () => {
+        const productId = btnConfirmEdit.value;
         const editProductName = document.getElementById('edit-productName').value;
         const editProductQuantity = document.getElementById('edit-productQuantity').value;
         const editProductType = document.getElementById('edit-productType').value;
         const editProductPrice = document.getElementById('edit-productPrice').value;
+        const statusValue = document.getElementById('edit-status-dropdown').value === "true";
         const editProductBrand = document.getElementById('edit-productBrand').value;
 
         const editedProductData = {
@@ -203,6 +175,7 @@ export default class ProductView {
           quantity: editProductQuantity,
           type: editProductType,
           price: editProductPrice,
+          status: statusValue,
           brand: editProductBrand
         };
 

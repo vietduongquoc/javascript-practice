@@ -33,20 +33,23 @@ export default class ProductController {
 
   handleAddProductSubmit = async (productInputs) => {
     const {
+      Id: id,
       Name: name,
       Type: type,
       Brand: brand,
       Price: price,
-      Quantity: quantity
+      Quantity: quantity,
+      Status: status
     } = productInputs;
 
     const data = {
+      id,
       name,
       type,
       brand,
       price,
       quantity,
-      status: true,
+      status
     }
 
     const newProductEntity = new ProductEntity(data);
