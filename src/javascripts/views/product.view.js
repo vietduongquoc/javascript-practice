@@ -1,24 +1,3 @@
-//   static currentPage = parseInt(new URLSearchParams(window.location.search).get('page') || '1');
-//   static totalPages = 0;
-//   // bindClickPagination() {
-//   //   const homepage = document.querySelector('.homepage');
-//   //   homepage.removeEventListener('click', this.handlePagination);
-//   //   homepage.addEventListener('click', this.handlePagination);
-//   // };
-//   // handlePagination(event) {
-//   //   const target = event.target;
-//   //   if (!target.classList.contains('pagination-link')) {
-//   //     return;
-//   //   }
-//   //   const page = target.textContent;
-//   //   ProductModel.get({ page: page })
-//   //     .then(data => {
-//   //       ProductView.renderProducts(data);
-//   //     })
-//   //     .catch(error => console.error('Failed to load products:', error));
-//   // };
-
-
 import generateErrorMessages from '../../utils/dom';
 import { displayProduct, displayPagination } from '../templates/product';
 import ProductService from '../api.service/product.service';
@@ -82,7 +61,7 @@ export default class ProductView {
       const brandValue = document.getElementById('productBrand').value;
       const productInputs = {
         'Name': nameValue,
-        'Status':statusValue,
+        'Status': statusValue,
         'Price': priceValue,
         'Brand': brandValue,
         'Type': typeValue,
@@ -122,7 +101,7 @@ export default class ProductView {
     homePage.addEventListener('click', async (e) => {
       const target = e.target;
       const id = target.getAttribute('data-id');
-      if(target.classList.contains('toggler-btn')) {
+      if (target.classList.contains('toggler-btn')) {
         const menuBox = target.nextElementSibling;
         menuBox.classList.toggle('hidden');
       }
@@ -209,6 +188,28 @@ export default class ProductView {
         await handleConfirmDelete(productId); // Call the product deletion method from ProductController
       });
     };
+  };
+
+  bindClickPagination(handlePagination) {
+    const homepage = document.querySelector('.homepage');
+    homepage.removeEventListener('click', (e) => handlePagination(e));
+    homepage.addEventListener('click', (e) => handlePagination(e));
+  };
+
+  displayPagination = (currentPage, totalPages) => {
+    const paginationElement = document.querySelector('.pagination-container');
+    const paginationHTML = `
+      <div id="prev-button" aria-label="Previous page" title="Previous page">
+        &lt;
+      </div>
+      <a href="/?page=${currentPage}" class="pagination-link">${currentPage}</a>
+      ${totalPages > currentPage ? `<a href="/?page=${currentPage + 1}" class="pagination-link">${currentPage + 1}</a>` : ''}
+      ${totalPages > currentPage ? `<a href="/?page=${currentPage + 2}" class="pagination-link">${currentPage + 2}</a>` : ''}
+      <div id="next-button" aria-label="Next page" title="Next page">
+        &gt;
+      </div>
+    `;
+    paginationElement.innerHTML = paginationHTML;
   };
 }
 
