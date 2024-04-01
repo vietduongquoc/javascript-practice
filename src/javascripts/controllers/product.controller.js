@@ -5,12 +5,11 @@ export default class ProductController {
   constructor(productModel, productView) {
     this.productModel = productModel;
     this.productView = productView;
-    this.totalPage = 1;
     this.currentPage = parseInt(new URLSearchParams(window.location.search).get('page') || '1');
   }
 
-  init = () => {
-    this.renderProducts();
+  init = async () => {
+    await this.renderProducts();
     this.handeEventHandlers();
   }
 
@@ -23,7 +22,6 @@ export default class ProductController {
     this.productView.renderProductsGrid(products);
     this.productView.renderProducts(products);
     this.productView.displayPagination(this.currentPage, totalPage);
-    this.productView.bindClickPagination(this.handlePagination);
     this.productView.toggleLoader();
   }
 
@@ -32,6 +30,7 @@ export default class ProductController {
     this.productView.bindToggleModal();
     this.productView.bindEditModalEvents(this.handleEditProduct);
     this.productView.bindDeleteModalEvents(this.handleConfirmDelete);
+    this.productView.bindClickPagination(this.handlePagination);
   }
 
   handleAddProductSubmit = async (productInputs) => {
@@ -66,53 +65,35 @@ export default class ProductController {
       return;
     }
     try {
-      this.productView.toggleLoader(); // Display the loading icon when sending a request to add a product
-      // Send product data to the server
       await ProductService.post('products', newProductEntity);
-      // Render products
-      const data = await ProductService.getPaginatedProducts(this.currentPage);
-      const products = this.productModel.createList(data);
-      this.productView.loadProductList(products);
+      await this.renderProducts();
     } catch (error) {
       console.error('Failed to add product:', error);
-    }
-    finally {
+    } finally {
       this.productView.toggleAddModal();
-      this.productView.toggleLoader(); // Turn off icon loading after processing is complete
     }
   }
 
   handleEditProduct = async (productId, editedProductData) => {
     try {
-      this.productView.toggleLoader();
       await ProductService.editProduct(productId, editedProductData);
-      // Render products
-      const data = await ProductService.getPaginatedProducts(this.currentPage);
-      const products = this.productModel.createList(data);
-      this.productView.loadProductList(products);
+      await this.renderProducts();
     } catch (error) {
       console.error('Error editing product:', error);
-      throw error;
     } finally {
       this.productView.toggleEditModal();
-      this.productView.toggleLoader();
-    };
+    }
   };
 
   handleConfirmDelete = async (productId) => {
     try {
-      this.productView.toggleLoader();
-      await ProductService.deleteProduct(productId); // Call the delete method from ProductService
-      const data = await ProductService.getPaginatedProducts(this.currentPage); // Refresh the product list after deletion
-      const products = this.productModel.createList(data);
-      this.productView.loadProductList(products);  // Update the product list in the view
+      await ProductService.deleteProduct(productId);  // Call the delete method from ProductService
+      await this.renderProducts();
     } catch (error) {
       console.error('Error deleting product:', error);
-    }
-    finally {
+    } finally {
       this.productView.toggleDeleteModal();
-      this.productView.toggleLoader(); // Turn off icon loading after processing is complete
-    };
+    }
   };
 
   handlePagination = async (event) => {
@@ -121,14 +102,11 @@ export default class ProductController {
       return;
     }
     event.preventDefault();
-    this.productView.toggleLoader();
     const url = target.getAttribute('href');
     window.history.pushState(null, '', url);
     const page = parseInt(target.textContent);
-    const products = await ProductService.getPaginatedProducts(page);
-    this.productView.loadProductList(products);
-    location.reload();
-    this.productView.toggleLoader();
+    this.currentPage = page; // Update current page
+    await this.renderProducts();
   };
 }
 

@@ -87,10 +87,10 @@ td {
   background-color: var(--background-color-second);
 }
 
-/* .current-link {
+.current-link {
   background-color: var(--background-color-second);
   color: var(--text-collor-white);
-} */
+}
 
 #prev-button {
   padding: 10px 15px;

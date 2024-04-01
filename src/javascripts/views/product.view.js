@@ -88,28 +88,25 @@ export default class ProductView {
   };
 
   bindToggleModal = () => {
-    const homePage = document.querySelector('.homepage');
-    homePage.addEventListener('click', async (e) => {
+    document.addEventListener('click', (e) => {
       const target = e.target;
       const id = target.getAttribute('data-id');
-      // Toggle menu box
+
       if (target.classList.contains('toggler-btn')) {
         const menuBox = target.nextElementSibling;
         menuBox.classList.toggle('hidden');
       }
-      // Open edit modal
+
       if (target.classList.contains('editProductBtn')) {
         const productId = target.getAttribute('data-product-id');
-        const editModal = document.getElementById("editProductModal");
-        this.setEditModalValues(productId); // Set values for edit modal
-        editModal.classList.toggle("hidden");
+        this.setEditModalValues(productId);
+        this.toggleEditModal();
       }
-      // Open delete modal
+
       if (target.classList.contains('deleteProductBtn')) {
         const productId = target.getAttribute('data-product-id');
-        const deleteModal = document.getElementById("deleteProductModal");
         document.getElementById('confirm-btn-delete').value = productId;
-        deleteModal.classList.toggle("hidden");
+        this.toggleDeleteModal();
       }
     });
   };
