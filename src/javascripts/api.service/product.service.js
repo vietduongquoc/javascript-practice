@@ -17,11 +17,22 @@ export default class ProductService {
       throw new Error('Failed to fetch data');
     }
     const data = await response.json();
-
-    this.currentPage = page;
-    this.totalPage = (data.length / limit) + 1;
-
     return data;
+  }
+
+  static async getProductsLength() {
+    const url = new URL(`${API.BASE_URL}/${API.PRODUCTS_ENDPOINT}`);
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    if (!response.ok) {
+      throw new Error('Failed to fetch data');
+    }
+    const data = await response.json();
+    return data.length;
   }
 
   static async post(endpoint, product) {

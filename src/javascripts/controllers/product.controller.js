@@ -5,8 +5,8 @@ export default class ProductController {
   constructor(productModel, productView) {
     this.productModel = productModel;
     this.productView = productView;
-    ProductService.totalPage = 1;
-    ProductService.currentPage = parseInt(new URLSearchParams(window.location.search).get('page') || '1');
+    this.totalPage = 1;
+    this.currentPage = parseInt(new URLSearchParams(window.location.search).get('page') || '1');
   }
 
   init = () => {
@@ -16,11 +16,13 @@ export default class ProductController {
 
   renderProducts = async () => {
     this.productView.toggleLoader();
-    const data = await ProductService.getPaginatedProducts(ProductService.currentPage);
+    const data = await ProductService.getPaginatedProducts(this.currentPage);
+    const dataLength = await ProductService.getProductsLength();
+    const totalPage = parseInt(dataLength / 8) + 1;
     const products = this.productModel.createList(data);
     this.productView.renderProductsGrid(products);
     this.productView.renderProducts(products);
-    this.productView.displayPagination(ProductService.currentPage, ProductService.totalPage)
+    this.productView.displayPagination(this.currentPage, totalPage);
     this.productView.bindClickPagination(this.handlePagination);
     this.productView.toggleLoader();
   }
@@ -68,7 +70,7 @@ export default class ProductController {
       // Send product data to the server
       await ProductService.post('products', newProductEntity);
       // Render products
-      const data = await ProductService.getPaginatedProducts(ProductService.currentPage);
+      const data = await ProductService.getPaginatedProducts(this.currentPage);
       const products = this.productModel.createList(data);
       this.productView.loadProductList(products);
     } catch (error) {
@@ -85,7 +87,7 @@ export default class ProductController {
       this.productView.toggleLoader();
       await ProductService.editProduct(productId, editedProductData);
       // Render products
-      const data = await ProductService.getPaginatedProducts(ProductService.currentPage);
+      const data = await ProductService.getPaginatedProducts(this.currentPage);
       const products = this.productModel.createList(data);
       this.productView.loadProductList(products);
     } catch (error) {
@@ -101,7 +103,7 @@ export default class ProductController {
     try {
       this.productView.toggleLoader();
       await ProductService.deleteProduct(productId); // Call the delete method from ProductService
-      const data = await ProductService.getPaginatedProducts(ProductService.currentPage); // Refresh the product list after deletion
+      const data = await ProductService.getPaginatedProducts(this.currentPage); // Refresh the product list after deletion
       const products = this.productModel.createList(data);
       this.productView.loadProductList(products);  // Update the product list in the view
     } catch (error) {
@@ -122,10 +124,10 @@ export default class ProductController {
     this.productView.toggleLoader();
     const url = target.getAttribute('href');
     window.history.pushState(null, '', url);
-
     const page = parseInt(target.textContent);
     const products = await ProductService.getPaginatedProducts(page);
     this.productView.loadProductList(products);
+    location.reload();
     this.productView.toggleLoader();
   };
 }
