@@ -1,7 +1,5 @@
 import generateErrorMessages from '../../utils/dom';
-import { displayProduct, displayPagination } from '../templates/product';
-import ProductService from '../api.service/product.service';
-import ProductController from '../controllers/product.controller';
+import { displayProduct } from '../templates/product';
 
 export default class ProductView {
   constructor() {
@@ -11,10 +9,6 @@ export default class ProductView {
     this.addProductModal = document.getElementById("addProductModal");
     this.editModal = document.getElementById("editProductModal");
     this.deleteModal = document.getElementById("deleteProductModal");
-  }
-
-  test = () => {
-    console.log(12323);
   }
 
   toggleLoader = () => {
@@ -202,9 +196,11 @@ export default class ProductView {
       <div id="prev-button" aria-label="Previous page" title="Previous page">
         &lt;
       </div>
-      <a href="/?page=${currentPage}" class="pagination-link">${currentPage}</a>
+      ${currentPage === 1 || currentPage === 2 ? '' : `<a href="/?page=${currentPage - 2}" class="pagination-link">${currentPage - 2}</a>`}
+      ${currentPage === 1 ? '' : `<a href="/?page=${currentPage - 1}" class="pagination-link">${currentPage - 1}</a>`}
+      <a href="/?page=${currentPage}" class="pagination-link current-link">${currentPage}</a>
       ${totalPages > currentPage ? `<a href="/?page=${currentPage + 1}" class="pagination-link">${currentPage + 1}</a>` : ''}
-      ${totalPages > currentPage ? `<a href="/?page=${currentPage + 2}" class="pagination-link">${currentPage + 2}</a>` : ''}
+      ${totalPages > currentPage + 1 ? `<a href="/?page=${currentPage + 2}" class="pagination-link">${currentPage + 2}</a>` : ''}
       <div id="next-button" aria-label="Next page" title="Next page">
         &gt;
       </div>

@@ -1,14 +1,6 @@
 import { API } from '../constants/url-api';
 
 export default class ProductService {
-
-  constructor() {
-    // this.currentPage = parseInt(new URLSearchParams(window.location.search).get('page'));
-    this.totalPage = 1;
-    this.currentPage = parseInt(new URLSearchParams(window.location.search).get('page') || '1');
-    // this.totalPages = 0;
-  }
-
   static getPaginatedProducts = async (page = 1, limit = 8) => {
     const url = new URL(`${API.BASE_URL}/${API.PRODUCTS_ENDPOINT}`);
     url.searchParams.append('page', page);

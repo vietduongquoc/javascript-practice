@@ -1,4 +1,3 @@
-import { API } from '../constants/url-api';
 import ProductEntity from './product.entity';
 
 const REGEX_PATTERNS = {
