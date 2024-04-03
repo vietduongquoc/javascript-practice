@@ -95,6 +95,13 @@ export default class ProductView {
       if (target.classList.contains('toggler-btn')) {
         const menuBox = target.nextElementSibling;
         menuBox.classList.toggle('hidden');
+      } else {
+        const menuBoxes = document.querySelectorAll('.menu-box');
+        menuBoxes.forEach(menuBox => {
+          if(!menuBox.classList.contains('hidden')) {
+            menuBox.classList.add('hidden');
+          }
+        });
       }
 
       if (target.classList.contains('editProductBtn')) {

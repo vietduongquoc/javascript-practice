@@ -15,8 +15,10 @@ export default class ProductController {
 
   renderProducts = async () => {
     this.productView.toggleLoader();
-    const data = await ProductService.getPaginatedProducts(this.currentPage);
-    const dataLength = await ProductService.getProductsLength();
+    const [data, dataLength] = await Promise.all([
+      ProductService.getPaginatedProducts(this.currentPage),
+      ProductService.getProductsLength()
+    ]);
     const totalPage = parseInt(dataLength / 8) + 1;
     const products = this.productModel.createList(data);
     this.productView.renderProductsGrid(products);
