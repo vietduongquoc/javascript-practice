@@ -42,42 +42,6 @@ export const productTemplate = (product) => {
     `;
 };
 
-// export const displayPagination = (currentPage, totalPages) => {
-//   const paginationElement = document.querySelector('.pagination-container');
-//   const paginationHTML = `
-//     <div id="prev-button" aria-label="Previous page" title="Previous page">
-//       &lt;
-//     </div>
-//     ${currentPage === 1 || currentPage === 2 ? '' : `<a href="/?page=${currentPage - 2}" class="pagination-link">${currentPage - 2}</a>`}
-//     ${currentPage === 1 ? '' : `<a href="/?page=${currentPage - 1}" class="pagination-link">${currentPage - 1}</a>`}
-//     <a href="/?page=${currentPage}" class="pagination-link">${currentPage}</a>
-//     ${totalPages > currentPage ? `<a href="/?page=${currentPage + 1}" class="pagination-link">${currentPage + 1}</a>` : ''}
-//     ${totalPages > currentPage + 1 ? `<a href="/?page=${currentPage + 2}" class="pagination-link">${currentPage + 2}</a>` : ''}
-//     <div id="next-button" aria-label="Next page" title="Next page">
-//       &gt;
-//     </div>
-//   `;
-//   paginationElement.innerHTML = paginationHTML;
-// };
-
-// export const bindClickPagination = () => {
-//   const homepage = document.querySelector('.homepage');
-//   homepage.removeEventListener('click', handlePagination);
-//   homepage.addEventListener('click', handlePagination);
-// };
-
-// const handlePagination = (event) => {
-//   const target = event.target;
-//   if (!target.classList.contains('pagination-link')) {
-//     return;
-//   }
-//   const page = target.textContent;
-//   ProductModel.get({ page: page })
-//     .then(data => {
-//       ProductView.renderProducts(data);
-//     })
-//     .catch(error => console.error('Failed to load products:', error));
-// };
 
 
 
