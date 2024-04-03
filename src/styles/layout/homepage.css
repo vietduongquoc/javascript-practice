@@ -82,13 +82,14 @@ td {
   text-decoration: none;
 }
 
-.current-link {
-  background-color: var(--background-color-second);
-}
-
 .pagination-link:hover {
   color: var(--text-collor-white);
   background-color: var(--background-color-second);
+}
+
+.current-link {
+  background-color: var(--background-color-second);
+  color: var(--text-collor-white);
 }
 
 #prev-button {

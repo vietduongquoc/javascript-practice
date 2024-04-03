@@ -1,28 +1,30 @@
 import ProductService from "../api.service/product.service";
-import ProductModel from "../models/product.model";
-import ProductView from "../views/product.view";
 import ProductEntity from "../models/product.entity";
 
 export default class ProductController {
   constructor(productModel, productView) {
     this.productModel = productModel;
     this.productView = productView;
+    this.currentPage = parseInt(new URLSearchParams(window.location.search).get('page') || '1');
   }
 
-  init = () => {
-    this.renderProducts();
+  init = async () => {
+    await this.renderProducts();
     this.handeEventHandlers();
   }
 
   renderProducts = async () => {
     this.productView.toggleLoader();
-    const data = await ProductService.getPaginatedProducts();
+    const [data, dataLength] = await Promise.all([
+      ProductService.getPaginatedProducts(this.currentPage),
+      ProductService.getProductsLength()
+    ]);
+    const totalPage = parseInt(dataLength / 8) + 1;
     const products = this.productModel.createList(data);
     this.productView.renderProductsGrid(products);
     this.productView.renderProducts(products);
+    this.productView.displayPagination(this.currentPage, totalPage);
     this.productView.toggleLoader();
-    this.productView.displayPagination(ProductService.currentPage, ProductService.totalPage)
-    this.productView.bindClickPagination(this.handlePagination);
   }
 
   handeEventHandlers = () => {
@@ -30,6 +32,7 @@ export default class ProductController {
     this.productView.bindToggleModal();
     this.productView.bindEditModalEvents(this.handleEditProduct);
     this.productView.bindDeleteModalEvents(this.handleConfirmDelete);
+    this.productView.bindClickPagination(this.handlePagination);
   }
 
   handleAddProductSubmit = async (productInputs) => {
@@ -64,53 +67,35 @@ export default class ProductController {
       return;
     }
     try {
-      this.productView.toggleLoader(); // Display the loading icon when sending a request to add a product
-      // Send product data to the server
       await ProductService.post('products', newProductEntity);
-      // Render products
-      const data = await ProductService.getPaginatedProducts();
-      const products = this.productModel.createList(data);
-      this.productView.loadProductList(products);
+      await this.renderProducts();
     } catch (error) {
       console.error('Failed to add product:', error);
-    }
-    finally {
+    } finally {
       this.productView.toggleAddModal();
-      this.productView.toggleLoader(); // Turn off icon loading after processing is complete
     }
   }
 
   handleEditProduct = async (productId, editedProductData) => {
     try {
-      this.productView.toggleLoader();
       await ProductService.editProduct(productId, editedProductData);
-      // Render products
-      const data = await ProductService.getPaginatedProducts();
-      const products = this.productModel.createList(data);
-      this.productView.loadProductList(products);
+      await this.renderProducts();
     } catch (error) {
       console.error('Error editing product:', error);
-      throw error;
     } finally {
       this.productView.toggleEditModal();
-      this.productView.toggleLoader();
-    };
+    }
   };
 
   handleConfirmDelete = async (productId) => {
     try {
-      this.productView.toggleLoader();
-      await ProductService.deleteProduct(productId); // Call the delete method from ProductService
-      const data = await ProductService.getPaginatedProducts(); // Refresh the product list after deletion
-      const products = this.productModel.createList(data);
-      this.productView.loadProductList(products);  // Update the product list in the view
+      await ProductService.deleteProduct(productId);  // Call the delete method from ProductService
+      await this.renderProducts();
     } catch (error) {
       console.error('Error deleting product:', error);
-    }
-    finally {
+    } finally {
       this.productView.toggleDeleteModal();
-      this.productView.toggleLoader(); // Turn off icon loading after processing is complete
-    };
+    }
   };
 
   handlePagination = async (event) => {
@@ -119,14 +104,11 @@ export default class ProductController {
       return;
     }
     event.preventDefault();
-
     const url = target.getAttribute('href');
     window.history.pushState(null, '', url);
-
     const page = parseInt(target.textContent);
-    const products = await ProductService.getPaginatedProducts(page);
-    // const products = this.productModel.createList(data);
-    this.productView.loadProductList(products);
+    this.currentPage = page; // Update current page
+    await this.renderProducts();
   };
 }
 

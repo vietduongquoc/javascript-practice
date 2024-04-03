@@ -1,7 +1,5 @@
 import generateErrorMessages from '../../utils/dom';
-import { displayProduct, displayPagination } from '../templates/product';
-import ProductService from '../api.service/product.service';
-import ProductController from '../controllers/product.controller';
+import { displayProduct } from '../templates/product';
 
 export default class ProductView {
   constructor() {
@@ -11,10 +9,6 @@ export default class ProductView {
     this.addProductModal = document.getElementById("addProductModal");
     this.editModal = document.getElementById("editProductModal");
     this.deleteModal = document.getElementById("deleteProductModal");
-  }
-
-  test = () => {
-    console.log(12323);
   }
 
   toggleLoader = () => {
@@ -49,7 +43,6 @@ export default class ProductView {
   };
 
   toggleAddModal = () => this.addProductModal.classList.toggle("hidden");
-
   bindAddProductModal = (handler) => {
     this.addProductModal.addEventListener('submit', async (event) => {
       event.preventDefault();
@@ -77,14 +70,12 @@ export default class ProductView {
         this.addProductModal.classList.toggle('hidden');
       });
     }
-
     const btnCancelAdd = document.getElementById("cancelBtnAdd");
     if (btnCancelAdd) {
       btnCancelAdd.addEventListener('click', () => {
         this.addProductModal.classList.toggle("hidden");
       });
     }
-
     const btnConfirmAdd = document.getElementById("confirmBtnAdd");
     if (btnConfirmAdd) {
       btnConfirmAdd.addEventListener('click', async () => {
@@ -97,38 +88,51 @@ export default class ProductView {
   };
 
   bindToggleModal = () => {
-    const homePage = document.querySelector('.homepage');
-    homePage.addEventListener('click', async (e) => {
+    document.addEventListener('click', (e) => {
       const target = e.target;
       const id = target.getAttribute('data-id');
+
       if (target.classList.contains('toggler-btn')) {
         const menuBox = target.nextElementSibling;
         menuBox.classList.toggle('hidden');
+      } else {
+        const menuBoxes = document.querySelectorAll('.menu-box');
+        menuBoxes.forEach(menuBox => {
+          if(!menuBox.classList.contains('hidden')) {
+            menuBox.classList.add('hidden');
+          }
+        });
       }
+
       if (target.classList.contains('editProductBtn')) {
         const productId = target.getAttribute('data-product-id');
-        //  Set values for edit modal
-        document.getElementById('edit-productName').value = document.getElementById(`product-name-${productId}`).innerText;
-        document.getElementById('edit-productQuantity').value = document.getElementById(`product-quantity-${productId}`).innerText;
-        document.getElementById('edit-productType').value = document.getElementById(`product-type-${productId}`).innerText;
-        document.getElementById('edit-productPrice').value = document.getElementById(`product-price-${productId}`).innerText.substring(1);
-        document.getElementById('edit-productBrand').value = document.getElementById(`product-brand-${productId}`).innerText;
-        document.getElementById('confirmBtnEdit').value = productId;
-        this.editModal.classList.toggle('hidden');
+        this.setEditModalValues(productId);
+        this.toggleEditModal();
       }
+
       if (target.classList.contains('deleteProductBtn')) {
         const productId = target.getAttribute('data-product-id');
         document.getElementById('confirm-btn-delete').value = productId;
-        this.deleteModal.classList.toggle('hidden');
+        this.toggleDeleteModal();
       }
     });
   };
 
-  toggleEditModal() {
+  // Function to set values for edit modal
+  setEditModalValues = (productId) => {
+    document.getElementById('edit-productName').value = document.getElementById(`product-name-${productId}`).innerText;
+    document.getElementById('edit-productQuantity').value = document.getElementById(`product-quantity-${productId}`).innerText;
+    document.getElementById('edit-productType').value = document.getElementById(`product-type-${productId}`).innerText;
+    document.getElementById('edit-productPrice').value = document.getElementById(`product-price-${productId}`).innerText.substring(1);
+    document.getElementById('edit-productBrand').value = document.getElementById(`product-brand-${productId}`).innerText;
+    document.getElementById('confirmBtnEdit').value = productId;
+  };
+
+  // Toggle edit modal
+  toggleEditModal = () => {
     const editModal = document.getElementById("editProductModal");
     editModal.classList.toggle("hidden");
-  }
-
+  };
   bindEditModalEvents = (handleEditProduct) => {
     const btnCancelEdit = document.getElementById("cancelBtnEdit");
     if (btnCancelEdit) {
@@ -137,57 +141,46 @@ export default class ProductView {
         editModal.classList.toggle("hidden");
       });
     }
-
     const btnConfirmEdit = document.getElementById("confirmBtnEdit");
     if (btnConfirmEdit) {
       btnConfirmEdit.addEventListener('click', async () => {
         const productId = btnConfirmEdit.value;
-        const editProductName = document.getElementById('edit-productName').value;
-        const editProductQuantity = document.getElementById('edit-productQuantity').value;
-        const editProductType = document.getElementById('edit-productType').value;
-        const editProductPrice = document.getElementById('edit-productPrice').value;
-        const statusValue = document.getElementById('edit-status-dropdown').value === "true";
-        const editProductBrand = document.getElementById('edit-productBrand').value;
-
         const editedProductData = {
-          name: editProductName,
-          quantity: editProductQuantity,
-          type: editProductType,
-          price: editProductPrice,
-          status: statusValue,
-          brand: editProductBrand
+          name: document.getElementById('edit-productName').value,
+          quantity: document.getElementById('edit-productQuantity').value,
+          type: document.getElementById('edit-productType').value,
+          price: document.getElementById('edit-productPrice').value,
+          status: document.getElementById('edit-status-dropdown').value === "true",
+          brand: document.getElementById('edit-productBrand').value
         };
-
         try {
           await handleEditProduct(productId, editedProductData);
         } catch (error) {
           console.error('Error editing product:', error);
         }
       });
-    };
+    }
   };
 
-  toggleDeleteModal() {
+  // Toggle delete modal
+  toggleDeleteModal = () => {
     const deleteModal = document.getElementById("deleteProductModal");
     deleteModal.classList.toggle("hidden");
-  }
-
+  };
   bindDeleteModalEvents = (handleConfirmDelete) => {
-    // Cancel button for delete modal
     const btnCancelDelete = document.getElementById("cancel-btn-delete");
     if (btnCancelDelete) {
       btnCancelDelete.addEventListener('click', () => {
         this.toggleDeleteModal();
       });
     }
-    // Confirm button for delete modal
     const btnConfirmDelete = document.getElementById("confirm-btn-delete");
     if (btnConfirmDelete) {
       btnConfirmDelete.addEventListener('click', async () => {
-        const productId = btnConfirmDelete.value // Get the ID of the product to be deleted
-        await handleConfirmDelete(productId); // Call the product deletion method from ProductController
+        const productId = btnConfirmDelete.value;
+        await handleConfirmDelete(productId);
       });
-    };
+    }
   };
 
   bindClickPagination(handlePagination) {
@@ -199,15 +192,11 @@ export default class ProductView {
   displayPagination = (currentPage, totalPages) => {
     const paginationElement = document.querySelector('.pagination-container');
     const paginationHTML = `
-      <div id="prev-button" aria-label="Previous page" title="Previous page">
-        &lt;
-      </div>
-      <a href="/?page=${currentPage}" class="pagination-link">${currentPage}</a>
+      ${currentPage === 1 || currentPage === 2 ? '' : `<a href="/?page=${currentPage - 2}" class="pagination-link">${currentPage - 2}</a>`}
+      ${currentPage === 1 ? '' : `<a href="/?page=${currentPage - 1}" class="pagination-link">${currentPage - 1}</a>`}
+      <a href="/?page=${currentPage}" class="pagination-link current-link">${currentPage}</a>
       ${totalPages > currentPage ? `<a href="/?page=${currentPage + 1}" class="pagination-link">${currentPage + 1}</a>` : ''}
-      ${totalPages > currentPage ? `<a href="/?page=${currentPage + 2}" class="pagination-link">${currentPage + 2}</a>` : ''}
-      <div id="next-button" aria-label="Next page" title="Next page">
-        &gt;
-      </div>
+      ${totalPages > currentPage + 1 ? `<a href="/?page=${currentPage + 2}" class="pagination-link">${currentPage + 2}</a>` : ''}
     `;
     paginationElement.innerHTML = paginationHTML;
   };
