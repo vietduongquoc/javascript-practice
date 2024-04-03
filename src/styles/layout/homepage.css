@@ -1,6 +1,6 @@
 h1 {
   color: var(--text-color-primary);
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 700;
   line-height: 82px;
   letter-spacing: -0.5px;
@@ -15,8 +15,16 @@ h1 {
 }
 
 .btn-add-new-product {
-  padding: 10px 18px 10px 18px;
+  padding: 5px 10px 5px 10px;
   align-self: flex-end;
+  transition: all 0.3s ease;
+  font-size: 14px;
+  /* Add a transition for all properties with a duration of 0.3 seconds and ease timing function */
+}
+
+.btn-add-new-product:hover {
+  transform: scale(1.1);
+  cursor: pointer;
 }
 
 .table {
@@ -72,7 +80,7 @@ td {
 }
 
 .pagination-link {
-  padding: 10px 15px;
+  padding: 8px 12px;
   color: var(--text-color-primary);
   font-size: 13px;
   font-weight: 600;
@@ -80,11 +88,14 @@ td {
   border: none;
   background-color: var(--background-color-primary);
   text-decoration: none;
+  transition: all 0.3s ease;
+  margin-right: 5px;
 }
 
 .pagination-link:hover {
   color: var(--text-collor-white);
   background-color: var(--background-color-second);
+  transform: scale(1.1);
 }
 
 .current-link {
@@ -93,7 +104,7 @@ td {
 }
 
 #prev-button {
-  padding: 10px 15px;
+  padding: 8px 12px;
   color: var(--text-color-primary);
   font-size: 13px;
   font-weight: 600;
@@ -145,6 +156,7 @@ td {
   .btn-add-new-product {
     padding: 10px 18px 10px 18px;
     align-self: flex-end;
+    font-size: 18px;
   }
 
   .table {
@@ -228,12 +240,13 @@ td {
 
   .header-homepage {
     max-width: 1100px;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
   }
 
   .btn-add-new-product {
-    padding: 12px 20px;
+    padding: 16px 22px;
     align-self: flex-end;
+    font-size: 22px;
   }
 
   .table {
@@ -276,11 +289,8 @@ td {
     margin-top: 20px;
   }
 
-  .header-homepage {
-    margin-bottom: 5px;
-  }
-
-  #prev-button , #next-button {
+  #prev-button,
+  #next-button {
     font-size: 20px;
     border-radius: 8px;
     padding: 15px 25px;
