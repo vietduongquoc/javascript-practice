@@ -17,9 +17,8 @@ h1 {
 .btn-add-new-product {
   padding: 5px 10px 5px 10px;
   align-self: flex-end;
-  transition: all 0.3s ease;
+  transition: all 0.3s ease;   /* Add a transition for all properties with a duration of 0.3 seconds and ease timing function */
   font-size: 14px;
-  /* Add a transition for all properties with a duration of 0.3 seconds and ease timing function */
 }
 
 .btn-add-new-product:hover {

@@ -41,7 +41,7 @@ export default class ProductView {
     }));
     this.renderProducts(products);
   };
-
+ // Toggle add modal
   toggleAddModal = () => this.addProductModal.classList.toggle("hidden");
   bindAddProductModal = (handler) => {
     this.addProductModal.addEventListener('submit', async (event) => {
@@ -87,6 +87,7 @@ export default class ProductView {
     };
   };
 
+  //This method assigns event handlers for displaying, editing, deleting products and reacting when clicking outside the modal.
   bindToggleModal = () => {
     document.addEventListener('click', (e) => {
       const target = e.target;
