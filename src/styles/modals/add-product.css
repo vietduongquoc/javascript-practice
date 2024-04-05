@@ -14,10 +14,11 @@
   background-color: var(--background-color-primary);
   margin: 100px auto;
   padding: 20px;
-  height: 550px;
+  height: 565px;
 }
 
 .modal-title {
+  margin-top: 0;
   font-size: 18px;
   font-weight: 600;
   color: var(--text-color-primary);

@@ -1,4 +1,4 @@
-import generateErrorMessages from '../../utils/dom';
+import generateErrorMessages from '../utils/dom';
 import { displayProduct } from '../templates/product';
 
 export default class ProductView {
@@ -48,7 +48,7 @@ export default class ProductView {
       event.preventDefault();
       const nameValue = document.getElementById('productName').value;
       const typeValue = document.getElementById('productType').value;
-      const statusValue = document.getElementById('status-dropdown').value === "true";
+      const statusValue = document.getElementById('statusDropdown').value === "true";
       const quantityValue = document.getElementById('productQuantity').value;
       const priceValue = document.getElementById('productPrice').value;
       const brandValue = document.getElementById('productBrand').value;
@@ -151,7 +151,7 @@ export default class ProductView {
           quantity: document.getElementById('edit-productQuantity').value,
           type: document.getElementById('edit-productType').value,
           price: document.getElementById('edit-productPrice').value,
-          status: document.getElementById('edit-status-dropdown').value === "true",
+          status: document.getElementById('edit-statusDropdown').value === "true",
           brand: document.getElementById('edit-productBrand').value
         };
         try {

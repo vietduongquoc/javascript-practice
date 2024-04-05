@@ -20,8 +20,8 @@
       <label for="Price" class="modal-dcrs">Price</label>
       <input class="input" type="number" id="productPrice" placeholder="0">
       <p data-field-error="Price" class="error-message" id="price-error"></p>
-      <label for="status-dropdown" class="modal-dcrs">Status</label>
-      <select class="input input-select-status" id="status-dropdown" name="options">
+      <label for="statusDropdown" class="modal-dcrs">Status</label>
+      <select class="input input-select-status" id="statusDropdown" name="options">
         <option value="true">Available</option>
         <option value="false">Sold Out</option>
       </select>
@@ -38,22 +38,27 @@
   <div id="editProductModal" class="edit-modal hidden">
     <!-- Content edit modal -->
     <form class="container edit-modal-content" action="javascript:void(0)">
-      <h3 class="modal-title">Edit Products Information</h3>
+      <h3 class="modal-title">Products Information</h3>
       <label for="Name" class="modal-dcrs">Name</label>
       <input class="input" type="text" id="edit-productName" placeholder="Enter name...">
+      <p data-field-error="Name" class="error-message" id="edit-name-error"></p>
       <label for="Type" class="modal-dcrs">Type</label>
       <input class="input" type="text" id="edit-productType" placeholder="Enter name...">
+      <p data-field-error="Type" class="error-message" id="edit-type-error"></p>
       <label for="Quantity" class="modal-dcrs">Quantity</label>
       <input class="input" type="number" id="edit-productQuantity" placeholder="0">
+      <p data-field-error="Quantity" class="error-message" id="edit-quantity-error"></p>
       <label for="Price" class="modal-dcrs">Price</label>
       <input class="input" type="number" id="edit-productPrice" placeholder="0">
-      <label for="status-dropdown" class="modal-dcrs">Status</label>
-      <select class="input input-select-status" id="edit-status-dropdown" name="options">
+      <p data-field-error="Price" class="error-message" id="edit-price-error"></p>
+      <label for="statusDropdown" class="modal-dcrs">Status</label>
+      <select class="input input-select-status" id="edit-statusDropdown" name="options">
         <option value="true">Available</option>
         <option value="false">Sold Out</option>
       </select>
       <label for="Brand" class="modal-dcrs">Brand</label>
       <input class="input" type="text" id="edit-productBrand" placeholder="Enter Brand">
+      <p data-field-error="Brand" class="error-message" id="edit-brand-error"></p>
       <div class="button-edit-modal">
         <button id="cancelBtnEdit" class="modal-dcrs btn-form-cancel" type="reset">Cancel</button>
         <button id="confirmBtnEdit" class="modal-dcrs-btn btn-form-confirm" type="submit">Confirm</button>
