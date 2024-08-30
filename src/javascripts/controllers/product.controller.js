@@ -10,7 +10,7 @@ export default class ProductController {
 
   init = async () => {
     await this.renderProducts();
-    this.handeEventHandlers();
+    this.handleEventHandlers();
   }
 
   renderProducts = async () => {
@@ -27,7 +27,7 @@ export default class ProductController {
     this.productView.toggleLoader();
   }
 
-  handeEventHandlers = () => {
+  handleEventHandlers = () => {
     this.productView.bindAddProductModal(this.handleAddProductSubmit);
     this.productView.bindToggleModal();
     this.productView.bindEditModalEvents(this.handleEditProduct);
